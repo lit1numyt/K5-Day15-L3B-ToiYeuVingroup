@@ -1,0 +1,283 @@
+hospital,ward_name,scenario,nurse_id,n_skills,skills,qualification_level,avg_experience_level,skill_levels_json,n_absence_requests,absence_ratio
+Hospital1,Emergency,Absence,NRP_840,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Absence,NRP_841,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Absence,NRP_842,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",0,0.0
+Hospital1,Emergency,Absence,NRP_843,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Absence,NRP_845,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",7,0.25
+Hospital1,Emergency,Absence,NRP_848,1,175,3,3.0,"[{""skill_id"": ""175"", ""level"": 3, ""weight"": 0}]",2,0.071
+Hospital1,Emergency,Absence,NRP_849,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Emergency,Absence,NRP_850,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",7,0.25
+Hospital1,Emergency,Absence,NRP_851,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",5,0.179
+Hospital1,Emergency,Absence,NRP_852,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",14,0.5
+Hospital1,Emergency,Absence,NRP_853,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",6,0.214
+Hospital1,Emergency,Absence,NRP_855,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",2,0.071
+Hospital1,Emergency,Absence,NRP_856,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",3,0.107
+Hospital1,Emergency,Absence,NRP_858,2,177|178,2,2.0,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Absence,NRP_859,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",6,0.214
+Hospital1,Emergency,Absence,NRP_860,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",9,0.321
+Hospital1,Emergency,Absence,NRP_861,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Emergency,Absence,NRP_862,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Absence,NRP_863,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Absence,NRP_864,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",10,0.357
+Hospital1,Emergency,Absence,NRP_866,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",6,0.214
+Hospital1,Emergency,Absence,NRP_867,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",8,0.286
+Hospital1,Emergency,Absence,NRP_868,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Absence,NRP_869,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",1,0.036
+Hospital1,Emergency,Absence,NRP_870,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Absence,NRP_922,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Absence,NRP_2037,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Normal,NRP_840,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Normal,NRP_841,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Normal,NRP_842,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",0,0.0
+Hospital1,Emergency,Normal,NRP_843,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Normal,NRP_845,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",7,0.25
+Hospital1,Emergency,Normal,NRP_848,1,175,3,3.0,"[{""skill_id"": ""175"", ""level"": 3, ""weight"": 0}]",2,0.071
+Hospital1,Emergency,Normal,NRP_849,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Emergency,Normal,NRP_850,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",7,0.25
+Hospital1,Emergency,Normal,NRP_851,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",5,0.179
+Hospital1,Emergency,Normal,NRP_852,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",14,0.5
+Hospital1,Emergency,Normal,NRP_853,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",6,0.214
+Hospital1,Emergency,Normal,NRP_855,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",2,0.071
+Hospital1,Emergency,Normal,NRP_856,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",3,0.107
+Hospital1,Emergency,Normal,NRP_858,2,177|178,2,2.0,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Normal,NRP_859,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",6,0.214
+Hospital1,Emergency,Normal,NRP_860,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",9,0.321
+Hospital1,Emergency,Normal,NRP_861,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Emergency,Normal,NRP_862,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Normal,NRP_863,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Normal,NRP_864,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",10,0.357
+Hospital1,Emergency,Normal,NRP_866,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",6,0.214
+Hospital1,Emergency,Normal,NRP_867,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",8,0.286
+Hospital1,Emergency,Normal,NRP_868,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Normal,NRP_869,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",1,0.036
+Hospital1,Emergency,Normal,NRP_870,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Normal,NRP_922,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Normal,NRP_2037,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Overload,NRP_840,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Overload,NRP_841,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Overload,NRP_842,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",0,0.0
+Hospital1,Emergency,Overload,NRP_843,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Overload,NRP_845,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",7,0.25
+Hospital1,Emergency,Overload,NRP_848,1,175,3,3.0,"[{""skill_id"": ""175"", ""level"": 3, ""weight"": 0}]",2,0.071
+Hospital1,Emergency,Overload,NRP_849,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Emergency,Overload,NRP_850,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",7,0.25
+Hospital1,Emergency,Overload,NRP_851,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",5,0.179
+Hospital1,Emergency,Overload,NRP_852,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",14,0.5
+Hospital1,Emergency,Overload,NRP_853,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",6,0.214
+Hospital1,Emergency,Overload,NRP_855,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",2,0.071
+Hospital1,Emergency,Overload,NRP_856,2,176|178,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",3,0.107
+Hospital1,Emergency,Overload,NRP_858,2,177|178,2,2.0,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Overload,NRP_859,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",6,0.214
+Hospital1,Emergency,Overload,NRP_860,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",9,0.321
+Hospital1,Emergency,Overload,NRP_861,1,178,3,3.0,"[{""skill_id"": ""178"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Emergency,Overload,NRP_862,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Overload,NRP_863,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Overload,NRP_864,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",10,0.357
+Hospital1,Emergency,Overload,NRP_866,1,178,2,2.0,"[{""skill_id"": ""178"", ""level"": 2, ""weight"": 0}]",6,0.214
+Hospital1,Emergency,Overload,NRP_867,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 2, ""weight"": 10}]",8,0.286
+Hospital1,Emergency,Overload,NRP_868,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Overload,NRP_869,2,176|178,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",1,0.036
+Hospital1,Emergency,Overload,NRP_870,2,177|178,3,2.5,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",5,0.179
+Hospital1,Emergency,Overload,NRP_922,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Emergency,Overload,NRP_2037,2,176|178,3,2.5,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""178"", ""level"": 3, ""weight"": 10}]",4,0.143
+Hospital1,Geriatrics,Absence,NRP_411,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",8,0.286
+Hospital1,Geriatrics,Absence,NRP_452,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Absence,NRP_535,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",7,0.25
+Hospital1,Geriatrics,Absence,NRP_539,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",12,0.429
+Hospital1,Geriatrics,Absence,NRP_540,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Absence,NRP_541,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Absence,NRP_543,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",28,1.0
+Hospital1,Geriatrics,Absence,NRP_545,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Geriatrics,Absence,NRP_546,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",15,0.536
+Hospital1,Geriatrics,Absence,NRP_547,2,187|186,3,2.5,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 3, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Absence,NRP_548,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",12,0.429
+Hospital1,Geriatrics,Absence,NRP_549,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Geriatrics,Absence,NRP_550,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Absence,NRP_551,2,187|186,3,2.5,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 3, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Absence,NRP_552,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",28,1.0
+Hospital1,Geriatrics,Absence,NRP_553,2,187|186,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 2, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Absence,NRP_689,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Absence,NRP_944,1,186,2,2.0,"[{""skill_id"": ""186"", ""level"": 2, ""weight"": 0}]",2,0.071
+Hospital1,Geriatrics,Absence,NRP_1026,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",8,0.286
+Hospital1,Geriatrics,Absence,NRP_2092,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",7,0.25
+Hospital1,Geriatrics,Absence,NRP_2100,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",11,0.393
+Hospital1,Geriatrics,Normal,NRP_411,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",8,0.286
+Hospital1,Geriatrics,Normal,NRP_452,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Normal,NRP_535,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",7,0.25
+Hospital1,Geriatrics,Normal,NRP_539,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",12,0.429
+Hospital1,Geriatrics,Normal,NRP_540,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Normal,NRP_541,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Normal,NRP_543,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",28,1.0
+Hospital1,Geriatrics,Normal,NRP_545,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Geriatrics,Normal,NRP_546,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",15,0.536
+Hospital1,Geriatrics,Normal,NRP_547,2,187|186,3,2.5,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 3, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Normal,NRP_548,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",12,0.429
+Hospital1,Geriatrics,Normal,NRP_549,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Geriatrics,Normal,NRP_550,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Normal,NRP_551,2,187|186,3,2.5,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 3, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Normal,NRP_552,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",28,1.0
+Hospital1,Geriatrics,Normal,NRP_553,2,187|186,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 2, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Normal,NRP_689,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Normal,NRP_944,1,186,2,2.0,"[{""skill_id"": ""186"", ""level"": 2, ""weight"": 0}]",2,0.071
+Hospital1,Geriatrics,Normal,NRP_1026,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",8,0.286
+Hospital1,Geriatrics,Normal,NRP_2092,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",7,0.25
+Hospital1,Geriatrics,Normal,NRP_2100,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",11,0.393
+Hospital1,Geriatrics,Overload,NRP_411,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",8,0.286
+Hospital1,Geriatrics,Overload,NRP_452,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Overload,NRP_535,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",7,0.25
+Hospital1,Geriatrics,Overload,NRP_539,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",12,0.429
+Hospital1,Geriatrics,Overload,NRP_540,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Overload,NRP_541,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Overload,NRP_543,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",28,1.0
+Hospital1,Geriatrics,Overload,NRP_545,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Geriatrics,Overload,NRP_546,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",15,0.536
+Hospital1,Geriatrics,Overload,NRP_547,2,187|186,3,2.5,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 3, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Overload,NRP_548,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",12,0.429
+Hospital1,Geriatrics,Overload,NRP_549,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",9,0.321
+Hospital1,Geriatrics,Overload,NRP_550,1,187,3,3.0,"[{""skill_id"": ""187"", ""level"": 3, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Overload,NRP_551,2,187|186,3,2.5,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 3, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Overload,NRP_552,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",28,1.0
+Hospital1,Geriatrics,Overload,NRP_553,2,187|186,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}, {""skill_id"": ""186"", ""level"": 2, ""weight"": 200}]",10,0.357
+Hospital1,Geriatrics,Overload,NRP_689,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",10,0.357
+Hospital1,Geriatrics,Overload,NRP_944,1,186,2,2.0,"[{""skill_id"": ""186"", ""level"": 2, ""weight"": 0}]",2,0.071
+Hospital1,Geriatrics,Overload,NRP_1026,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",8,0.286
+Hospital1,Geriatrics,Overload,NRP_2092,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",7,0.25
+Hospital1,Geriatrics,Overload,NRP_2100,1,187,2,2.0,"[{""skill_id"": ""187"", ""level"": 2, ""weight"": 0}]",11,0.393
+Hospital1,Psychiatry,Absence,NRP_555,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",9,0.29
+Hospital1,Psychiatry,Absence,NRP_556,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",6,0.194
+Hospital1,Psychiatry,Absence,NRP_558,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",1,0.032
+Hospital1,Psychiatry,Absence,NRP_559,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Absence,NRP_560,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",7,0.226
+Hospital1,Psychiatry,Absence,NRP_561,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",2,0.065
+Hospital1,Psychiatry,Absence,NRP_562,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",8,0.258
+Hospital1,Psychiatry,Absence,NRP_563,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",4,0.129
+Hospital1,Psychiatry,Absence,NRP_565,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",2,0.065
+Hospital1,Psychiatry,Absence,NRP_566,1,175,2,2.0,"[{""skill_id"": ""175"", ""level"": 2, ""weight"": 0}]",8,0.258
+Hospital1,Psychiatry,Absence,NRP_568,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",11,0.355
+Hospital1,Psychiatry,Absence,NRP_569,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",3,0.097
+Hospital1,Psychiatry,Absence,NRP_570,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Absence,NRP_571,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",1,0.032
+Hospital1,Psychiatry,Absence,NRP_573,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",7,0.226
+Hospital1,Psychiatry,Absence,NRP_574,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",2,0.065
+Hospital1,Psychiatry,Absence,NRP_575,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",1,0.032
+Hospital1,Psychiatry,Absence,NRP_2029,1,177,2,2.0,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Absence,NRP_2036,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",2,0.065
+Hospital1,Psychiatry,Normal,NRP_555,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",9,0.29
+Hospital1,Psychiatry,Normal,NRP_556,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",6,0.194
+Hospital1,Psychiatry,Normal,NRP_558,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",1,0.032
+Hospital1,Psychiatry,Normal,NRP_559,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Normal,NRP_560,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",7,0.226
+Hospital1,Psychiatry,Normal,NRP_561,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",2,0.065
+Hospital1,Psychiatry,Normal,NRP_562,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",8,0.258
+Hospital1,Psychiatry,Normal,NRP_563,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",4,0.129
+Hospital1,Psychiatry,Normal,NRP_565,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",2,0.065
+Hospital1,Psychiatry,Normal,NRP_566,1,175,2,2.0,"[{""skill_id"": ""175"", ""level"": 2, ""weight"": 0}]",8,0.258
+Hospital1,Psychiatry,Normal,NRP_568,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",11,0.355
+Hospital1,Psychiatry,Normal,NRP_569,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",3,0.097
+Hospital1,Psychiatry,Normal,NRP_570,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Normal,NRP_571,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",1,0.032
+Hospital1,Psychiatry,Normal,NRP_573,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",7,0.226
+Hospital1,Psychiatry,Normal,NRP_574,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",2,0.065
+Hospital1,Psychiatry,Normal,NRP_575,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",1,0.032
+Hospital1,Psychiatry,Normal,NRP_2029,1,177,2,2.0,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Normal,NRP_2036,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",2,0.065
+Hospital1,Psychiatry,Overload,NRP_555,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_556,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_558,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_559,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_560,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_561,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_562,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_563,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_565,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_566,1,175,2,2.0,"[{""skill_id"": ""175"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_568,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_569,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_570,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_571,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_573,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_574,1,176,3,3.0,"[{""skill_id"": ""176"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_575,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_2029,1,177,2,2.0,"[{""skill_id"": ""177"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital1,Psychiatry,Overload,NRP_2036,1,176,2,2.0,"[{""skill_id"": ""176"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Absence,NRP_6,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",91,1.0
+Hospital2,PalliativeCare,Absence,NRP_477,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",32,0.352
+Hospital2,PalliativeCare,Absence,NRP_493,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",11,0.121
+Hospital2,PalliativeCare,Absence,NRP_504,1,367,3,3.0,"[{""skill_id"": ""367"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_505,1,370,3,3.0,"[{""skill_id"": ""370"", ""level"": 3, ""weight"": 0}]",11,0.121
+Hospital2,PalliativeCare,Absence,NRP_589,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",4,0.044
+Hospital2,PalliativeCare,Absence,NRP_638,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Absence,NRP_817,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Absence,NRP_903,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_941,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_953,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",19,0.209
+Hospital2,PalliativeCare,Absence,NRP_982,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_1002,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_1444,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_1538,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Absence,NRP_1606,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_1687,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_1749,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_1757,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",19,0.209
+Hospital2,PalliativeCare,Absence,NRP_1823,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Absence,NRP_1933,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_1966,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Absence,NRP_2096,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Absence,NRP_2242,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Absence,NRP_2246,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Absence,NRP_3126,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Absence,NRP_3191,1,369,3,3.0,"[{""skill_id"": ""369"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_6,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",91,1.0
+Hospital2,PalliativeCare,Normal,NRP_477,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",32,0.352
+Hospital2,PalliativeCare,Normal,NRP_493,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",11,0.121
+Hospital2,PalliativeCare,Normal,NRP_504,1,367,3,3.0,"[{""skill_id"": ""367"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_505,1,370,3,3.0,"[{""skill_id"": ""370"", ""level"": 3, ""weight"": 0}]",11,0.121
+Hospital2,PalliativeCare,Normal,NRP_589,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",4,0.044
+Hospital2,PalliativeCare,Normal,NRP_638,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Normal,NRP_817,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Normal,NRP_903,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_941,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_953,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",19,0.209
+Hospital2,PalliativeCare,Normal,NRP_982,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_1002,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_1444,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_1538,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Normal,NRP_1606,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_1687,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_1749,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_1757,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",19,0.209
+Hospital2,PalliativeCare,Normal,NRP_1823,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Normal,NRP_1933,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_1966,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Normal,NRP_2096,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Normal,NRP_2242,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Normal,NRP_2246,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Normal,NRP_3126,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Normal,NRP_3191,1,369,3,3.0,"[{""skill_id"": ""369"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_6,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",91,1.0
+Hospital2,PalliativeCare,Overload,NRP_477,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",32,0.352
+Hospital2,PalliativeCare,Overload,NRP_493,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",11,0.121
+Hospital2,PalliativeCare,Overload,NRP_504,1,367,3,3.0,"[{""skill_id"": ""367"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_505,1,370,3,3.0,"[{""skill_id"": ""370"", ""level"": 3, ""weight"": 0}]",11,0.121
+Hospital2,PalliativeCare,Overload,NRP_589,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",4,0.044
+Hospital2,PalliativeCare,Overload,NRP_638,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Overload,NRP_817,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Overload,NRP_903,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_941,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_953,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",19,0.209
+Hospital2,PalliativeCare,Overload,NRP_982,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_1002,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_1444,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_1538,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Overload,NRP_1606,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_1687,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_1749,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_1757,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",19,0.209
+Hospital2,PalliativeCare,Overload,NRP_1823,1,369,2,2.0,"[{""skill_id"": ""369"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Overload,NRP_1933,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_1966,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Overload,NRP_2096,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Overload,NRP_2242,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",0,0.0
+Hospital2,PalliativeCare,Overload,NRP_2246,1,368,3,3.0,"[{""skill_id"": ""368"", ""level"": 3, ""weight"": 0}]",2,0.022
+Hospital2,PalliativeCare,Overload,NRP_3126,1,368,2,2.0,"[{""skill_id"": ""368"", ""level"": 2, ""weight"": 0}]",1,0.011
+Hospital2,PalliativeCare,Overload,NRP_3191,1,369,3,3.0,"[{""skill_id"": ""369"", ""level"": 3, ""weight"": 0}]",1,0.011

@@ -1,0 +1,13 @@
+hospital,ward_name,scenario,period_days,n_nurses,n_shift_types,n_skill_types,n_absence_requests,n_coverage_rules,total_min_required_shifts,total_max_required_shifts,avg_daily_min_headcount,avg_shift_job_min,avg_break_min
+Hospital1,Emergency,Absence,28,27,27,4,139,448,430,430,15.36,426.56,30.0
+Hospital1,Emergency,Normal,28,27,27,4,139,448,430,430,15.36,426.56,30.0
+Hospital1,Emergency,Overload,28,27,27,4,139,448,514,514,18.36,426.56,30.0
+Hospital1,Geriatrics,Absence,28,21,9,2,236,112,236,236,8.43,364.0,30.0
+Hospital1,Geriatrics,Normal,28,21,9,2,236,112,236,236,8.43,364.0,30.0
+Hospital1,Geriatrics,Overload,28,21,9,2,236,112,284,284,10.14,364.0,30.0
+Hospital1,Psychiatry,Absence,31,19,14,3,74,186,248,248,8.0,382.71,30.0
+Hospital1,Psychiatry,Normal,31,19,14,3,74,186,248,248,8.0,382.71,30.0
+Hospital1,Psychiatry,Overload,31,19,14,3,0,186,307,307,9.9,382.71,30.0
+Hospital2,PalliativeCare,Absence,91,27,23,4,207,728,857,857,9.42,341.48,120.0
+Hospital2,PalliativeCare,Normal,91,27,23,4,207,728,857,857,9.42,341.48,120.0
+Hospital2,PalliativeCare,Overload,91,27,23,4,207,728,1042,1042,11.45,341.48,120.0
