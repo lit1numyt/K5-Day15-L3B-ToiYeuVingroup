@@ -40,6 +40,6 @@ Khung chỉ dùng thư viện chuẩn của Python. Thêm thư viện thì ghi v
 
 ## Quy ước của nhóm
 
-- Ngôn ngữ trả lời người dùng: __
-- Phong cách code / đặt tên: __
-- Ai duyệt thay đổi do agent tạo trước khi commit: __
+- Ngôn ngữ trả lời người dùng: Tiếng Việt cho nội dung sản phẩm / người dùng cuối; định danh trong code dùng tiếng Anh.
+- Phong cách code / đặt tên: Python PEP 8, `snake_case` cho hàm/biến, chỉ dùng thư viện chuẩn (thêm thì ghi `requirements.txt`). Xem thêm [`contribution-guide.md`](contribution-guide.md).
+- Ai duyệt thay đổi do agent tạo trước khi commit: Đội trưởng Đồng Hữu Nguyên Khoa (`lit1numyt`) duyệt trước khi `develop` → `main`.
