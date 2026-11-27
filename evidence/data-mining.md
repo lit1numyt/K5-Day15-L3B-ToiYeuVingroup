@@ -77,8 +77,10 @@ Trong `data_research.md`, Trần Trung Kiên so sánh dữ liệu cấp cứu v�
 | Bảng | Phép kiểm trên bản phát hành | Ý nghĩa đối với bài làm |
 |---|---|---|
 | Clinical `hosp/patients` và ED `ed/edstays` | 100 bệnh nhân trong Clinical. 222 lượt ED của 64 `subject_id` khác nhau, cả 64 có trong Clinical. 172/222 lượt có `hadm_id`. | Muốn lập danh sách đầu ca cần biết khoa và khoảng hiện diện. Chỉ nối lượt nhập viện khi có khóa phù hợp. |
-| ED `ed/triage` | 222 dòng, có `stay_id` và `acuity`. | Ghép với lượt ED qua `stay_id`. Acuity lúc phân loại ở ED chỉ mô tả thời điểm đó. |
+| ED `ed/triage` | 222 dòng, 207 có điểm acuity (18 mức 1, 97 mức 2, 90 mức 3, 2 mức 4), 15 thiếu. | Ghép với lượt ED qua `stay_id`. Acuity lúc phân loại ở ED chỉ mô tả thời điểm đó. |
 | Clinical `hosp/emar` | 35.835 dòng, có `charttime`, `scheduletime`, `storetime`, thiếu cặp bắt đầu/kết thúc thao tác. | Chênh lệch thời điểm ghi nhận chưa đo được số phút lao động trực tiếp. |
 | Clinical `icu/procedureevents` | 1.468 dòng. Lọc `itemid=225792` được 65 dòng; đối chiếu `icu/d_items` cho nhãn *Invasive Ventilation*. Có `starttime`, `endtime` và `caregiver_id`. | Khoảng diễn ra sự kiện có thể bao gồm thời gian thiết bị hoạt động. Mã người ghi nhận chưa xác định đầy đủ chức danh, kỹ năng hay giờ trực. |
+
+Tái lập phép đếm bằng `python3 -B evidence/analyze_mimic.py` khi có kết nối PhysioNet. Script đọc sáu bảng của phiên bản 2.2 và chỉ in số tổng hợp. [Mã đối chiếu](analyze_mimic.py)
 
 **Kết luận cho L3.** Các bảng có thời điểm sự kiện, nhưng chưa xác minh được nhãn phút thao tác trực tiếp theo task. Vì vậy chưa có cơ sở báo phân phối nhãn theo loại việc, tương quan acuity–duration hay độ chính xác mô hình. Việc ghép nhiều lượt thành khoa giả lập cũng không cung cấp quan sát về nhân lực và tải thực của một ca. CP2 giữ `est_duration_min` của đầu vào và dùng các giới hạn dữ liệu này trong B16–B18.
