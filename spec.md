@@ -1,21 +1,26 @@
-# AI SPEC — [Tên lát cắt] · Nhóm [tên nhóm] · Phòng [XXX] · Zone [X]
+# AI SPEC — NurseFlow (điều phối lại công việc điều dưỡng khi vắng đột xuất) · Nhóm Tôi Yêu Vingroup
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 > Đầu mỗi mục ghi bước guide (`02-guide.md` trong repo đề) chỉ cách điền. Mỗi mục ngắn, có số và nguồn; chi tiết để ở file được trỏ tới. Xoá dòng hướng dẫn trong ngoặc vuông khi điền xong.
 
-Track: [ ] A · [ ] B · [ ] C · [ ] D · [ ] E — bài toán: [đề gợi ý trong file track, hoặc bài toán nhóm tự mở rộng] __
-Data BTC cấp đã dùng (nếu có — không commit nguyên file): __
+Track: [ ] A · [x] B · [ ] C · [ ] D · [ ] E — bài toán: Tối ưu/điều phối công việc điều dưỡng (nurse workforce) — lát cắt: đề xuất phân công lại task khi 1 điều dưỡng vắng đột xuất giữa ca.
+Data BTC cấp đã dùng (nếu có — không commit nguyên file): chưa dùng data BTC; dự kiến dùng dữ liệu công khai (MatchRN, McGill workload, Nurse Rostering Benchmarks, KU Leuven) + kịch bản synthetic tự sinh — xem `data/DATA_CARD.md`.
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
 - Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin):
-- Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn. Không kiểm được thì ghi "chưa kiểm":
+  1. Đầu ca, điều dưỡng trưởng chia bệnh nhân/điều dưỡng chủ yếu theo số đầu bệnh nhân + kinh nghiệm.
+  2. Khi 1 điều dưỡng báo vắng đột xuất (ốm, việc gấp) giữa ca, trưởng ca phải dừng việc để xử lý.
+  3. Trưởng ca nhẩm lại: ai đang rảnh, ai đủ kỹ năng cho task đang tồn, task nào sắp đến hạn.
+  4. Gọi/nhắn phân công lại thủ công, cập nhật bảng giấy hoặc bảng trắng của khoa.
+  (*(tự mô tả theo hiểu biết nhóm; sẽ bổ sung ảnh/trích dẫn phỏng vấn ở CP2)*)
+- Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn. Không kiểm được thì ghi "chưa kiểm": chủ yếu thủ công (giấy / bảng trắng / Excel / nhắn tin); AI chuyên dụng cho điều phối lại theo giờ — chưa kiểm.
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
-- Người dùng chính (một vai cụ thể):
-- Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI):
-- Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:
-- Pain (KHÔNG chữ AI): ai — đang làm gì — vướng đâu — hậu quả gì:
-- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): __
+- Người dùng chính (một vai cụ thể): Điều dưỡng trưởng ca của một khoa nội trú cấp tính.
+- Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI): phân công lại các task điều dưỡng còn tồn/sắp đến hạn khi 1 điều dưỡng vắng đột xuất giữa ca.
+- Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ: tự nhẩm + nhắn tin/bảng trắng; hỏng ở chỗ phải nhớ cùng lúc ai rảnh, ai đủ kỹ năng, task nào đến hạn, có đủ coverage không → chậm và dễ lệch tải; chưa bỏ vì chưa có công cụ nào vừa nhanh vừa tôn trọng ràng buộc an toàn.
+- Pain (KHÔNG chữ AI): ai — đang làm gì — vướng đâu — hậu quả gì: Điều dưỡng trưởng ca, đang chia lại việc khi có người vắng, vướng ở việc cân bằng tải + kỹ năng + giờ đến hạn trong đầu, hậu quả là trễ task, lệch tải giữa các điều dưỡng và mất giờ nghỉ thật.
+- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): *(CP1 — giả thuyết)* khi có người vắng, task bị dồn không đều và tỷ lệ trễ task tăng; số đầu tiên + 1 trích dẫn sẽ bổ sung ở CP2 từ phỏng vấn điều dưỡng và dữ liệu MatchRN/McGill.
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
@@ -33,8 +38,8 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): __
 - [sản phẩm / tính năng gần giống]: một điều đáng học · một điều đáng né · mình khác gì
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
-- **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả):
-- Không làm (≥3 điều):
+- **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả): Khi 1 điều dưỡng vắng đột xuất, điều dưỡng trưởng ca nhập tình huống khoa → AI đề xuất chuyển các task còn tồn/sắp đến hạn của người vắng sang điều dưỡng còn trống, hợp kỹ năng và không vi phạm coverage → trả **bản nháp phân công lại** để trưởng ca duyệt.
+- Không làm (≥3 điều): (1) không tự áp dụng phân công khi chưa có người duyệt; (2) không ra quyết định lâm sàng (chẩn đoán, chỉnh thuốc, tiên lượng bệnh nhân); (3) không lập lịch cả ca từ đầu — chỉ xử lý sự kiện vắng đột xuất; (4) không tích hợp hệ thống bệnh viện thật ở MVP.
 - **Sơ đồ** (ảnh / Mermaid / draw.io): [chèn ở đây]
 - **Hình dạng:** [ ] workflow cố định · [ ] một agent · [ ] nhiều agent — 2 dòng lý do, và vì sao **không** chọn hình dạng phức tạp hơn:
 - **AI dựa vào đâu** — mỗi công cụ (khớp `codebase/tools.py`):
@@ -43,7 +48,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): __
   |---|---|---|---|
   |  |  |  |  |
 
-- **Mức tự động:** [ ] AI gợi ý, người quyết · [ ] AI tự làm khi chắc, chuyển người khi không · [ ] AI tự làm — lý do (sai thì ai chịu gì, sửa đắt hay rẻ):
+- **Mức tự động:** [x] AI gợi ý, người quyết · [ ] AI tự làm khi chắc, chuyển người khi không · [ ] AI tự làm — lý do (sai thì ai chịu gì, sửa đắt hay rẻ): phân công sai ảnh hưởng an toàn người bệnh và tải điều dưỡng; sai thì người bệnh/điều dưỡng chịu, sửa rất đắt → AI chỉ tạo bản nháp, trưởng ca duyệt mới áp dụng.
 - **Chỗ chặn rủi ro** (rủi ro lớn nhất của lát cắt bị chặn ở đâu, bằng gì):
 - **Chỗ người duyệt** (việc AI không được tự làm):
 - **Nguyên tắc thiết kế** (≥3, bắt buộc G10):
