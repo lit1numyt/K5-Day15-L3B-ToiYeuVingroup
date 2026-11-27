@@ -1,0 +1,565 @@
+{
+  "source": "10.5281/zenodo.20754938",
+  "source_md5": "78e04eb6c4ffcf2b599afd3080f97c21",
+  "counts": {
+    "raw_segments": 11074,
+    "clean_segments": 11073,
+    "duplicates_removed": 1,
+    "raw_minutes": 92718.0,
+    "clean_minutes": 92708.0,
+    "episodes": 2380,
+    "non_break_episodes": 2192,
+    "staff": 37,
+    "staff_shifts": 168,
+    "activity_labels": 46,
+    "activity_categories": 13,
+    "midnight_wraps": 9
+  },
+  "missing_counts": {
+    "segments": {
+      "shift_end_hhmmss": 840,
+      "shift_length_min": 840
+    },
+    "episodes": {
+      "shift_end_hhmmss": 205,
+      "shift_length_min": 205
+    },
+    "features": {}
+  },
+  "raw_missing_counts": {
+    "date": 0,
+    "staff_id": 0,
+    "task_start_raw": 0,
+    "task_end_raw": 0,
+    "hour_slot_ja": 0,
+    "task_duration_days": 0,
+    "nursing_class": 0,
+    "task_category": 0,
+    "task_name": 0,
+    "shift_code_raw": 0,
+    "shift_start_raw": 0,
+    "shift_end_raw": 840,
+    "overtime_status": 10534
+  },
+  "categorical_cardinality": {
+    "task_name": 46,
+    "task_category": 13,
+    "nurseflow_task_type": 16,
+    "shift_code": 17,
+    "staff_id": 37
+  },
+  "class_minutes": {
+    "Break": 10380.0,
+    "Non-Nursing": 26934.0,
+    "Nursing": 55394.0
+  },
+  "hourly_minutes": [
+    527.0,
+    420.0,
+    420.0,
+    420.0,
+    420.0,
+    460.0,
+    480.0,
+    480.0,
+    4189.0,
+    7697.0,
+    7936.0,
+    8749.0,
+    9281.0,
+    9416.0,
+    9536.0,
+    9466.0,
+    8805.0,
+    5241.0,
+    3054.0,
+    2239.0,
+    1359.0,
+    842.0,
+    671.0,
+    600.0
+  ],
+  "hourly_non_break_episode_starts": [
+    17,
+    15,
+    4,
+    7,
+    13,
+    7,
+    19,
+    4,
+    274,
+    331,
+    92,
+    114,
+    163,
+    225,
+    197,
+    187,
+    200,
+    129,
+    60,
+    49,
+    32,
+    20,
+    21,
+    12
+  ],
+  "patient_acuity_duration_correlation": {
+    "status": "not_estimable",
+    "reason": "No linked patient/acuity/ADL observations in the workbook"
+  },
+  "activity_median_error": {
+    "median_absolute_error_min": 10.0,
+    "procedure_care_n": 430,
+    "procedure_care_absolute_error_min": 26012.0,
+    "total_absolute_error_min": 51220.0
+  },
+  "evaluation": {
+    "n_episodes": 2192,
+    "staff_groups": 37,
+    "split_method": "GroupKFold(staff_id)",
+    "n_splits": 5,
+    "model_seed": 42,
+    "target_kind": "observed_activity_episode",
+    "feature_columns": [
+      "nurseflow_task_type",
+      "task_name",
+      "task_category"
+    ],
+    "metric_aggregation": "pooled_out_of_fold",
+    "folds": [
+      {
+        "fold": 0,
+        "train_rows": 1744,
+        "test_rows": 448,
+        "train_groups": [
+          "OR_STAFF_02",
+          "OR_STAFF_03",
+          "OR_STAFF_04",
+          "OR_STAFF_06",
+          "OR_STAFF_07",
+          "OR_STAFF_08",
+          "OR_STAFF_09",
+          "OR_STAFF_11",
+          "OR_STAFF_12",
+          "OR_STAFF_13",
+          "OR_STAFF_14",
+          "OR_STAFF_15",
+          "OR_STAFF_17",
+          "OR_STAFF_20",
+          "OR_STAFF_21",
+          "OR_STAFF_22",
+          "OR_STAFF_23",
+          "OR_STAFF_24",
+          "OR_STAFF_25",
+          "OR_STAFF_26",
+          "OR_STAFF_27",
+          "OR_STAFF_29",
+          "OR_STAFF_30",
+          "OR_STAFF_31",
+          "OR_STAFF_32",
+          "OR_STAFF_34",
+          "OR_STAFF_35",
+          "OR_STAFF_36",
+          "OR_STAFF_38"
+        ],
+        "test_groups": [
+          "OR_STAFF_01",
+          "OR_STAFF_05",
+          "OR_STAFF_10",
+          "OR_STAFF_16",
+          "OR_STAFF_18",
+          "OR_STAFF_19",
+          "OR_STAFF_28",
+          "OR_STAFF_33"
+        ],
+        "unseen_category_fallback_rows": {
+          "task_type_median": 0,
+          "activity_median": 5,
+          "activity_mean": 5
+        },
+        "models": {
+          "global_median": {
+            "mae_min": 30.7522,
+            "rmse_min": 62.7582,
+            "r2": -0.1441
+          },
+          "task_type_median": {
+            "mae_min": 26.7768,
+            "rmse_min": 51.3496,
+            "r2": 0.2341
+          },
+          "activity_median": {
+            "mae_min": 25.9107,
+            "rmse_min": 49.9289,
+            "r2": 0.2759
+          },
+          "activity_mean": {
+            "mae_min": 28.7443,
+            "rmse_min": 49.2508,
+            "r2": 0.2954
+          },
+          "gradient_boosting": {
+            "mae_min": 28.4374,
+            "rmse_min": 49.1122,
+            "r2": 0.2994
+          }
+        }
+      },
+      {
+        "fold": 1,
+        "train_rows": 1760,
+        "test_rows": 432,
+        "train_groups": [
+          "OR_STAFF_01",
+          "OR_STAFF_02",
+          "OR_STAFF_04",
+          "OR_STAFF_05",
+          "OR_STAFF_06",
+          "OR_STAFF_07",
+          "OR_STAFF_08",
+          "OR_STAFF_09",
+          "OR_STAFF_10",
+          "OR_STAFF_13",
+          "OR_STAFF_14",
+          "OR_STAFF_15",
+          "OR_STAFF_16",
+          "OR_STAFF_17",
+          "OR_STAFF_18",
+          "OR_STAFF_19",
+          "OR_STAFF_20",
+          "OR_STAFF_21",
+          "OR_STAFF_23",
+          "OR_STAFF_25",
+          "OR_STAFF_26",
+          "OR_STAFF_27",
+          "OR_STAFF_28",
+          "OR_STAFF_29",
+          "OR_STAFF_30",
+          "OR_STAFF_31",
+          "OR_STAFF_32",
+          "OR_STAFF_33",
+          "OR_STAFF_35",
+          "OR_STAFF_38"
+        ],
+        "test_groups": [
+          "OR_STAFF_03",
+          "OR_STAFF_11",
+          "OR_STAFF_12",
+          "OR_STAFF_22",
+          "OR_STAFF_24",
+          "OR_STAFF_34",
+          "OR_STAFF_36"
+        ],
+        "unseen_category_fallback_rows": {
+          "task_type_median": 0,
+          "activity_median": 0,
+          "activity_mean": 0
+        },
+        "models": {
+          "global_median": {
+            "mae_min": 27.9306,
+            "rmse_min": 53.8469,
+            "r2": -0.1076
+          },
+          "task_type_median": {
+            "mae_min": 23.3079,
+            "rmse_min": 45.0092,
+            "r2": 0.2261
+          },
+          "activity_median": {
+            "mae_min": 22.4688,
+            "rmse_min": 43.77,
+            "r2": 0.2682
+          },
+          "activity_mean": {
+            "mae_min": 24.0472,
+            "rmse_min": 42.7107,
+            "r2": 0.3032
+          },
+          "gradient_boosting": {
+            "mae_min": 24.1957,
+            "rmse_min": 42.8143,
+            "r2": 0.2998
+          }
+        }
+      },
+      {
+        "fold": 2,
+        "train_rows": 1761,
+        "test_rows": 431,
+        "train_groups": [
+          "OR_STAFF_01",
+          "OR_STAFF_02",
+          "OR_STAFF_03",
+          "OR_STAFF_04",
+          "OR_STAFF_05",
+          "OR_STAFF_07",
+          "OR_STAFF_08",
+          "OR_STAFF_10",
+          "OR_STAFF_11",
+          "OR_STAFF_12",
+          "OR_STAFF_13",
+          "OR_STAFF_14",
+          "OR_STAFF_15",
+          "OR_STAFF_16",
+          "OR_STAFF_17",
+          "OR_STAFF_18",
+          "OR_STAFF_19",
+          "OR_STAFF_21",
+          "OR_STAFF_22",
+          "OR_STAFF_23",
+          "OR_STAFF_24",
+          "OR_STAFF_26",
+          "OR_STAFF_27",
+          "OR_STAFF_28",
+          "OR_STAFF_29",
+          "OR_STAFF_31",
+          "OR_STAFF_33",
+          "OR_STAFF_34",
+          "OR_STAFF_35",
+          "OR_STAFF_36"
+        ],
+        "test_groups": [
+          "OR_STAFF_06",
+          "OR_STAFF_09",
+          "OR_STAFF_20",
+          "OR_STAFF_25",
+          "OR_STAFF_30",
+          "OR_STAFF_32",
+          "OR_STAFF_38"
+        ],
+        "unseen_category_fallback_rows": {
+          "task_type_median": 0,
+          "activity_median": 1,
+          "activity_mean": 1
+        },
+        "models": {
+          "global_median": {
+            "mae_min": 26.3596,
+            "rmse_min": 53.4012,
+            "r2": -0.1253
+          },
+          "task_type_median": {
+            "mae_min": 21.2645,
+            "rmse_min": 41.7213,
+            "r2": 0.3131
+          },
+          "activity_median": {
+            "mae_min": 21.0452,
+            "rmse_min": 40.9147,
+            "r2": 0.3394
+          },
+          "activity_mean": {
+            "mae_min": 22.7421,
+            "rmse_min": 40.157,
+            "r2": 0.3636
+          },
+          "gradient_boosting": {
+            "mae_min": 22.5766,
+            "rmse_min": 40.0333,
+            "r2": 0.3676
+          }
+        }
+      },
+      {
+        "fold": 3,
+        "train_rows": 1763,
+        "test_rows": 429,
+        "train_groups": [
+          "OR_STAFF_01",
+          "OR_STAFF_03",
+          "OR_STAFF_05",
+          "OR_STAFF_06",
+          "OR_STAFF_08",
+          "OR_STAFF_09",
+          "OR_STAFF_10",
+          "OR_STAFF_11",
+          "OR_STAFF_12",
+          "OR_STAFF_13",
+          "OR_STAFF_14",
+          "OR_STAFF_15",
+          "OR_STAFF_16",
+          "OR_STAFF_17",
+          "OR_STAFF_18",
+          "OR_STAFF_19",
+          "OR_STAFF_20",
+          "OR_STAFF_22",
+          "OR_STAFF_23",
+          "OR_STAFF_24",
+          "OR_STAFF_25",
+          "OR_STAFF_27",
+          "OR_STAFF_28",
+          "OR_STAFF_30",
+          "OR_STAFF_31",
+          "OR_STAFF_32",
+          "OR_STAFF_33",
+          "OR_STAFF_34",
+          "OR_STAFF_36",
+          "OR_STAFF_38"
+        ],
+        "test_groups": [
+          "OR_STAFF_02",
+          "OR_STAFF_04",
+          "OR_STAFF_07",
+          "OR_STAFF_21",
+          "OR_STAFF_26",
+          "OR_STAFF_29",
+          "OR_STAFF_35"
+        ],
+        "unseen_category_fallback_rows": {
+          "task_type_median": 0,
+          "activity_median": 0,
+          "activity_mean": 0
+        },
+        "models": {
+          "global_median": {
+            "mae_min": 30.8974,
+            "rmse_min": 61.1625,
+            "r2": -0.1195
+          },
+          "task_type_median": {
+            "mae_min": 24.7214,
+            "rmse_min": 49.093,
+            "r2": 0.2787
+          },
+          "activity_median": {
+            "mae_min": 24.7517,
+            "rmse_min": 48.5272,
+            "r2": 0.2953
+          },
+          "activity_mean": {
+            "mae_min": 25.7117,
+            "rmse_min": 46.0495,
+            "r2": 0.3654
+          },
+          "gradient_boosting": {
+            "mae_min": 25.5625,
+            "rmse_min": 45.9698,
+            "r2": 0.3676
+          }
+        }
+      },
+      {
+        "fold": 4,
+        "train_rows": 1740,
+        "test_rows": 452,
+        "train_groups": [
+          "OR_STAFF_01",
+          "OR_STAFF_02",
+          "OR_STAFF_03",
+          "OR_STAFF_04",
+          "OR_STAFF_05",
+          "OR_STAFF_06",
+          "OR_STAFF_07",
+          "OR_STAFF_09",
+          "OR_STAFF_10",
+          "OR_STAFF_11",
+          "OR_STAFF_12",
+          "OR_STAFF_16",
+          "OR_STAFF_18",
+          "OR_STAFF_19",
+          "OR_STAFF_20",
+          "OR_STAFF_21",
+          "OR_STAFF_22",
+          "OR_STAFF_24",
+          "OR_STAFF_25",
+          "OR_STAFF_26",
+          "OR_STAFF_28",
+          "OR_STAFF_29",
+          "OR_STAFF_30",
+          "OR_STAFF_32",
+          "OR_STAFF_33",
+          "OR_STAFF_34",
+          "OR_STAFF_35",
+          "OR_STAFF_36",
+          "OR_STAFF_38"
+        ],
+        "test_groups": [
+          "OR_STAFF_08",
+          "OR_STAFF_13",
+          "OR_STAFF_14",
+          "OR_STAFF_15",
+          "OR_STAFF_17",
+          "OR_STAFF_23",
+          "OR_STAFF_27",
+          "OR_STAFF_31"
+        ],
+        "unseen_category_fallback_rows": {
+          "task_type_median": 0,
+          "activity_median": 0,
+          "activity_mean": 0
+        },
+        "models": {
+          "global_median": {
+            "mae_min": 28.5885,
+            "rmse_min": 53.9549,
+            "r2": -0.1232
+          },
+          "task_type_median": {
+            "mae_min": 22.6173,
+            "rmse_min": 41.6587,
+            "r2": 0.3304
+          },
+          "activity_median": {
+            "mae_min": 22.6029,
+            "rmse_min": 42.0862,
+            "r2": 0.3166
+          },
+          "activity_mean": {
+            "mae_min": 23.3221,
+            "rmse_min": 41.2934,
+            "r2": 0.3421
+          },
+          "gradient_boosting": {
+            "mae_min": 23.3385,
+            "rmse_min": 41.225,
+            "r2": 0.3443
+          }
+        }
+      }
+    ],
+    "models": {
+      "global_median": {
+        "mae_min": 28.9147,
+        "rmse_min": 57.1798,
+        "r2": -0.1238
+      },
+      "task_type_median": {
+        "mae_min": 23.7493,
+        "rmse_min": 45.9343,
+        "r2": 0.2748
+      },
+      "activity_median": {
+        "mae_min": 23.3668,
+        "rmse_min": 45.1922,
+        "r2": 0.298
+      },
+      "activity_mean": {
+        "mae_min": 24.9268,
+        "rmse_min": 44.0337,
+        "r2": 0.3336
+      },
+      "gradient_boosting": {
+        "mae_min": 24.835,
+        "rmse_min": 43.9702,
+        "r2": 0.3355
+      }
+    },
+    "best_mae_method": "activity_median",
+    "best_rmse_method": "gradient_boosting"
+  },
+  "figures": [
+    "eda_01_activity_duration.png",
+    "eda_02_hourly_and_validation.png"
+  ],
+  "versions": {
+    "python": "3.12.3",
+    "pandas": "3.1.1",
+    "numpy": "2.5.5",
+    "sklearn": "1.9.1",
+    "matplotlib": "3.11.2"
+  },
+  "feature_sha256": "f1be152ee1c3b603931d4eae5ac84a0c636d98b31b797d3a4018f607d3a4ca53"
+}

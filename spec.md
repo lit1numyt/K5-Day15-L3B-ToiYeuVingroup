@@ -130,6 +130,7 @@ flowchart LR
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
 | 27/11 19:42 (UTC+7) | Bổ sung cách tái lập số liệu MIMIC, hướng dẫn nhập JSON, kết quả kiểm 18 câu hội thoại và giới hạn đo impact. | B16–B18 dùng số liệu nguồn. CLI cần hướng dẫn đầu vào rõ ràng khi nhận văn bản. |
+| 28/11 04:46 (UTC+7) | Chuẩn bị Preliminary, bộ ca dùng chung, cập nhật nguồn L3 theo đối chiếu McGill/Simmons và bổ sung B19–B20. | [Báo cáo](docs/eda-report.md) ghi căn cứ chọn nguồn và EDA. [Bộ bàn giao](data/preliminary/README.md) khai báo giả định, nguồn duration và kiểm giao diện từng module. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

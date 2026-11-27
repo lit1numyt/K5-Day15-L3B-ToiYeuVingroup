@@ -1,0 +1,1414 @@
+{
+  "data_kind": "synthetic",
+  "generation": "deterministic; no random sampling",
+  "seed": null,
+  "owner": "Lam; based on data research with Kien; Codex assists",
+  "scope": "CP3 module integration inputs",
+  "field_provenance": {
+    "ids_roster_skills_rooms_windows_breaks_capacity_coverage": "technical assumptions based on F03; min_staff=1 for all cases",
+    "qualification_level_required_skill_level": "technical ordinal levels 2/1; not a clinical credential scale",
+    "experience_years": "technical examples 1/4/8; independent of qualification level",
+    "acuity_score_adl_dependency": "technical ordinal inputs 1/3/5 and 1/2/4; not calibrated clinical scales",
+    "care_category_isolation_priority_frequency_census": "declared scenario inputs; census counts fixture patients",
+    "duration_source_given": "F03 technical input, 10 minutes per task",
+    "duration_source_lookup": "published task mean from Simmons Table 3, rounded up to integer minutes"
+  },
+  "lookup_conditions": "single-staff example tasks matching the source definition in an ACE-style scenario; patient-specific duration remains unvalidated",
+  "source_sha256": {
+    "cp2-cases.json": "9d10ad34aa01cc0b9c78053e17bd3960eac2750e1ee53d59cfb742e17a169736",
+    "ward_task_duration.csv": "1c25593c0d0e26bf57a8438741be1826e4b9541921aac1b0453c9b6cd799d87a"
+  },
+  "cases": [
+    {
+      "id": "P01",
+      "purpose": "given_duration",
+      "instance": {
+        "shift": {
+          "shift_id": "S01",
+          "ward_id": "W1",
+          "shift_length_min": 120,
+          "room_switch_min": 2,
+          "break_policy": {
+            "duration_min": 15,
+            "window": [
+              60,
+              105
+            ]
+          },
+          "coverage_rules": [
+            {
+              "start": 0,
+              "end": 120,
+              "zone": "W1",
+              "required_skill": null,
+              "min_staff": 1
+            }
+          ],
+          "census": 6
+        },
+        "nurses": [
+          {
+            "nurse_id": "N1",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 1,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N2",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 4,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N3",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 8,
+            "specialization": "acute_ward_demo"
+          }
+        ],
+        "patients": [
+          {
+            "patient_id": "P1",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P2",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P3",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": true
+          },
+          {
+            "patient_id": "P4",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P5",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P6",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": false
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "T1",
+            "patient_id": "P1",
+            "task_type": "med_admin",
+            "required_skill": [
+              "med_admin"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T2",
+            "patient_id": "P2",
+            "task_type": "vitals",
+            "required_skill": [
+              "vitals"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T3",
+            "patient_id": "P3",
+            "task_type": "wound_care",
+            "required_skill": [
+              "wound_care"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T4",
+            "patient_id": "P4",
+            "task_type": "lab_collection",
+            "required_skill": [
+              "lab_collection"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T5",
+            "patient_id": "P5",
+            "task_type": "iv_care",
+            "required_skill": [
+              "iv_care"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T6",
+            "patient_id": "P6",
+            "task_type": "catheter_care",
+            "required_skill": [
+              "catheter_care"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          }
+        ],
+        "request": {
+          "action": "plan",
+          "text": "Kịch bản kỹ thuật tại khoa ACE. Task theo định nghĩa của bảng nguồn, mỗi task thực hiện bởi một staff theo điều kiện được khai báo của kịch bản. Tạo bản nháp theo roster và ràng buộc đã cung cấp."
+        }
+      },
+      "l3_input": {
+        "shift": {
+          "shift_id": "S01",
+          "ward_id": "W1",
+          "shift_length_min": 120,
+          "room_switch_min": 2,
+          "break_policy": {
+            "duration_min": 15,
+            "window": [
+              60,
+              105
+            ]
+          },
+          "coverage_rules": [
+            {
+              "start": 0,
+              "end": 120,
+              "zone": "W1",
+              "required_skill": null,
+              "min_staff": 1
+            }
+          ],
+          "census": 6
+        },
+        "nurses": [
+          {
+            "nurse_id": "N1",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 1,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N2",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 4,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N3",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 8,
+            "specialization": "acute_ward_demo"
+          }
+        ],
+        "patients": [
+          {
+            "patient_id": "P1",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P2",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P3",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": true
+          },
+          {
+            "patient_id": "P4",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P5",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P6",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": false
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "T1",
+            "patient_id": "P1",
+            "task_type": "med_admin",
+            "required_skill": [
+              "med_admin"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T2",
+            "patient_id": "P2",
+            "task_type": "vitals",
+            "required_skill": [
+              "vitals"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T3",
+            "patient_id": "P3",
+            "task_type": "wound_care",
+            "required_skill": [
+              "wound_care"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T4",
+            "patient_id": "P4",
+            "task_type": "lab_collection",
+            "required_skill": [
+              "lab_collection"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T5",
+            "patient_id": "P5",
+            "task_type": "iv_care",
+            "required_skill": [
+              "iv_care"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T6",
+            "patient_id": "P6",
+            "task_type": "catheter_care",
+            "required_skill": [
+              "catheter_care"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          }
+        ],
+        "request": {
+          "action": "plan",
+          "text": "Kịch bản kỹ thuật tại khoa ACE. Task theo định nghĩa của bảng nguồn, mỗi task thực hiện bởi một staff theo điều kiện được khai báo của kịch bản. Tạo bản nháp theo roster và ràng buộc đã cung cấp."
+        }
+      }
+    },
+    {
+      "id": "P02",
+      "purpose": "mixed_given_and_lookup",
+      "instance": {
+        "shift": {
+          "shift_id": "S01",
+          "ward_id": "W1",
+          "shift_length_min": 120,
+          "room_switch_min": 2,
+          "break_policy": {
+            "duration_min": 15,
+            "window": [
+              60,
+              105
+            ]
+          },
+          "coverage_rules": [
+            {
+              "start": 0,
+              "end": 120,
+              "zone": "W1",
+              "required_skill": null,
+              "min_staff": 1
+            }
+          ],
+          "census": 6
+        },
+        "nurses": [
+          {
+            "nurse_id": "N1",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 1,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N2",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 4,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N3",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 8,
+            "specialization": "acute_ward_demo"
+          }
+        ],
+        "patients": [
+          {
+            "patient_id": "P1",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P2",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P3",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": true
+          },
+          {
+            "patient_id": "P4",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P5",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P6",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": false
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "T1",
+            "patient_id": "P1",
+            "task_type": "med_admin",
+            "required_skill": [
+              "med_admin"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T2",
+            "patient_id": "P2",
+            "task_type": "vitals",
+            "required_skill": [
+              "vitals"
+            ],
+            "est_duration_min": 4,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T3",
+            "patient_id": "P3",
+            "task_type": "wound_care",
+            "required_skill": [
+              "wound_care"
+            ],
+            "est_duration_min": 7,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T4",
+            "patient_id": "P4",
+            "task_type": "lab_collection",
+            "required_skill": [
+              "lab_collection"
+            ],
+            "est_duration_min": 6,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T5",
+            "patient_id": "P5",
+            "task_type": "iv_care",
+            "required_skill": [
+              "iv_care"
+            ],
+            "est_duration_min": 4,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T6",
+            "patient_id": "P6",
+            "task_type": "catheter_care",
+            "required_skill": [
+              "catheter_care"
+            ],
+            "est_duration_min": 3,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          }
+        ],
+        "request": {
+          "action": "plan",
+          "text": "Kịch bản kỹ thuật tại khoa ACE. Task theo định nghĩa của bảng nguồn, mỗi task thực hiện bởi một staff theo điều kiện được khai báo của kịch bản. Tạo bản nháp theo roster và ràng buộc đã cung cấp."
+        }
+      },
+      "l3_input": {
+        "shift": {
+          "shift_id": "S01",
+          "ward_id": "W1",
+          "shift_length_min": 120,
+          "room_switch_min": 2,
+          "break_policy": {
+            "duration_min": 15,
+            "window": [
+              60,
+              105
+            ]
+          },
+          "coverage_rules": [
+            {
+              "start": 0,
+              "end": 120,
+              "zone": "W1",
+              "required_skill": null,
+              "min_staff": 1
+            }
+          ],
+          "census": 6
+        },
+        "nurses": [
+          {
+            "nurse_id": "N1",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 1,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N2",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 4,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N3",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 8,
+            "specialization": "acute_ward_demo"
+          }
+        ],
+        "patients": [
+          {
+            "patient_id": "P1",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P2",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P3",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": true
+          },
+          {
+            "patient_id": "P4",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P5",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P6",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": false
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "T1",
+            "patient_id": "P1",
+            "task_type": "med_admin",
+            "required_skill": [
+              "med_admin"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T2",
+            "patient_id": "P2",
+            "task_type": "vitals",
+            "required_skill": [
+              "vitals"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T3",
+            "patient_id": "P3",
+            "task_type": "wound_care",
+            "required_skill": [
+              "wound_care"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T4",
+            "patient_id": "P4",
+            "task_type": "lab_collection",
+            "required_skill": [
+              "lab_collection"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T5",
+            "patient_id": "P5",
+            "task_type": "iv_care",
+            "required_skill": [
+              "iv_care"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T6",
+            "patient_id": "P6",
+            "task_type": "catheter_care",
+            "required_skill": [
+              "catheter_care"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          }
+        ],
+        "request": {
+          "action": "plan",
+          "text": "Kịch bản kỹ thuật tại khoa ACE. Task theo định nghĩa của bảng nguồn, mỗi task thực hiện bởi một staff theo điều kiện được khai báo của kịch bản. Tạo bản nháp theo roster và ràng buộc đã cung cấp."
+        }
+      }
+    },
+    {
+      "id": "P03",
+      "purpose": "absent_nurse_with_same_coverage_policy",
+      "instance": {
+        "shift": {
+          "shift_id": "S01",
+          "ward_id": "W1",
+          "shift_length_min": 120,
+          "room_switch_min": 2,
+          "break_policy": {
+            "duration_min": 15,
+            "window": [
+              60,
+              105
+            ]
+          },
+          "coverage_rules": [
+            {
+              "start": 0,
+              "end": 120,
+              "zone": "W1",
+              "required_skill": null,
+              "min_staff": 1
+            }
+          ],
+          "census": 6
+        },
+        "nurses": [
+          {
+            "nurse_id": "N1",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 1,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N2",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 4,
+            "specialization": "acute_ward_demo"
+          }
+        ],
+        "patients": [
+          {
+            "patient_id": "P1",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P2",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P3",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": true
+          },
+          {
+            "patient_id": "P4",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P5",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P6",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": false
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "T1",
+            "patient_id": "P1",
+            "task_type": "med_admin",
+            "required_skill": [
+              "med_admin"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T2",
+            "patient_id": "P2",
+            "task_type": "vitals",
+            "required_skill": [
+              "vitals"
+            ],
+            "est_duration_min": 4,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T3",
+            "patient_id": "P3",
+            "task_type": "wound_care",
+            "required_skill": [
+              "wound_care"
+            ],
+            "est_duration_min": 7,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T4",
+            "patient_id": "P4",
+            "task_type": "lab_collection",
+            "required_skill": [
+              "lab_collection"
+            ],
+            "est_duration_min": 6,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T5",
+            "patient_id": "P5",
+            "task_type": "iv_care",
+            "required_skill": [
+              "iv_care"
+            ],
+            "est_duration_min": 4,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T6",
+            "patient_id": "P6",
+            "task_type": "catheter_care",
+            "required_skill": [
+              "catheter_care"
+            ],
+            "est_duration_min": 3,
+            "duration_source": "lookup:simmons-2025-table3",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          }
+        ],
+        "request": {
+          "action": "plan",
+          "text": "Kịch bản kỹ thuật tại khoa ACE. Task theo định nghĩa của bảng nguồn, mỗi task thực hiện bởi một staff theo điều kiện được khai báo của kịch bản. Tạo bản nháp theo roster và ràng buộc đã cung cấp."
+        }
+      },
+      "l3_input": {
+        "shift": {
+          "shift_id": "S01",
+          "ward_id": "W1",
+          "shift_length_min": 120,
+          "room_switch_min": 2,
+          "break_policy": {
+            "duration_min": 15,
+            "window": [
+              60,
+              105
+            ]
+          },
+          "coverage_rules": [
+            {
+              "start": 0,
+              "end": 120,
+              "zone": "W1",
+              "required_skill": null,
+              "min_staff": 1
+            }
+          ],
+          "census": 6
+        },
+        "nurses": [
+          {
+            "nurse_id": "N1",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 1,
+            "specialization": "acute_ward_demo"
+          },
+          {
+            "nurse_id": "N2",
+            "skills": [
+              "med_admin",
+              "vitals",
+              "wound_care",
+              "lab_collection",
+              "iv_care",
+              "catheter_care"
+            ],
+            "available_from": 0,
+            "available_to": 120,
+            "max_capacity_min": 105,
+            "home_zone": "W1",
+            "qualification_level": 2,
+            "experience_years": 4,
+            "specialization": "acute_ward_demo"
+          }
+        ],
+        "patients": [
+          {
+            "patient_id": "P1",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P2",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P3",
+            "room": "R2",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": true
+          },
+          {
+            "patient_id": "P4",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 1,
+            "adl_dependency": 1,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P5",
+            "room": "R3",
+            "zone": "W1",
+            "acuity_score": 3,
+            "adl_dependency": 2,
+            "care_category": "medical",
+            "isolation_precaution": false
+          },
+          {
+            "patient_id": "P6",
+            "room": "R1",
+            "zone": "W1",
+            "acuity_score": 5,
+            "adl_dependency": 4,
+            "care_category": "medical",
+            "isolation_precaution": false
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "T1",
+            "patient_id": "P1",
+            "task_type": "med_admin",
+            "required_skill": [
+              "med_admin"
+            ],
+            "est_duration_min": 10,
+            "duration_source": "given",
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T2",
+            "patient_id": "P2",
+            "task_type": "vitals",
+            "required_skill": [
+              "vitals"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T3",
+            "patient_id": "P3",
+            "task_type": "wound_care",
+            "required_skill": [
+              "wound_care"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T4",
+            "patient_id": "P4",
+            "task_type": "lab_collection",
+            "required_skill": [
+              "lab_collection"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T5",
+            "patient_id": "P5",
+            "task_type": "iv_care",
+            "required_skill": [
+              "iv_care"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          },
+          {
+            "task_id": "T6",
+            "patient_id": "P6",
+            "task_type": "catheter_care",
+            "required_skill": [
+              "catheter_care"
+            ],
+            "earliest_start": 0,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once"
+          }
+        ],
+        "request": {
+          "action": "plan",
+          "text": "Kịch bản kỹ thuật tại khoa ACE. Task theo định nghĩa của bảng nguồn, mỗi task thực hiện bởi một staff theo điều kiện được khai báo của kịch bản. Tạo bản nháp theo roster và ràng buộc đã cung cấp."
+        }
+      },
+      "absent_nurse_id": "N3"
+    }
+  ]
+}

@@ -106,7 +106,7 @@ căn cứ. → Đây chính là metric `giai_thich_co_can_cu`.
 - **Vào:** `instance` đã qua `check_input` về mặt cấu trúc (task tồn tại, có `task_type`,
   `required_skill`, `patient_id`, cửa giờ) nhưng `est_duration_min` có thể thiếu.
 - **Ra:** cùng `instance` với mỗi task đã có `est_duration_min` (phút nguyên) **và** `duration_source`
-  ∈ {`given`, `model:<ver>`, `lookup:mcgill`, …}. Nếu không có cơ sở để ước (vd `task_type` lạ) →
+  ∈ {`given`, `model:<ver>`, `lookup:simmons-2025-table3`, …}. Nếu không có cơ sở để ước (vd `task_type` lạ) →
   trả danh sách field thiếu để L1 hỏi lại, **không đoán bừa**.
 - **Ranh giới chống "bịa" (đọc kỹ — giữ điểm B13–B18 đã khoá):**
   - Chỉ ước lượng **thời lượng/workload** từ feature đã xác nhận (acuity, task_type, adl…). KHÔNG bịa
@@ -114,8 +114,15 @@ căn cứ. → Đây chính là metric `giai_thich_co_can_cu`.
   - **KHÔNG lấy mốc ghi chép log (charttime−storetime, starttime−endtime sự kiện) làm thời lượng task.**
     Đó là lý do B16/B17 mong agent hỏi lại — L3 phải tôn trọng.
   - Nếu input đã cho `est_duration_min` (`duration_source=given`) → giữ nguyên, không ghi đè.
-- **Fallback:** chưa học được từ dữ liệu → bảng tra `task_type × acuity → duration` (McGill), gắn
-  `duration_source="lookup:mcgill"`. L3 là lookup hay mô hình học → chốt sau EDA (feature-spec §5).
+- **Fallback theo Preliminary:** dùng mean phút theo đúng công việc trong
+  [`ward_task_duration.csv`](../data/reference/ward_task_duration.csv), làm tròn lên phút nguyên,
+  gắn `duration_source="lookup:simmons-2025-table3"`. Điều kiện công việc và staffing phải khớp
+  định nghĩa nguồn. Nếu có thông tin cho thấy task phức tạp hơn phạm vi nguồn hoặc cần đồng bộ
+  hai staff ngoài schema hiện tại, yêu cầu duration/điều kiện thực hiện đã xác nhận để L1 hỏi tiếp.
+- **Phạm vi dữ liệu:** McGill cung cấp thang điểm và định nghĩa workload; bản đã kiểm chưa có
+  phép đổi điểm thành phút. Simmons cung cấp aggregate theo task, thiếu chiều acuity/ADL.
+  L3 hỏi bổ sung khi thiếu cơ sở thay vì tự đặt hệ số. EDA Zenodo đánh giá activity OR.
+  [Đối chiếu nguồn và quyết định](eda-report.md#3-feature-và-schema-bàn-giao).
 - **Không rò rỉ:** không dùng kết quả phân công (ai được giao, tải cuối ca) làm feature (feature-spec §2).
 
 ### 3.4 L4 · Patient taxonomy + baseline — Khoa
@@ -176,8 +183,10 @@ Mỗi người code module của mình dựa trên **stub** của 3 module kia, 
   hội thoại/refusal ngay được.
 - **L2 (Lam)** chờ L3: giả định `est_duration_min` đã có trong input (đúng như CP2). Có thể dev CP-SAT
   độc lập, verify bằng `validate_plan`.
-- **L3 (Tiệp)** chờ dữ liệu: bắt đầu bằng `lookup:mcgill` (bảng tra), thay bằng mô hình học nếu EDA cho
-  phép. Test độc lập: instance thiếu duration → ra instance đủ duration + source.
+- **L3 (Tiệp)** dùng bảng Simmons và cặp `l3_input`/`instance` trong
+  [`data/preliminary/instances.json`](../data/preliminary/instances.json) để test điền phút và nguồn,
+  giữ duration đã cho. Hướng dẫn và dữ liệu cho các lớp nằm ở
+  [`data/preliminary/README.md`](../data/preliminary/README.md).
 - **L4 (Khoa)** độc lập: `baseline_allocate` chỉ cần instance; chấm bằng `validate_plan` có sẵn.
 
 Điểm hợp nhất: tất cả gặp nhau ở **`plan` schema (§2.2)** và **`validate_plan` (§3.5)**. Ai pass được
@@ -187,3 +196,6 @@ oracle là ghép được.
 
 Contract v1 (CP3, 28/11). Chủ: Khoa. Đổi giao diện → PR sửa file này + ping cả nhóm; không đổi lén trong
 code rồi để người khác vỡ. Lịch sử đổi ghi ở cuối PR.
+
+Cập nhật nguồn L3 trên nhánh Preliminary ngày 28/11 theo nghiên cứu của Lam và Kiên,
+đối chiếu lại workbook McGill và Table 3 Simmons. Khoa duyệt bản cập nhật khi tích hợp.
