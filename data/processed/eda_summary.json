@@ -1,0 +1,131 @@
+{
+  "counts": {
+    "zenodo_segments": 11074,
+    "zenodo_episodes": 2390,
+    "zenodo_total_hours": 1545.3,
+    "zenodo_staff": 37,
+    "eicu_patients": 2520,
+    "eicu_wards": 292,
+    "eicu_hospitals": 186,
+    "eicu_shift_tasks": 28697,
+    "nrp_ward_scenarios": 12,
+    "nrp_unique_shifts": 73,
+    "harmonized_tasks": 28697
+  },
+  "zenodo_nursing_class_hours": {
+    "Break": 173.0,
+    "Non-Nursing": 448.9,
+    "Nursing": 923.4
+  },
+  "eicu_spearman_vs_events24h": {
+    "acuity_score": 0.0492,
+    "aps_score": 0.1337,
+    "adl_dependency": 0.1954,
+    "is_ventilated": 0.0799,
+    "isolation_precaution": 0.1177,
+    "nursing_events_per_24h": 1.0
+  },
+  "harmonized_spearman_vs_task_min": {
+    "acuity_score": 0.2196,
+    "adl_dependency": 0.3292,
+    "isolation_precaution": 0.1598,
+    "is_ventilated": 0.211,
+    "calibrated_shift_task_min": 1.0,
+    "workload_points": 0.9907
+  },
+  "missing_pct_nonzero": {
+    "eicu_patients": {
+      "region": 8.33,
+      "numbedscategory": 13.73,
+      "gender": 0.16,
+      "age": 0.16,
+      "apache_score": 27.06,
+      "aps_score": 27.06,
+      "careplan_acuity": 56.39,
+      "isolation_type": 99.21,
+      "equipment_list": 96.23,
+      "actualhospitalmortality": 27.06
+    },
+    "l3_zenodo_real": {
+      "shift_end_hhmmss": 8.87,
+      "shift_length_min": 8.87
+    },
+    "harmonized_tasks": {
+      "zenodo_n_episodes": 38.17,
+      "zenodo_iqr_min": 38.17
+    }
+  },
+  "l3_decision_gate": {
+    "n_episodes_evaluated": 2202,
+    "models_5fold_cv": {
+      "Baseline_Median": {
+        "mae_min": 28.75,
+        "rmse_min": 56.67,
+        "r2": -0.1259
+      },
+      "Ridge": {
+        "mae_min": 25.29,
+        "rmse_min": 43.48,
+        "r2": 0.334
+      },
+      "RandomForest": {
+        "mae_min": 24.41,
+        "rmse_min": 43.96,
+        "r2": 0.3198
+      },
+      "GradientBoosting": {
+        "mae_min": 24.41,
+        "rmse_min": 44.48,
+        "r2": 0.3023
+      }
+    },
+    "top_10_features_gb": [
+      {
+        "feature": "nurseflow_task_type_procedure_care",
+        "importance": 0.5187
+      },
+      {
+        "feature": "time_of_day_cos",
+        "importance": 0.0573
+      },
+      {
+        "feature": "staff_prior_task_type_count",
+        "importance": 0.0534
+      },
+      {
+        "feature": "time_of_day_sin",
+        "importance": 0.0399
+      },
+      {
+        "feature": "eicu_hourly_mean_adl",
+        "importance": 0.0382
+      },
+      {
+        "feature": "day_of_week_Thursday",
+        "importance": 0.0196
+      },
+      {
+        "feature": "shift_code_Late-A",
+        "importance": 0.018
+      },
+      {
+        "feature": "shift_length_min_clean",
+        "importance": 0.0174
+      },
+      {
+        "feature": "task_name_Preoperative Visit",
+        "importance": 0.0173
+      },
+      {
+        "feature": "nurseflow_task_type_coordination",
+        "importance": 0.0165
+      }
+    ]
+  },
+  "figures": [
+    "docs\\figures\\eda_01_zenodo_duration_and_share.png",
+    "docs\\figures\\eda_02_eicu_acuity_adl_workload.png",
+    "docs\\figures\\eda_03_nrp_coverage_and_skills.png",
+    "docs\\figures\\eda_04_hourly_density_and_l3_gate.png"
+  ]
+}
