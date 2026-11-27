@@ -79,7 +79,10 @@ def build_harmonized_datasets(proc_dir: Path) -> dict:
         .rename("staff_prior_task_type_count")
     )
     z["staff_prior_task_type_count"] = staff_type_prior
+    z["shift_end_was_missing"] = z["shift_end_hhmmss"].isna().astype(int)
+    z["shift_end_hhmmss"] = z["shift_end_hhmmss"].fillna("UNSPECIFIED")
     z["shift_length_min_clean"] = pd.to_numeric(z["shift_length_min"], errors="coerce").fillna(480.0)
+    z["shift_length_min"] = z["shift_length_min_clean"]
 
     # Enrich with hourly clinical demand density prior from eICU
     eicu_hourly_prior = (
@@ -129,8 +132,13 @@ def build_harmonized_datasets(proc_dir: Path) -> dict:
         )
         .round(2)
     )
-    # Fallback overall clinical nursing median if rare type
+    # Fallback overall clinical nursing median/IQR if rare/unobserved task_type in OR Zenodo
     overall_med = float(z_non_break["actual_duration_min"].median())
+    overall_mean = float(z_non_break["actual_duration_min"].mean())
+    overall_iqr = float(
+        np.percentile(z_non_break["actual_duration_min"], 75)
+        - np.percentile(z_non_break["actual_duration_min"], 25)
+    )
 
     # ------------------------------------------------------------------
     # 3) Full 3-dataset harmonized NurseFlow task table (eICU x NRP x Zenodo)
@@ -155,14 +163,17 @@ def build_harmonized_datasets(proc_dir: Path) -> dict:
     t = t.merge(ward_census, on=["hospital_id", "ward_id"], how="left")
     t = t.merge(shift_census, on=["ward_id", "shift_block_8h"], how="left")
 
-    # Join Zenodo empirical timing priors by nurseflow_task_type
+    # Join Zenodo empirical timing priors by nurseflow_task_type (with *_was_missing flag)
     t = t.merge(
         type_dur_stats.rename(columns={"nurseflow_task_type": "task_type"}),
         on="task_type",
         how="left",
     )
+    t["zenodo_prior_was_missing"] = t["zenodo_median_min"].isna().astype(int)
+    t["zenodo_n_episodes"] = t["zenodo_n_episodes"].fillna(0).astype(int)
     t["zenodo_median_min"] = t["zenodo_median_min"].fillna(overall_med)
-    t["zenodo_mean_min"] = t["zenodo_mean_min"].fillna(overall_med)
+    t["zenodo_mean_min"] = t["zenodo_mean_min"].fillna(round(overall_mean, 2))
+    t["zenodo_iqr_min"] = t["zenodo_iqr_min"].fillna(round(overall_iqr, 2))
 
     # Join NRP ward staffing & skill-level stats (Normal scenario baseline + Overload + Absence metrics)
     nrp_ward_normal = n_wards[n_wards["scenario"] == "Normal"][
