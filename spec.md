@@ -130,6 +130,7 @@ flowchart LR
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
 | 27/11 19:42 (UTC+7) | Bổ sung cách tái lập số liệu MIMIC, hướng dẫn nhập JSON, kết quả kiểm 18 câu hội thoại và giới hạn đo impact. | B16–B18 dùng số liệu nguồn. CLI cần hướng dẫn đầu vào rõ ràng khi nhận văn bản. |
+| 28/11 00:29 (UTC+7) | Thêm `evidence/workload-research.md`: nghiên cứu sơ bộ workload, thời gian nghỉ và đề xuất threshold (30/45 phút nghỉ liên tục, trần workload theo quỹ thời gian ca). Chưa đổi solver, metric hay chuẩn "đạt". | Cần căn cứ có nguồn cho ngưỡng nghỉ và workload trước khi đưa vào solver ở CP3; metric CP2 giữ nguyên. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
