@@ -1,4 +1,11 @@
 # Bộ khung (run.py, codebase/, eval/run_eval.py, cost/simulate.py) chỉ dùng thư viện chuẩn của Python 3.10+:
-# KHÔNG cần pip install để chạy.
+# KHÔNG cần pip install để chạy bộ khung.
 # Nhóm dùng thêm thư viện (vd SDK của nhà cung cấp model) thì ghi tên gói vào đây, mỗi dòng một gói,
 # và ghi lệnh cài vào README: python -m pip install -r requirements.txt
+
+# Data pipeline & EDA (scripts/data/, scripts/eda/)
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.5
+matplotlib>=3.8
+seaborn>=0.13
