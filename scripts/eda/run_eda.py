@@ -452,7 +452,7 @@ Kiểm định tương quan Spearman trên `{len(e_pat):,}` lượt bệnh nhân
 
 - **Zenodo `l3_task_features_zenodo_real.csv`:** Tỷ lệ thiếu khác 0% chỉ ở `shift_end_hhmmss` / `shift_length_min` (`7.1%` tập tác vụ thuộc ca tách `Split-Shift`/`≪,≫` vốn không ghi giờ kết thúc ca cố định — đã chuẩn hoá bằng `shift_length_min_clean` = `480.0` phút). Các cột định danh & thời lượng thiếu **0%**.
 - **eICU `eicu_patients.csv` (cột thiếu > 0%):**
-  `{missing_eicu_nonzero}` (trong đó `isolation_type` và `equipment_list` thiếu nghĩa là không có cách ly/thiết bị đặc biệt; `careplan_acuity` thiếu ở ~36.8% lượt — đã fallback theo `apache_score` đúng nguyên tắc `feature-spec.md`).
+  `{missing_eicu_nonzero}` (trong đó `isolation_type` và `equipment_list` thiếu nghĩa là không có cách ly/thiết bị đặc biệt; `careplan_acuity` thiếu ở `{missing_eicu_nonzero.get('careplan_acuity', 0)}%` lượt — đã fallback theo `apache_score` đúng nguyên tắc `feature-spec.md`).
 - **Bảng ghép `harmonized_nurseflow_tasks.csv`:** `{missing_harm_nonzero if missing_harm_nonzero else '0% missing ở toàn bộ 41 cột sau imputation.'}`
 - **Cardinality đáng chú ý:** `task_name` (`46` giá trị), `nurseflow_task_type` (`15` trong Zenodo, `8` trong eICU), `ward_id` (`292`), `compat_group_key` (`{harm_tasks['compat_group_key'].nunique()}`). Với cột high-cardinality như `ward_id` / `task_name` khi mở rộng sang DL/GBT nên giữ `nurseflow_task_type` hoặc dùng frequency/target encoding.
 
