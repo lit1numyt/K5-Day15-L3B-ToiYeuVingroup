@@ -85,6 +85,8 @@ Thực thể & trường mà engine tiêu thụ (★ = trường must-have, ◇ 
 | Dữ liệu huấn luyện estimator | (loại task, acuity, bối cảnh) → thời lượng/điểm workload thực tế | McGill methodology, MatchRN perceived workload |
 | Baseline (Tiệp) | quy tắc phân theo đầu bệnh nhân + metric trên cùng instance | suy ra, không phải đi tìm |
 
+> **Cột/feature cụ thể cho mô hình** (để EDA + feature engineering): xem [`feature-spec.md`](feature-spec.md).
+
 **Thông điệp chính cho nhóm dữ liệu:** không dataset đơn lẻ nào có task cấp điều dưỡng kèm đủ
 thời lượng + deadline + vị trí + thiết bị. Nên **việc EDA** là: (a) đặc tả phân phối thực của
 acuity→workload, thời lượng task, luật coverage, mức staffing từ McGill + benchmarks + MatchRN; và
