@@ -1,7 +1,7 @@
 > Đây là khung repo nộp bài. Điền mọi chỗ `____`, giữ nguyên tên các mục. **Mục 0 xoá đi sau khi tạo repo xong.**
 > Giờ, mốc, luật, rubric: xem `README.md`, `02-guide.md`, `03-rubric.md` trong repo đề (bộ đề BTC phát).
 
-# [Tên nhóm] — [Tên lát cắt]
+# Tôi Yêu Vingroup — NurseFlow (lập phân công điều dưỡng theo ca)
 
 **Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md). **Điền TEAMS.md đúng format**: khi chấm và đánh giá, BTC quét file này để ghép điểm cho từng người.
 
@@ -115,7 +115,7 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 2–3 dòng (bắt buộc): nhóm dùng công cụ AI nào để làm gì, người kiểm lại phần nào. Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
 
-____
+NurseFlow dùng AI (LLM qua `codebase/ai.py`) làm quyết định trung tâm: từ danh sách điều dưỡng trực + công việc của một ca, đề xuất **bản nháp kế hoạch phân công cả ca** (gán việc theo kỹ năng, gom việc tương thích, chừa giờ nghỉ, giữ coverage). Điều dưỡng trưởng ca duyệt rồi mới áp dụng — AI không tự quyết. *(chi tiết `spec.md` §4 · bài toán đầy đủ `Problem-Gap-Solution.md`)*
 
 ## File mẫu — điền ở bước nào
 
