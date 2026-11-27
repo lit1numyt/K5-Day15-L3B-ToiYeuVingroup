@@ -24,15 +24,7 @@ Dữ liệu CP2 gồm MatchRN, các thống kê từ MIMIC-IV Demo và fixture k
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
-| Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |
-
-- **Impact / tháng** của hướng chọn = __ người × __ lần × __ phút = __ — nguồn từng thừa số: __ (không có nguồn thì ghi rõ *(tự ước tính)*)
-- Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):
-- Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8):
+Nhóm chọn lập bản nháp phân công ở đầu ca. Chỉ số impact cần đo là số phút trưởng ca tiết kiệm mỗi lần lập lịch, nhân với số ca lập lịch trong tháng. CP2 đã đo tải và thời gian chuyển phòng trên fixture. Dữ liệu hiện có chưa đo hai thừa số tại khoa mục tiêu nên chưa có ước lượng impact theo tháng. [Bằng chứng](evidence/summary.md)
 
 ## §3. Giải pháp tương tự *(guide 2.1)*
 - Medtasker/NurseXT: học cách thể hiện task, deadline, chuyển giao và lý do;
@@ -129,7 +121,7 @@ flowchart LR
 
 ## §10. Phân công & changelog
 - **Trần Trung Kiên** nghiên cứu yêu cầu dữ liệu cho NurseFlow, so sánh MIMIC-IV-ED Demo với MIMIC-IV Clinical Database Demo và trình bày cách khai thác hai nguồn trong `data_research.md`.
-- **Nguyễn Đức Khương Lam** đối chiếu các bảng nguồn với schema của Khoa, thực hiện EDA, xây dựng dữ liệu đầu ca và kiểm luồng lập lịch bằng 15 fixture. Lam bổ sung 6 câu benchmark có nguồn, gồm B16–B18 dựa trên hai bộ dữ liệu Kiên đề xuất. Phần thiết kế cũng tham khảo khảo sát tài liệu của Tiệp.
+- **Nguyễn Đức Khương Lam** nghiên cứu và đề xuất phương án dữ liệu, engine và đánh giá CP2. Lam đối chiếu các bảng nguồn với schema của Khoa, thực hiện EDA, xây dựng dữ liệu đầu ca và kiểm luồng lập lịch bằng 15 fixture. Lam bổ sung 6 câu benchmark có nguồn, gồm B16–B18 dựa trên hai bộ dữ liệu Kiên đề xuất. Phần thiết kế cũng tham khảo khảo sát tài liệu của Tiệp.
 - Codex hỗ trợ đối chiếu nguồn, viết mã và kiểm tra. [Khai báo dùng AI](docs/ai-usage.md)
 - Nhật ký thay đổi — **mọi thay đổi sau CP2 19:30 Thứ Sáu 27/11 phải có dòng ở đây**:
 
@@ -137,7 +129,7 @@ flowchart LR
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| 27/11 19:42 (UTC+7) | Bổ sung cách tái lập số liệu MIMIC, hướng dẫn nhập JSON, kết quả kiểm 18 câu hội thoại và giới hạn đo impact. | B16–B18 dùng số liệu nguồn. CLI cần hướng dẫn đầu vào rõ ràng khi nhận văn bản. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

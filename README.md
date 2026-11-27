@@ -4,6 +4,10 @@
 
 ## Kết quả CP2
 
+Lam phụ trách phương án dữ liệu, engine phân công và đánh giá CP2. Kiên nghiên cứu yêu cầu dữ liệu, so sánh và đề xuất hai nguồn MIMIC-IV Demo. [Phân công](TEAMS.md)
+
+Hồ sơ nộp gồm [canvas](canvas.md), [sơ đồ và chuẩn đạt](spec.md), [data card](data/DATA_CARD.md), [benchmark](eval/benchmark.csv) và [4 metric](eval/metric_spec.yaml). Chuẩn đạt là ≥80% câu qua, đồng thời an toàn cứng và từ chối đúng đều đạt 100%.
+
 **Thu bằng chứng pain.** Nhóm khai thác số liệu công khai theo Track B. Trong bộ MatchRN, 703/1.962 bản ghi (35,83%) báo làm thêm ít nhất 30 phút ở ca gần nhất. Chỉ số này phản ánh áp lực trong ca. [Nguồn và cách đếm](evidence/summary.md)
 
 **Xác nhận khung chạy hết luồng.** Đã chạy `run.py` từ terminal bằng Python 3. F01 đi qua kiểm dữ liệu → lập lịch → kiểm ràng buộc → trả bản nháp đủ 3 task, 3 khung nghỉ, yêu cầu trưởng ca duyệt. F07 thiếu thời lượng T1 và trả `need_info` đúng trường. Cả hai lệnh thoát mã 0. Provider CP2 là `fake`, token vào/ra đều bằng 0. [Contract đầu ca](docs/cp2-contract.md)
@@ -14,13 +18,13 @@ MODEL_PROVIDER=fake python3 -B eval/check_cp2.py
 python3 -B -m unittest discover -s tests -v
 ```
 
-Ví dụ chạy F01 trong Bash
+Lệnh chạy F01 trong Bash
 
 ```bash
 python3 -B -c 'import json; print(json.dumps(json.load(open("data/cp2-cases.json"))[0]["input"]))' | MODEL_PROVIDER=fake python3 -B run.py
 ```
 
-Windows dùng `python` thay `python3`. Benchmark có 18 câu, gồm 12 câu nhóm đã chốt và 6 câu bổ sung từ MatchRN/MIMIC. Bộ kiểm engine có 15 fixture JSON. Lệnh `check` còn nhắc mốc 20–30 câu của CP3. [Hồ sơ đánh giá](eval/README.md)
+Trên Windows, dùng `python` thay `python3`. Bộ benchmark có 18 câu hội thoại, gồm 6 câu từ dữ liệu công khai. F01–F15 kiểm riêng engine bằng đầu vào JSON. [Kết quả đánh giá](eval/README.md)
 
 ## Chạy trong 3 phút
 

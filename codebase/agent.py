@@ -24,8 +24,13 @@ def answer(text: str) -> dict:
     else:
         issues = estimate_workload(instance)
         if issues:
+            message = "Cần bổ sung dữ liệu; không suy ra task/kỹ năng từ staffing tổng hợp."
+            if not isinstance(instance, dict):
+                message = ("Để lập lịch đầu ca, hãy gửi một đối tượng JSON gồm shift (ca), "
+                           "nurses (điều dưỡng), patients (bệnh nhân) và tasks (công việc). "
+                           "Xem ví dụ nhập liệu trong README.")
             result = {"status": "need_info", "missing_fields": issues,
-                      "warnings": ["Cần bổ sung dữ liệu; không suy ra task/kỹ năng từ staffing tổng hợp."]}
+                      "warnings": [message]}
         else:
             result = solve_allocation(instance)
             if result["status"] == "draft":

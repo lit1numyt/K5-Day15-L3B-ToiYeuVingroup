@@ -28,6 +28,11 @@ class AgentTests(unittest.TestCase):
     def test_unstructured_input_asks_for_data(self):
         result=json.loads(answer("lập ca cho tôi")["output"])
         self.assertEqual(result["status"],"need_info")
+        message = " ".join(result["warnings"])
+        self.assertIn("JSON", message)
+        for field in ("shift", "nurses", "patients", "tasks"):
+            self.assertIn(field, message)
+        self.assertFalse(result.get("assignments"))
 
     def test_arbitrary_new_ids_do_not_lookup_fixture_answers(self):
         data=json.loads((ROOT/"data/cp2-cases.json").read_text(encoding="utf-8"))[0]["input"]
