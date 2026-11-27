@@ -46,14 +46,8 @@
       "equipment_list": 96.23,
       "actualhospitalmortality": 27.06
     },
-    "l3_zenodo_real": {
-      "shift_end_hhmmss": 8.87,
-      "shift_length_min": 8.87
-    },
-    "harmonized_tasks": {
-      "zenodo_n_episodes": 38.17,
-      "zenodo_iqr_min": 38.17
-    }
+    "l3_zenodo_real": {},
+    "harmonized_tasks": {}
   },
   "l3_decision_gate": {
     "n_episodes_evaluated": 2202,

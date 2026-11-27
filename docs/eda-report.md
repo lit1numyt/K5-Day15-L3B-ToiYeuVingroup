@@ -82,10 +82,10 @@ Kiểm định tương quan Spearman trên `2,520` lượt bệnh nhân eICU (`n
 
 ## 4. Missingness & Cardinality
 
-- **Zenodo `l3_task_features_zenodo_real.csv`:** Tỷ lệ thiếu khác 0% chỉ ở `shift_end_hhmmss` / `shift_length_min` (`7.1%` tập tác vụ thuộc ca tách `Split-Shift`/`≪,≫` vốn không ghi giờ kết thúc ca cố định — đã chuẩn hoá bằng `shift_length_min_clean` = `480.0` phút). Các cột định danh & thời lượng thiếu **0%**.
+- **Zenodo `l3_task_features_zenodo_real.csv`:** `0% missing ở toàn bộ cột sau chuẩn hoá Split-Shift (đánh dấu cờ shift_end_was_missing = 1 cho 212 tập ca ≪,≫, fallback shift_length_min = 480.0 phút). `
 - **eICU `eicu_patients.csv` (cột thiếu > 0%):**
   `{'region': 8.33, 'numbedscategory': 13.73, 'gender': 0.16, 'age': 0.16, 'apache_score': 27.06, 'aps_score': 27.06, 'careplan_acuity': 56.39, 'isolation_type': 99.21, 'equipment_list': 96.23, 'actualhospitalmortality': 27.06}` (trong đó `isolation_type` và `equipment_list` thiếu nghĩa là không có cách ly/thiết bị đặc biệt; `careplan_acuity` thiếu ở `56.39%` lượt — đã fallback theo `apache_score` đúng nguyên tắc `feature-spec.md`).
-- **Bảng ghép `harmonized_nurseflow_tasks.csv`:** `{'zenodo_n_episodes': 38.17, 'zenodo_iqr_min': 38.17}`
+- **Bảng ghép `harmonized_nurseflow_tasks.csv`:** `0% missing ở toàn bộ 42 cột sau imputation (đánh dấu cờ zenodo_prior_was_missing = 1 cho vitals/hygiene).`
 - **Cardinality đáng chú ý:** `task_name` (`46` giá trị), `nurseflow_task_type` (`15` trong Zenodo, `8` trong eICU), `ward_id` (`292`), `compat_group_key` (`64`). Với cột high-cardinality như `ward_id` / `task_name` khi mở rộng sang DL/GBT nên giữ `nurseflow_task_type` hoặc dùng frequency/target encoding.
 
 ---

@@ -49,7 +49,7 @@ Chi tiết phân tích EDA đa nguồn, biểu đồ và kết quả cổng quy�
 | Dùng để làm gì | bảng huấn luyện L3 không rò rỉ dữ liệu (`l3_task_features_zenodo_real.csv`), bảng đầy đủ schema [`feature-spec.md`](../docs/feature-spec.md) (`harmonized_nurseflow_tasks.csv`), và bảng kịch bản khoa-ca cho solver L2 / baseline L4 (`harmonized_ward_shift_instances.csv`) |
 | Từ đâu | ghép nối Dataset 1–3 qua [`scripts/data/harmonize_and_engineer.py`](../scripts/data/harmonize_and_engineer.py) · EDA qua [`scripts/eda/run_eda.py`](../scripts/eda/run_eda.py) |
 | Xử lý những bước gì | ánh xạ phân loại tác vụ & khung giờ · mã hoá cyclical `time_of_day_sin/cos` · gắn `shift_phase`, `compat_group_key`, `required_skill_level`, hiệu chỉnh `calibrated_shift_task_min` (có gắn nhãn rõ là proxy hiệu chỉnh, không phải đo bấm giờ trực tiếp trên eICU) |
-| Số dòng / số đoạn | `l3_task_features_zenodo_real.csv`: 2.390 × 35 cột · `harmonized_nurseflow_tasks.csv`: 28.697 × 41 cột · `harmonized_ward_shift_instances.csv`: 12 × 25 cột |
+| Số dòng / số đoạn | `l3_task_features_zenodo_real.csv`: 2.390 × 36 cột · `harmonized_nurseflow_tasks.csv`: 28.697 × 42 cột · `harmonized_ward_shift_instances.csv`: 12 × 25 cột (đều 0% missing) |
 | Phiên bản / ngày lấy | 2026-11-28 |
 | Nhãn | kết hợp `thật` (Dataset 1–3) + `proxy hiệu chỉnh` (thời lượng điều chỉnh theo acuity/ADL) |
 | Giới hạn | trường `calibrated_shift_task_min` và `workload_points` trên bảng ghép là ước lượng quy đổi chéo nguồn (chỉ dùng cho mô phỏng/L2, không thay thế bằng chứng bấm giờ lâm sàng trực tiếp) |
