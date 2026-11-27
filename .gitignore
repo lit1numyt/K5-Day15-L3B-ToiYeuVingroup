@@ -1,0 +1,22 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Python caches & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+
+# Large raw external archives (do not push >50MB binaries to GitHub)
+data/eicu-collaborative-research-database-demo-2.0.1/
+*.sqlite3
+*.sqlite3.gz
