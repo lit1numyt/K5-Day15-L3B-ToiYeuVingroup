@@ -72,7 +72,7 @@ này không xác thực mô hình clinical, không có nhãn task duration để
 
 ## 5. Đối chiếu MIMIC với schema của Khoa
 
-Theo hướng nghiên cứu trong `data_research.md` của Kiên, đã kiểm hai bản Demo v2.2 bằng cách giải nén CSV và đếm các dòng dữ liệu sau header. Kết quả phục vụ câu hỏi liệu có thể lấy `actual_duration_min` cho mỗi task và dựng roster một khoa ở đầu ca hay không. [Clinical Demo](https://physionet.org/content/mimic-iv-demo/2.2/) · [ED Demo](https://physionet.org/content/mimic-iv-ed-demo/2.2/)
+Trong `data_research.md`, Trần Trung Kiên so sánh dữ liệu cấp cứu với dữ liệu nội trú và ICU. Kiên đề xuất nối thông tin phân loại ở ED với các sự kiện chăm sóc để xem nguồn nào cung cấp được thời điểm, thời lượng và nhân lực cho từng task. Lam đối chiếu khóa, cột thời gian và số bản ghi trong các bảng CSV của hai bản v2.2. Bảng dưới ghi kết quả dùng cho B16–B18. [MIMIC-IV-ED Demo](https://physionet.org/content/mimic-iv-ed-demo/2.2/ed/#files-panel) · [MIMIC-IV Clinical Database Demo](https://physionet.org/content/mimic-iv-demo/2.2/)
 
 | Bảng | Phép kiểm trên bản phát hành | Ý nghĩa đối với bài làm |
 |---|---|---|

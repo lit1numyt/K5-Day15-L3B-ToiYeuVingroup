@@ -12,8 +12,8 @@
 | STT | Họ và tên | Mã học viên | Vai trò | Phần việc chính |
 |---|---|---|---|---|
 | 1 | Đồng Hữu Nguyên Khoa | 2A202604000 | Đội trưởng | Điều phối nhóm, luồng chính `codebase/agent.py`, spec & canvas |
-| 2 | Nguyễn Đức Khương Lam | 2A202604020 | Thành viên | Engine xếp lịch / tối ưu ca trực (Intelligent Shift Orchestrator) |
-| 3 | Trần Trung Kiên | 2A202604014 | Thành viên | Sinh kịch bản khoa bệnh synthetic + bộ câu thử/đánh giá |
+| 2 | Nguyễn Đức Khương Lam | 2A202604020 | Thành viên | Lập lịch đầu ca, phân tích dữ liệu, xây dựng kịch bản và kiểm kết quả CP2 |
+| 3 | Trần Trung Kiên | 2A202604014 | Thành viên | Nghiên cứu yêu cầu dữ liệu, so sánh và đề xuất hai bộ MIMIC-IV Demo cho NurseFlow |
 | 4 | Nguyễn Quang Tiệp | 2A202603946 | Thành viên | Dashboard hiển thị khối lượng/lịch + mô phỏng chi phí |
 
 **Quy tắc điền**

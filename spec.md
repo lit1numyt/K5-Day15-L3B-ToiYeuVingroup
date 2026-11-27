@@ -128,7 +128,8 @@ flowchart LR
 - Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào:
 
 ## §10. Phân công & changelog
-- CP2: Lam hoàn thành EDA, contract đầu ca, bộ fixture và validator. Phần hỗ trợ gồm luồng lập lịch, kiểm đầu ra và 6 câu benchmark có nguồn. Căn cứ gồm kiến trúc và schema của Khoa, nghiên cứu MIMIC của Kiên và khảo sát tài liệu của Tiệp.
+- **Trần Trung Kiên** nghiên cứu yêu cầu dữ liệu cho NurseFlow, so sánh MIMIC-IV-ED Demo với MIMIC-IV Clinical Database Demo và trình bày cách khai thác hai nguồn trong `data_research.md`.
+- **Nguyễn Đức Khương Lam** đối chiếu các bảng nguồn với schema của Khoa, thực hiện EDA, xây dựng dữ liệu đầu ca và kiểm luồng lập lịch bằng 15 fixture. Lam bổ sung 6 câu benchmark có nguồn, gồm B16–B18 dựa trên hai bộ dữ liệu Kiên đề xuất. Phần thiết kế cũng tham khảo khảo sát tài liệu của Tiệp.
 - Codex hỗ trợ đối chiếu nguồn, viết mã và kiểm tra. [Khai báo dùng AI](docs/ai-usage.md)
 - Nhật ký thay đổi — **mọi thay đổi sau CP2 19:30 Thứ Sáu 27/11 phải có dòng ở đây**:
 
