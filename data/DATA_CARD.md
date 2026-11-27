@@ -1,60 +1,11 @@
-# Data card — dữ liệu bản chạy thử dùng
+# Data card — NurseFlow CP2
 
-> Điền ở guide bước 2.4 (bản đầu ở CP2, đủ ở CP3). Ôn lại: ngày 6 · lab ngày 6. Chấm ở rubric R4.
-> Một trang. Mỗi dataset một mục. Dữ liệu chạy thử (bài mẫu, thông báo mẫu, đoạn transcript…) để trong thư mục `data/` này.
-> Không commit nguyên tài liệu khoá, dữ liệu cá nhân thật hay nguyên file data BTC cấp — chỉ đoạn trích ngắn, bản viết lại, hoặc số đã tổng hợp.
+| Nguồn | Đơn vị và xử lý | Sử dụng trong CP2 |
+|---|---|---|
+| [MatchRN v1.0.0](https://zenodo.org/records/15248072), dữ liệu 2018 | 1.962 bản ghi khảo sát, 62 cột. Đối chiếu MD5 của CSV, codebook và readme. Đếm overtime trên các giá trị hợp lệ. Trích 5 bộ staffing khác nhau đầu tiên, bỏ ID, tuổi và thời điểm. | Bằng chứng áp lực trong ca. B13–B15 dùng các dòng dữ liệu 1, 2, 3. F11–F15 dùng 5 trích để kiểm đầu vào thiếu roster và task. |
+| [MIMIC-IV Clinical Demo 2.2](https://physionet.org/content/mimic-iv-demo/2.2/) và [ED Demo 2.2](https://physionet.org/content/mimic-iv-ed-demo/2.2/), Johnson và cộng sự | Đọc header, đếm dòng và đối chiếu khóa trên dữ liệu PhysioNet theo nghiên cứu của Kiên. Chỉ giữ số tổng hợp. | B16–B18 kiểm giới hạn của thời điểm ghi thuốc, khoảng thủ thuật và lượt ED khi lập kế hoạch đầu ca. |
+| Fixture kỹ thuật của Lam | F01–F10 sinh xác định bằng `data/build_cp2.py`, không dùng số ngẫu nhiên. Mã kỹ năng A/B/Z, ca 120 phút, capacity 105, nghỉ 15 và đổi phòng 2 phút là giả định kỹ thuật. | Kiểm lập lịch, validator, cân bằng tải, đổi phòng, nghỉ và từ chối yêu cầu vượt quyền. |
 
-> **Stub cho nhóm EDA (Lam, Kiên):** mỗi nguồn dưới đây là một mục cần điền trong lúc tìm/kiểm dữ liệu.
-> Xem trường cần lấy ở [`docs/solution-design.md`](../docs/solution-design.md) §5. Điền `__`, sửa nếu nguồn không dùng được.
+**Quyền sử dụng.** MatchRN do Martins, Musy và Simon công bố. Metadata ghi CC BY 4.0, readme ghi CC BY-NC 4.0. Nhóm ghi nguồn và sử dụng trong phạm vi học tập phi thương mại. Hai bản MIMIC Demo do PhysioNet công bố theo ODbL 1.0. Repo chỉ lưu thống kê, tham chiếu nguồn và fixture.
 
-## Dataset 1 · Nurse Rostering Benchmarks (schedulingbenchmarks.org) + KU Leuven
-
-| | |
-|---|---|
-| Dùng để làm gì | luật coverage, ràng buộc staffing, cấu trúc ca/instance cho engine L2 |
-| Từ đâu | công khai: schedulingbenchmarks.org/nrp · gent.cs.kuleuven.be/nurserostering.html |
-| Xử lý những bước gì | lọc __ · làm sạch __ · ánh xạ sang schema NurseFlow __ (script: `…`) |
-| Số dòng / số đoạn | __ |
-| Phiên bản / ngày lấy | __ |
-| Nhãn | thật |
-| Giới hạn | **không có task cấp điều dưỡng kèm thời lượng/deadline** — cần synthetic lấp |
-
-## Dataset 2 · McGill Nursing Workload Tool
-
-| | |
-|---|---|
-| Dùng để làm gì | phương pháp tính workload/acuity → nạp L3 estimator (hoặc rule-based) |
-| Từ đâu | công khai: borealisdata.ca (doi:10.5683/SP4/L1ZBLT) |
-| Xử lý những bước gì | trích thang điểm workload __ · ánh xạ acuity→thời lượng __ |
-| Số dòng / số đoạn | __ |
-| Phiên bản / ngày lấy | __ |
-| Nhãn | thật |
-| Giới hạn | là phương pháp tính, không phải lịch cá nhân từng điều dưỡng |
-
-## Dataset 3 · MatchRN (University of Basel)
-
-| | |
-|---|---|
-| Dùng để làm gì | mẫu ca trực thực, staffing, perceived workload → kiểm tính thực tế + feature cho L3 |
-| Từ đâu | công khai: zenodo.org/records/15248072 |
-| Xử lý những bước gì | lọc __ · ẩn danh __ · tổng hợp __ |
-| Số dòng / số đoạn | __ |
-| Phiên bản / ngày lấy | __ |
-| Nhãn | thật |
-| Giới hạn | __ (cần kiểm có task cấp giờ không) |
-
-## Dataset 4 · Kịch bản khoa `synthetic` (nhóm tự sinh)
-
-| | |
-|---|---|
-| Dùng để làm gì | instance đầy đủ (nurse·patient·task·ward) cho engine + bộ câu thử |
-| Từ đâu | sinh có seed, tham số hoá theo phân phối thực từ Dataset 1–3 |
-| Xử lý những bước gì | sinh __ · kiểm tay __ dòng (người kiểm: __) |
-| Số dòng / số đoạn | __ |
-| Phiên bản / ngày lấy | __ |
-| Nhãn | `synthetic` |
-| Giới hạn | **không phải bằng chứng pain**; phải khớp phân phối thực để đáng tin |
-
-**Data `synthetic` (nhóm tự sinh):** ghi cách sinh (prompt / script), seed, người kiểm, số dòng đã kiểm tay. Data tự dựng **không phải bằng chứng pain**.
-
-*(Tuỳ chọn · CMS Payroll-Based Journal: số liệu staffing bối cảnh — thêm mục nếu dùng.)*
+**Quyết định theo schema của Khoa.** L2 nhận thời lượng task đã cung cấp. Với L3, các nguồn đã kiểm chưa cho phép gán số phút điều dưỡng trực tiếp làm từng task một cách đáng tin cậy. CP2 yêu cầu bổ sung khi thiếu thời lượng. Không có tập train/test hoặc kết quả huấn luyện. McGill cung cấp thang điểm workload, UHHC cung cấp ví dụ về cấu trúc lịch chăm sóc tại nhà. Các nguồn này chỉ dùng để đối chiếu. [Phân tích dữ liệu](../evidence/data-mining.md) · [Contract](../docs/cp2-contract.md)

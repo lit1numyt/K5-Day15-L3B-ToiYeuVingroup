@@ -1,48 +1,7 @@
-# Tổng hợp bằng chứng pain
+# Bằng chứng về áp lực trong ca
 
-> Điền ở guide bước 1.2, xong trước **CP3 10:00 Thứ Bảy 28/11**. Chấm ở rubric R1.
-> Ba nguồn ngang nhau — tối thiểu **≥1 nguồn đạt ngưỡng**. Mạnh nhất: đào data ra insight → hỏi người dùng để kiểm lại (hoặc ngược lại).
+**Phương pháp thu bằng chứng của Track B là khai thác số liệu công khai có nguồn.** Nhóm phân tích dữ liệu khảo sát MatchRN do Martins, Musy và Simon công bố, thu năm 2018 tại 26 bệnh viện Thụy Sĩ. Đây là dữ liệu thứ cấp. Nhóm chưa thực hiện phỏng vấn hoặc phát khảo sát riêng. [Nguồn MatchRN](https://zenodo.org/records/15248072) · [Guide BTC, mục 1.2](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/02-guide.md#b1-2)
 
-## 1. Nguồn đã dùng
+Trong 1.962 bản ghi có số phút làm thêm hợp lệ ở ca gần nhất (cột `C2.6`), **703 bản ghi (35,83%)** báo làm thêm ít nhất 30 phút. Trung vị là 12 phút. [Cách đếm và 5 ví dụ đối chiếu](data-mining.md) · [Script tái lập](analyze_matchrn.py)
 
-| Nguồn | Đạt ngưỡng? | File |
-|---|---|---|
-| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` |
-| Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | ☐ | `evidence/interviews/P1.md`… |
-| Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☐ | `evidence/survey/` |
-
-## 2. Số chính
-
-- Đào data: __/__ (__%) …
-- Phỏng vấn: __/3 người gặp *(n nhỏ không ghi %)* · số lần / tháng: P1 __, P2 __, P3 __ · mỗi lần mất __–__ phút
-- Khảo sát: n = __ · __/__ (__%) …
-
-Phỏng vấn nhiều vai thì đếm theo từng vai, không cộng chung.
-
-| | Vai | Gặp pain? | Số lần / 1 tháng qua | Lần gần nhất mất | Đang xoay xở bằng |
-|---|---|---|---|---|---|
-| P1 | | | | | |
-| P2 | | | | | |
-| P3 | | | | | |
-
-## 3. ≥5 trích dẫn hoặc ví dụ nguyên văn (có nguồn, bỏ tên)
-
-1. "…" — P_ / dòng data __ / phiếu khảo sát __
-2.
-3.
-4.
-5.
-
-## 4. Các nguồn có khớp nhau không
-
-Data nói __; người dùng nói __. Khớp / lệch ở đâu, vì sao: __
-
-## 5. Kết luận
-
-Giả thuyết ở `evidence/hypothesis.md`: **đúng / sai / phải đổi** — vì __. Điều vẫn chưa biết: __
-
-## Lịch hẹn (dùng cho CP2 — chỉ ghi vai và giờ, không tên)
-
-| Vai | Giờ hẹn | Đã xong? |
-|---|---|---|
-| | | |
+Kết quả cho thấy làm thêm giờ xuất hiện trong mẫu khảo sát. Khảo sát tài liệu của Tiệp bổ sung bối cảnh về theo dõi và chuyển giao công việc. Phần CP2 chưa đo trực tiếp thời gian lập phân công tại khoa mục tiêu, nguyên nhân làm thêm giờ hoặc mức tiết kiệm nhờ NurseFlow.

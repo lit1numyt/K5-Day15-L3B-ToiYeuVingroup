@@ -1,0 +1,113 @@
+{
+  "source": "https://zenodo.org/records/15248072",
+  "version": "1.0.0",
+  "retrieved": "2026-11-27",
+  "rows": 1962,
+  "columns": 62,
+  "md5": {
+    "Nurse_shift_staffing_workloadMatchRN_2018.csv": "0725f8a99c3c7b4712ca6bab38923dbf",
+    "Nurse_shift_staffing_workloadMatchRN_2018_Codebook.xlsx": "212696ce01a3c52951e06d4d080292be",
+    "Nurse_shift_staffing_workload_MatchRN_Readme.rtf": "f6452947183b173ed89bd3789585c849"
+  },
+  "overtime": {
+    "valid_n": 1962,
+    "at_least_30_min": 703,
+    "missing_or_invalid": 0
+  },
+  "numeric": {
+    "shiftlength": {
+      "unit": "hours",
+      "valid_n": 1962,
+      "missing_or_invalid": 0,
+      "min": 4.0,
+      "median": 8.6,
+      "max": 15.0
+    },
+    "C2.6": {
+      "unit": "minutes",
+      "valid_n": 1962,
+      "missing_or_invalid": 0,
+      "min": 0.0,
+      "median": 12.0,
+      "max": 365.0
+    },
+    "C2.9": {
+      "unit": "patients per respondent",
+      "valid_n": 1962,
+      "missing_or_invalid": 0,
+      "min": 1.0,
+      "median": 7.0,
+      "max": 40.0
+    },
+    "patients": {
+      "unit": "patients on unit",
+      "valid_n": 1962,
+      "missing_or_invalid": 0,
+      "min": 1.0,
+      "median": 19.0,
+      "max": 53.0
+    },
+    "RNs": {
+      "unit": "RN count",
+      "valid_n": 1962,
+      "missing_or_invalid": 0,
+      "min": 1.0,
+      "median": 3.0,
+      "max": 12.0
+    },
+    "other": {
+      "unit": "other nursing staff count",
+      "valid_n": 1962,
+      "missing_or_invalid": 0,
+      "min": 0.0,
+      "median": 1.0,
+      "max": 10.0
+    },
+    "C3.4": {
+      "unit": "NASA-TLX temporal demand 1–20",
+      "valid_n": 1958,
+      "missing_or_invalid": 4,
+      "min": 1.0,
+      "median": 12.0,
+      "max": 20.0
+    }
+  },
+  "exact_duplicate_rows": 0,
+  "staffing_excerpts": [
+    {
+      "source_data_row": 1,
+      "shift_hours": 9.0,
+      "unit_patient_count": 23,
+      "rn_count": 2,
+      "other_staff_count": 0
+    },
+    {
+      "source_data_row": 2,
+      "shift_hours": 9.0,
+      "unit_patient_count": 13,
+      "rn_count": 3,
+      "other_staff_count": 3
+    },
+    {
+      "source_data_row": 3,
+      "shift_hours": 8.0,
+      "unit_patient_count": 28,
+      "rn_count": 6,
+      "other_staff_count": 6
+    },
+    {
+      "source_data_row": 4,
+      "shift_hours": 9.0,
+      "unit_patient_count": 28,
+      "rn_count": 2,
+      "other_staff_count": 0
+    },
+    {
+      "source_data_row": 6,
+      "shift_hours": 9.0,
+      "unit_patient_count": 27,
+      "rn_count": 4,
+      "other_staff_count": 2
+    }
+  ]
+}

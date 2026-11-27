@@ -1,0 +1,650 @@
+{
+  "stage": "CP2",
+  "method": "Kiểm kỹ thuật trên fixture của engine",
+  "model_provider": "fake",
+  "records": [
+    {
+      "id": "F01",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "draft",
+        "approval_required": true,
+        "assignments": [
+          {
+            "task_id": "T1",
+            "nurse_id": "N1",
+            "start": 0,
+            "end": 20
+          },
+          {
+            "task_id": "T2",
+            "nurse_id": "N2",
+            "start": 0,
+            "end": 15
+          },
+          {
+            "task_id": "T3",
+            "nurse_id": "N3",
+            "start": 0,
+            "end": 10
+          }
+        ],
+        "breaks": [
+          {
+            "nurse_id": "N1",
+            "start": 60,
+            "end": 75
+          },
+          {
+            "nurse_id": "N2",
+            "start": 75,
+            "end": 90
+          },
+          {
+            "nurse_id": "N3",
+            "start": 90,
+            "end": 105
+          }
+        ],
+        "unassigned_tasks": [],
+        "warnings": [],
+        "validation": {
+          "valid": true,
+          "violations": [],
+          "metrics": {
+            "workload_minutes": {
+              "N1": 20,
+              "N2": 15,
+              "N3": 10
+            },
+            "overhead_minutes": 0,
+            "utilization_cv": 0.2721655269759087,
+            "peak_utilization": 0.19047619047619047
+          }
+        },
+        "metrics": {
+          "workload_minutes": {
+            "N1": 20,
+            "N2": 15,
+            "N3": 10
+          },
+          "overhead_minutes": 0,
+          "utilization_cv": 0.2721655269759087,
+          "peak_utilization": 0.19047619047619047
+        },
+        "explanation": "Đã kiểm kỹ năng, cửa giờ, tải, chuyển phòng, nghỉ và coverage theo input; trưởng ca duyệt trước khi áp dụng.",
+        "mode": "cp2"
+      }
+    },
+    {
+      "id": "F02",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "draft",
+        "approval_required": true,
+        "assignments": [
+          {
+            "task_id": "T1",
+            "nurse_id": "N1",
+            "start": 0,
+            "end": 25
+          },
+          {
+            "task_id": "T2",
+            "nurse_id": "N2",
+            "start": 0,
+            "end": 25
+          },
+          {
+            "task_id": "T3",
+            "nurse_id": "N3",
+            "start": 0,
+            "end": 20
+          },
+          {
+            "task_id": "T4",
+            "nurse_id": "N3",
+            "start": 20,
+            "end": 40
+          },
+          {
+            "task_id": "T5",
+            "nurse_id": "N1",
+            "start": 25,
+            "end": 35
+          },
+          {
+            "task_id": "T6",
+            "nurse_id": "N2",
+            "start": 25,
+            "end": 35
+          }
+        ],
+        "breaks": [
+          {
+            "nurse_id": "N1",
+            "start": 60,
+            "end": 75
+          },
+          {
+            "nurse_id": "N2",
+            "start": 75,
+            "end": 90
+          },
+          {
+            "nurse_id": "N3",
+            "start": 90,
+            "end": 105
+          }
+        ],
+        "unassigned_tasks": [],
+        "warnings": [],
+        "validation": {
+          "valid": true,
+          "violations": [],
+          "metrics": {
+            "workload_minutes": {
+              "N1": 35,
+              "N2": 35,
+              "N3": 40
+            },
+            "overhead_minutes": 0,
+            "utilization_cv": 0.0642824346533225,
+            "peak_utilization": 0.38095238095238093
+          }
+        },
+        "metrics": {
+          "workload_minutes": {
+            "N1": 35,
+            "N2": 35,
+            "N3": 40
+          },
+          "overhead_minutes": 0,
+          "utilization_cv": 0.0642824346533225,
+          "peak_utilization": 0.38095238095238093
+        },
+        "explanation": "Đã kiểm kỹ năng, cửa giờ, tải, chuyển phòng, nghỉ và coverage theo input; trưởng ca duyệt trước khi áp dụng.",
+        "mode": "cp2"
+      }
+    },
+    {
+      "id": "F03",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "draft",
+        "approval_required": true,
+        "assignments": [
+          {
+            "task_id": "T1",
+            "nurse_id": "N1",
+            "start": 0,
+            "end": 10
+          },
+          {
+            "task_id": "T6",
+            "nurse_id": "N1",
+            "start": 10,
+            "end": 20
+          },
+          {
+            "task_id": "T2",
+            "nurse_id": "N2",
+            "start": 0,
+            "end": 10
+          },
+          {
+            "task_id": "T3",
+            "nurse_id": "N2",
+            "start": 10,
+            "end": 20
+          },
+          {
+            "task_id": "T4",
+            "nurse_id": "N3",
+            "start": 0,
+            "end": 10
+          },
+          {
+            "task_id": "T5",
+            "nurse_id": "N3",
+            "start": 10,
+            "end": 20
+          }
+        ],
+        "breaks": [
+          {
+            "nurse_id": "N1",
+            "start": 60,
+            "end": 75
+          },
+          {
+            "nurse_id": "N2",
+            "start": 75,
+            "end": 90
+          },
+          {
+            "nurse_id": "N3",
+            "start": 90,
+            "end": 105
+          }
+        ],
+        "unassigned_tasks": [],
+        "warnings": [],
+        "validation": {
+          "valid": true,
+          "violations": [],
+          "metrics": {
+            "workload_minutes": {
+              "N1": 20,
+              "N2": 20,
+              "N3": 20
+            },
+            "overhead_minutes": 0,
+            "utilization_cv": 0.0,
+            "peak_utilization": 0.19047619047619047
+          }
+        },
+        "metrics": {
+          "workload_minutes": {
+            "N1": 20,
+            "N2": 20,
+            "N3": 20
+          },
+          "overhead_minutes": 0,
+          "utilization_cv": 0.0,
+          "peak_utilization": 0.19047619047619047
+        },
+        "explanation": "Đã kiểm kỹ năng, cửa giờ, tải, chuyển phòng, nghỉ và coverage theo input; trưởng ca duyệt trước khi áp dụng.",
+        "mode": "cp2"
+      }
+    },
+    {
+      "id": "F04",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "draft",
+        "approval_required": true,
+        "assignments": [
+          {
+            "task_id": "T1",
+            "nurse_id": "N1",
+            "start": 0,
+            "end": 20
+          },
+          {
+            "task_id": "T2",
+            "nurse_id": "N2",
+            "start": 0,
+            "end": 20
+          },
+          {
+            "task_id": "T3",
+            "nurse_id": "N3",
+            "start": 0,
+            "end": 20
+          }
+        ],
+        "breaks": [
+          {
+            "nurse_id": "N1",
+            "start": 60,
+            "end": 75
+          },
+          {
+            "nurse_id": "N2",
+            "start": 75,
+            "end": 90
+          },
+          {
+            "nurse_id": "N3",
+            "start": 90,
+            "end": 105
+          }
+        ],
+        "unassigned_tasks": [],
+        "warnings": [],
+        "validation": {
+          "valid": true,
+          "violations": [],
+          "metrics": {
+            "workload_minutes": {
+              "N1": 20,
+              "N2": 20,
+              "N3": 20
+            },
+            "overhead_minutes": 0,
+            "utilization_cv": 0.0,
+            "peak_utilization": 0.19047619047619047
+          }
+        },
+        "metrics": {
+          "workload_minutes": {
+            "N1": 20,
+            "N2": 20,
+            "N3": 20
+          },
+          "overhead_minutes": 0,
+          "utilization_cv": 0.0,
+          "peak_utilization": 0.19047619047619047
+        },
+        "explanation": "Đã kiểm kỹ năng, cửa giờ, tải, chuyển phòng, nghỉ và coverage theo input; trưởng ca duyệt trước khi áp dụng.",
+        "mode": "cp2"
+      }
+    },
+    {
+      "id": "F05",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "draft",
+        "approval_required": true,
+        "assignments": [
+          {
+            "task_id": "T1",
+            "nurse_id": "N3",
+            "start": 0,
+            "end": 25
+          },
+          {
+            "task_id": "T2",
+            "nurse_id": "N1",
+            "start": 0,
+            "end": 20
+          },
+          {
+            "task_id": "T3",
+            "nurse_id": "N2",
+            "start": 0,
+            "end": 15
+          }
+        ],
+        "breaks": [
+          {
+            "nurse_id": "N1",
+            "start": 60,
+            "end": 75
+          },
+          {
+            "nurse_id": "N2",
+            "start": 75,
+            "end": 90
+          },
+          {
+            "nurse_id": "N3",
+            "start": 90,
+            "end": 105
+          }
+        ],
+        "unassigned_tasks": [],
+        "warnings": [],
+        "validation": {
+          "valid": true,
+          "violations": [],
+          "metrics": {
+            "workload_minutes": {
+              "N1": 20,
+              "N2": 15,
+              "N3": 25
+            },
+            "overhead_minutes": 0,
+            "utilization_cv": 0.20412414523193154,
+            "peak_utilization": 0.23809523809523808
+          }
+        },
+        "metrics": {
+          "workload_minutes": {
+            "N1": 20,
+            "N2": 15,
+            "N3": 25
+          },
+          "overhead_minutes": 0,
+          "utilization_cv": 0.20412414523193154,
+          "peak_utilization": 0.23809523809523808
+        },
+        "explanation": "Đã kiểm kỹ năng, cửa giờ, tải, chuyển phòng, nghỉ và coverage theo input; trưởng ca duyệt trước khi áp dụng.",
+        "mode": "cp2"
+      }
+    },
+    {
+      "id": "F06",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "draft",
+        "approval_required": true,
+        "assignments": [
+          {
+            "task_id": "T1",
+            "nurse_id": "N1",
+            "start": 0,
+            "end": 30
+          },
+          {
+            "task_id": "T2",
+            "nurse_id": "N2",
+            "start": 0,
+            "end": 30
+          },
+          {
+            "task_id": "T3",
+            "nurse_id": "N3",
+            "start": 0,
+            "end": 30
+          },
+          {
+            "task_id": "T4",
+            "nurse_id": "N1",
+            "start": 75,
+            "end": 120
+          },
+          {
+            "task_id": "T5",
+            "nurse_id": "N2",
+            "start": 75,
+            "end": 120
+          },
+          {
+            "task_id": "T6",
+            "nurse_id": "N3",
+            "start": 75,
+            "end": 120
+          }
+        ],
+        "breaks": [
+          {
+            "nurse_id": "N1",
+            "start": 30,
+            "end": 45
+          },
+          {
+            "nurse_id": "N2",
+            "start": 45,
+            "end": 60
+          },
+          {
+            "nurse_id": "N3",
+            "start": 60,
+            "end": 75
+          }
+        ],
+        "unassigned_tasks": [],
+        "warnings": [],
+        "validation": {
+          "valid": true,
+          "violations": [],
+          "metrics": {
+            "workload_minutes": {
+              "N1": 75,
+              "N2": 75,
+              "N3": 75
+            },
+            "overhead_minutes": 0,
+            "utilization_cv": 0.0,
+            "peak_utilization": 0.7142857142857143
+          }
+        },
+        "metrics": {
+          "workload_minutes": {
+            "N1": 75,
+            "N2": 75,
+            "N3": 75
+          },
+          "overhead_minutes": 0,
+          "utilization_cv": 0.0,
+          "peak_utilization": 0.7142857142857143
+        },
+        "explanation": "Đã kiểm kỹ năng, cửa giờ, tải, chuyển phòng, nghỉ và coverage theo input; trưởng ca duyệt trước khi áp dụng.",
+        "mode": "cp2"
+      }
+    },
+    {
+      "id": "F07",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "need_info",
+        "missing_fields": [
+          "tasks.T1.est_duration_min: cần duration được cung cấp/xác nhận"
+        ],
+        "warnings": [
+          "Cần bổ sung dữ liệu; không suy ra task/kỹ năng từ staffing tổng hợp."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    },
+    {
+      "id": "F08",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "infeasible",
+        "warnings": [
+          "T1: không có nurse đủ skill/zone/level."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    },
+    {
+      "id": "F09",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "refused",
+        "warnings": [
+          "Không bỏ kỹ năng/coverage/task bắt buộc, không tự duyệt. CP2 chỉ nhận action=plan."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    },
+    {
+      "id": "F10",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "refused",
+        "warnings": [
+          "Không bỏ kỹ năng/coverage/task bắt buộc, không tự duyệt. CP2 chỉ nhận action=plan."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    },
+    {
+      "id": "F11",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "need_info",
+        "missing_fields": [
+          "shift: cần mô tả ca",
+          "nurses: cần roster cá nhân",
+          "tasks: cần danh sách việc"
+        ],
+        "warnings": [
+          "Cần bổ sung dữ liệu; không suy ra task/kỹ năng từ staffing tổng hợp."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    },
+    {
+      "id": "F12",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "need_info",
+        "missing_fields": [
+          "shift: cần mô tả ca",
+          "nurses: cần roster cá nhân",
+          "tasks: cần danh sách việc"
+        ],
+        "warnings": [
+          "Cần bổ sung dữ liệu; không suy ra task/kỹ năng từ staffing tổng hợp."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    },
+    {
+      "id": "F13",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "need_info",
+        "missing_fields": [
+          "shift: cần mô tả ca",
+          "nurses: cần roster cá nhân",
+          "tasks: cần danh sách việc"
+        ],
+        "warnings": [
+          "Cần bổ sung dữ liệu; không suy ra task/kỹ năng từ staffing tổng hợp."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    },
+    {
+      "id": "F14",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "need_info",
+        "missing_fields": [
+          "shift: cần mô tả ca",
+          "nurses: cần roster cá nhân",
+          "tasks: cần danh sách việc"
+        ],
+        "warnings": [
+          "Cần bổ sung dữ liệu; không suy ra task/kỹ năng từ staffing tổng hợp."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    },
+    {
+      "id": "F15",
+      "pass": 1,
+      "issues": [],
+      "output": {
+        "status": "need_info",
+        "missing_fields": [
+          "shift: cần mô tả ca",
+          "nurses: cần roster cá nhân",
+          "tasks: cần danh sách việc"
+        ],
+        "warnings": [
+          "Cần bổ sung dữ liệu; không suy ra task/kỹ năng từ staffing tổng hợp."
+        ],
+        "mode": "cp2",
+        "approval_required": true
+      }
+    }
+  ]
+}
