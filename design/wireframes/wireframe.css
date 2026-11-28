@@ -1,0 +1,114 @@
+/* NurseFlow wireframes — dashboard components on top of style/style.css.
+   Only uses tokens from style.css; never hard-codes a colour/radius/font.
+   Forces LIGHT mode (kit is OS-driven; these mocks are light on any OS). */
+
+/* ── Force light ─────────────────────────────────────────────── */
+:root { color-scheme: light; }
+@media (prefers-color-scheme: dark) {
+  :root { --background: #fff; --foreground: #5c5a56; --border: #e0e0e0; --card: #f6f6f4; }
+}
+
+/* ── Portal header (extends .top) ────────────────────────────── */
+.brand { display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; }
+.brand a { font-size: 1.125rem; font-weight: 600; color: var(--foreground); text-decoration: none; }
+.brand .ctx { font-size: .8rem; color: var(--muted); }
+.userbar { display: flex; align-items: center; gap: .75rem; font-size: .875rem; color: var(--muted); flex-wrap: wrap; }
+.userbar .name { color: var(--foreground); }
+.userbar .sep::before { content: "·"; margin-right: .75rem; }
+
+.page-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+.role-tag { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
+  border: 1px solid var(--border); border-radius: var(--radius-full); padding: .15rem .6rem; }
+
+/* ── Overview strip ──────────────────────────────────────────── */
+.ov { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  border: 1px solid var(--border); border-radius: var(--radius-lg); margin: 1.25rem 0 2rem; }
+.ov .cell { padding: .9rem 1.25rem; border-left: 1px solid var(--border); }
+.ov .cell:first-child { border-left: 0; }
+.ov .num { font-size: 1.5rem; font-weight: 600; color: var(--foreground); line-height: 1.1; }
+.ov .num.accent { color: var(--accent); }
+.ov .lab { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: .3rem; }
+
+/* ── Board split (timeline | chat) ───────────────────────────── */
+.board { display: grid; gap: 2.5rem; align-items: start; }
+@media (min-width: 64rem) { .board { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.panel-h { font-size: 1.1rem; font-weight: 600; margin: 0 0 .75rem; }
+.panel-sub { font-size: .8rem; color: var(--muted); margin: -.4rem 0 1rem; }
+
+/* ── Horizontal timeline (nurse lanes + lead nurses share this) ── */
+/* Each row = [label | area]. Bars are positioned by left/width % of the area,
+   where the area spans the whole shift, so % maps directly to time. Robust:
+   no cross-column offset math, no per-bar pixel coordinates. */
+.htl { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.htl .r { display: grid; grid-template-columns: 4.25rem minmax(0, 1fr); }
+.htl .r + .r { border-top: 1px solid var(--border); }
+.htl .lab { font-size: .72rem; color: var(--muted); padding: .3rem .5rem; display: flex; align-items: center;
+  border-right: 1px solid var(--border); background: var(--card); }
+.htl .area { position: relative; min-width: 0; }
+.htl .axis { height: 1.4rem; }
+.htl .axis .hh { position: absolute; top: .3rem; font: .62rem var(--font-mono); color: var(--muted); white-space: nowrap; }
+.htl .axis .hh.end { right: .3rem; }
+.htl .track { height: 2.4rem;
+  background: repeating-linear-gradient(to right, var(--border) 0 1px, transparent 1px calc(100% / 8)); }
+.htl .bar { position: absolute; top: .4rem; height: 1.6rem; display: flex; align-items: center;
+  border: 1px solid var(--border); border-left: 2px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--background); font-size: .68rem; line-height: 1.1; padding: 0 .35rem; overflow: hidden;
+  white-space: nowrap; color: var(--foreground); }
+.htl .bar.break { border-left-color: var(--muted); border-style: dashed; background: var(--card); }
+
+/* ── Subtask order flow (interleaved 1.1 → 2.1 → 1.2 → 2.2) ───── */
+.flow { display: flex; flex-direction: column; gap: .5rem; }
+.flow .grp { border-left: 2px solid var(--border); padding: .1rem 0 .1rem .75rem; display: flex; flex-direction: column; gap: .4rem; }
+.flow .grp.concur { border-left-color: var(--accent); }
+.flow .eyebrow { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.flow .step { display: flex; align-items: center; gap: .5rem; font-size: .875rem; }
+.flow .idx { font: .75rem var(--font-mono); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: .05rem .35rem; color: var(--muted); flex: none; }
+.flow .k { font-size: .68rem; border: 1px solid var(--border); border-radius: var(--radius-full); padding: .05rem .45rem; color: var(--muted); white-space: nowrap; margin-left: auto; }
+.flow .arrow { color: var(--muted); font-size: .9rem; padding-left: .2rem; }
+
+/* ── Chat ────────────────────────────────────────────────────── */
+.chat { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: var(--radius-lg);
+  min-height: 24rem; max-height: 34rem; }
+.chat .log { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; min-height: 0; }
+.msg { max-width: 85%; }
+.msg .who { font-size: .66rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .25rem; }
+.msg .bub { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: .5rem .7rem; font-size: .9rem; line-height: 1.5; }
+.msg.ai { align-self: flex-start; }
+.msg.ai .bub { background: var(--card); }
+.msg.me { align-self: flex-end; }
+.msg.me .who { text-align: right; }
+.chat .composer { border-top: 1px solid var(--border); padding: .75rem; display: flex; flex-direction: column; gap: .6rem; }
+.chat .composer .row { display: flex; gap: .5rem; }
+.chat .composer input { flex: 1; }
+
+/* request card (lead inbox) */
+.req { border: 1px solid var(--border); border-left: 2px solid var(--accent);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0; padding: .6rem .75rem; align-self: stretch; max-width: 100%; }
+.req .who { font-size: .66rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.req p { margin: .3rem 0 0; font-size: .9rem; line-height: 1.45; }
+.req .act { display: flex; gap: .5rem; margin-top: .6rem; }
+.btn.sm { font-size: .8rem; padding: .3rem .7rem; }
+
+/* ── Small helpers ───────────────────────────────────────────── */
+.note { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.legend-row { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .72rem; color: var(--muted); margin-top: .6rem; }
+.legend-row span { display: flex; align-items: center; gap: .4rem; }
+.swatch { width: .9rem; height: .9rem; border: 1px solid var(--border); border-left: 2px solid var(--accent); border-radius: 0 2px 2px 0; flex: none; }
+.swatch.break { border-left-color: var(--muted); border-style: dashed; background: var(--card); }
+
+/* ── One-screen app shell (nurse page: body.app) ─────────────── */
+/* Below 64rem the page flows and scrolls normally. At desktop it locks to the
+   viewport: the timeline + order sit above, the chat fills and scrolls inside. */
+@media (min-width: 64rem) {
+  body.app { height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+  body.app > main { flex: 1; min-height: 0; display: flex; flex-direction: column;
+    padding-top: 1.25rem; padding-bottom: 1.25rem; }
+  body.app footer { display: none; }
+  body.app .page-head { margin-top: .5rem; }
+  body.app .ov { margin: 1rem 0 1.5rem; }
+  body.app .tlwrap { margin-bottom: 1.5rem; flex: none; }
+  body.app .board { flex: 1; min-height: 0; align-items: stretch; }
+  body.app .board > section { min-height: 0; display: flex; flex-direction: column; }
+  body.app .orderpane { overflow-y: auto; }
+  body.app .chat { max-height: none; height: 100%; min-height: 0; }
+}
