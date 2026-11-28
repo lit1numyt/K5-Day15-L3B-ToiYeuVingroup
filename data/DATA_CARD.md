@@ -20,6 +20,17 @@ lookup lấy mean Simmons và làm tròn lên. Cả ba ca đã kiểm tự độ
 Các ca là dữ liệu kiểm giao diện, tách khỏi dữ liệu quan sát và pain evidence.
 [Hướng dẫn sử dụng](preliminary/README.md).
 
+**Population synthetic cho taxonomy L4 (Khoa).** `synthetic/patient_population.csv` (3.000 bệnh nhân,
+seed=42, cột `data_kind=synthetic`) sinh xác định bằng `scripts/l4/make_patient_population.py` từ thang
+ordinal của fixture: `acuity_score∈1..5`, `adl_dependency∈1..4`, `isolation_precaution∈{0,1}`, trọng số
+lấy mẫu nghiêng về mức thấp (ghi trong script). **Đây KHÔNG phải bệnh nhân thật và KHÔNG phải pain
+evidence** — chỉ là đầu vào để *suy ra* ranh giới tier của taxonomy (không có nguồn patient–workload
+liên kết: McGill `no_observed_patient_samples`). `scripts/l4/train_taxonomy.py` chạy **KMeans 1D** trên
+`workload_score=acuity+adl+isolation` (k=3, low/med/high) để tìm điểm cắt tier tự nhiên — đơn điệu theo
+cấu trúc; artifact ship ở `codebase/L4/taxonomy_model.pkl` + `taxonomy_meta.json` (ghi phiên bản sklearn,
+seed, checksum). `workload_weight` là điểm **tương đối, không phải phút**. Runtime `classify_patient` nạp
+model; thiếu sklearn/pickle thì fallback về đúng điểm cắt đã học (stdlib). [Hình](../docs/figures/l4_patient_clusters.png).
+
 **Nguồn và quyền sử dụng.** Zenodo CC BY 4.0, ghi attribution Hara và các bước dịch/làm sạch
 của nhóm. Bảng Simmons trích số liệu tổng hợp có nguồn, bài báo CC BY-NC-ND 4.0,
 giấy phép dataset raw riêng chưa được xác minh. [Zenodo](https://zenodo.org/records/20754938) · [Simmons, Table 3](https://pmc.ncbi.nlm.nih.gov/articles/PMC12303744/) · [Giấy phép bản xuất bản](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jgs.19507).
