@@ -138,6 +138,7 @@ flowchart LR
 | 28/11 09:25 (UTC+7) | Nối model thật (`ai.py`), tích hợp L3 vào pipeline `tools.py`/`agent.py`, thêm bộ điều phối hội thoại tiếng Việt và chạy eval lượt 1 (`eval/run-1.csv`). | Hoàn thiện L1 theo [module contract](docs/module-contract.md) §3; 146 unit test đạt và `eval/run-1.csv` đạt 17/20 (85%) trên B01–B20. |
 | 28/11 09:47 (UTC+7) | Tinh gọn [báo cáo L2](eval/cp3-engine-report.md) và cập nhật [hồ sơ đánh giá](eval/README.md). | Phân biệt kết quả đối chứng kỹ thuật L2 với lượt AI thật trước khi ghép CP-SAT. |
 | 28/11 10:41 (UTC+7) | Tích hợp demo của Khoa với L3–CP-SAT–validator, đồng bộ cấu hình API, nhánh hội thoại trực tiếp và nội dung wireframe; ghi nhận lượt GPT-4o mini cùng lưu ý nhãn chấm. | PR #16 cần đồng bộ với develop; kiểm lại script, giao diện và ràng buộc trên bản ghép. |
+| 28/11 11:55 (UTC+7) | Nâng cấp bộ quy tắc tổng quát `POLICY` trong `codebase/agent.py` và chạy lượt eval 3 (`eval/run-3.csv`). | Khắc phục lỗi an toàn kỹ năng (`B01`), over-ask/suy vô nghiệm sớm (`B02`, `B07`, `B08`) và bẫy tổng hợp (`B09`, `B14`, `B15`); đạt 20/20 (100%) và 100% `an_toan_cung`. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
