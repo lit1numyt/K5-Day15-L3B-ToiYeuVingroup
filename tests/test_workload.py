@@ -328,7 +328,7 @@ class SimmonsLookupTests(unittest.TestCase):
             with self.subTest(task_type=task_type):
                 report = self.fill(ward_task("T1", task_type, staff_required=2))
                 self.assertEqual(report["status"], "need_info")
-                self.assertIn("schema hiện chưa hỗ trợ", " ".join(report["missing_fields"]))
+                self.assertIn("chỉ giao một điều dưỡng", " ".join(report["missing_fields"]))
 
     def test_mobility_outside_source_definition(self):
         for scope in (None, "transport", "transfer_lift", "repositioning"):
