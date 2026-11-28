@@ -36,9 +36,9 @@
     "5": 0.7856,
     "6": 0.8871
   },
-  "sklearn_version": "1.7.2",
-  "numpy_version": "1.26.4",
-  "python_version": "3.10.22",
+  "sklearn_version": "1.9.1",
+  "numpy_version": "2.5.3",
+  "python_version": "3.12.14",
   "seed": 42,
   "population_file": "data/synthetic/patient_population.csv",
   "population_sha256": "1b5e4efa4363b4cc800a8967fff760f55489bf94e6d2d0a88641c2f800b0f858",

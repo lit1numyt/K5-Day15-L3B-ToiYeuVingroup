@@ -9,7 +9,8 @@ numpy>=1.26
 scikit-learn>=1.5
 matplotlib>=3.8
 
-# L4 taxonomy (codebase/L4/): model KMeans đã ship build bằng scikit-learn 1.7.2 / numpy 1.26.4
-# (ghi trong codebase/L4/taxonomy_meta.json). Lệch phiên bản -> classify_patient tự fallback về
-# rule stdlib nên run.py vẫn chạy khi thiếu sklearn. Build lại pickle:
+# L4 taxonomy (codebase/L4/): model KMeans đã ship build bằng scikit-learn 1.9.1 / numpy 2.5.3
+# (py3.12, conda env ml-arm; phiên bản chính xác ghi trong codebase/L4/taxonomy_meta.json). Lệch
+# phiên bản -> classify_patient tự fallback về rule stdlib nên run.py vẫn chạy khi thiếu sklearn.
+# Build lại pickle:
 #   python scripts/l4/make_patient_population.py && python scripts/l4/train_taxonomy.py
