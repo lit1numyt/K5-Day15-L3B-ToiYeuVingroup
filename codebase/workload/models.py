@@ -23,6 +23,10 @@ SIMMONS_COLUMNS = ("task_type", "source_task", "mean_duration_min", "unit", "sou
                    "source_doi", "context", "data_kind", "staffing_note")
 SIMMONS_UNIT = "minutes_per_patient_episode"
 SIMMONS_CONTEXT = "US_ACE_older_acute_inpatients"
+SIMMONS_DOI = "10.1111/jgs.19507"
+SIMMONS_TABLE = "3"
+SIMMONS_REQUIRED_VALUES = ("task_type", "source_task", "mean_duration_min", "unit", "source_table",
+                           "source_doi", "context", "staffing_note")
 
 # Trường điều kiện TÙY CHỌN trên task — ĐỀ XUẤT, chưa có trong contract (cần Khoa/Kiên chốt).
 # L3 chỉ đọc, không bao giờ tự điền các trường này.
@@ -36,6 +40,11 @@ SIMMONS_MOBILITY_SCOPES = {"bed_to_chair", "walking"}
 
 class SourceTableError(RuntimeError):
     """Bảng nguồn thiếu hoặc sai cấu trúc: lỗi kỹ thuật, không phải need_info."""
+
+
+def nonblank(value):
+    """Chuỗi thật, có ký tự khác khoảng trắng. Không ép kiểu."""
+    return isinstance(value, str) and bool(value.strip())
 
 
 class DurationEstimator:
@@ -182,48 +191,63 @@ class SimmonsLookupEstimator(DurationEstimator):
             raise SourceTableError(path.name + " rỗng")
         table = {}
         for line, row in enumerate(rows, start=2):
-            task_type = (row["task_type"] or "").strip()
-            if not task_type or task_type in table:
-                raise SourceTableError("%s dòng %d: task_type rỗng/trùng" % (path.name, line))
+            where = "%s dòng %d" % (path.name, line)
+            empty = [c for c in SIMMONS_REQUIRED_VALUES if not nonblank(row.get(c))]
+            if empty:
+                raise SourceTableError("%s: thiếu giá trị %s" % (where, ", ".join(empty)))
+            task_type = row["task_type"].strip()
+            if task_type in table:
+                raise SourceTableError("%s: task_type trùng" % where)
             if row["unit"] != SIMMONS_UNIT or row["context"] != SIMMONS_CONTEXT:
-                raise SourceTableError("%s dòng %d: unit/context khác nguồn đã kiểm" % (path.name, line))
+                raise SourceTableError("%s: unit/context khác nguồn đã kiểm" % where)
+            if row["source_doi"].strip() != SIMMONS_DOI or row["source_table"].strip() != SIMMONS_TABLE:
+                raise SourceTableError("%s: source_doi/source_table không khớp Simmons Table 3" % where)
             try:
-                minutes = ceil_minutes(row["mean_duration_min"])
-            except (InvalidOperation, ValueError, TypeError):
-                raise SourceTableError("%s dòng %d: mean_duration_min không phải số" % (path.name, line))
-            if minutes <= 0:
-                raise SourceTableError("%s dòng %d: mean_duration_min phải > 0" % (path.name, line))
-            table[task_type] = dict(row, minutes=minutes)
+                mean = Decimal(row["mean_duration_min"].strip())
+            except InvalidOperation:
+                raise SourceTableError("%s: mean_duration_min không phải số" % where)
+            if not mean.is_finite():                 # NaN, Infinity
+                raise SourceTableError("%s: mean_duration_min không hữu hạn" % where)
+            if mean <= 0:
+                raise SourceTableError("%s: mean_duration_min phải > 0" % where)
+            table[task_type] = dict(row, minutes=ceil_minutes(row["mean_duration_min"].strip()))
         return table
 
     def supports(self, task_type):
         return task_type in self.rows
 
     def blockers(self, task):
+        """Điều kiện ÁP DỤNG NGUỒN Simmons. Giới hạn an toàn lập lịch (nhiều nhân viên, synchronization,
+        kiểu dữ liệu) nằm ở estimator.condition_issues và áp cho mọi task.
+
+        So sánh bằng kiểu chặt (type is int, isinstance str) để True/1.0/list không lọt hay gây TypeError.
+        """
         row = self.rows[task["task_type"]]
         prefix = "tasks." + task["task_id"]
         note = row["staffing_note"]
         staff = task.get(SINGLE_STAFF_FIELD)
+        single_staff = type(staff) is int and staff == 1
         reasons = []
-        if staff is not None and staff != 1:
-            reasons.append("%s.%s: task cần %r nhân viên đồng thời, schema hiện chưa hỗ trợ; "
-                           "cần thời lượng/điều kiện đã xác nhận" % (prefix, SINGLE_STAFF_FIELD, staff))
-        elif "may_require_two_staff" in note and staff != 1:
+        if staff is not None and not single_staff:
+            reasons.append("%s.%s: Simmons chỉ áp dụng cho lượt một nhân viên (nhận %r)"
+                           % (prefix, SINGLE_STAFF_FIELD, staff))
+        elif "may_require_two_staff" in note and not single_staff:
             reasons.append("%s.%s: %s có thể cần hai nhân viên (Simmons Table 3); cần xác nhận "
                            "số người hỗ trợ trước khi tra" % (prefix, SINGLE_STAFF_FIELD, row["source_task"]))
-        if "bed_to_chair_or_walking_only" in note and task.get(MOBILITY_SCOPE_FIELD) not in SIMMONS_MOBILITY_SCOPES:
+        scope = task.get(MOBILITY_SCOPE_FIELD)
+        if "bed_to_chair_or_walking_only" in note and not (isinstance(scope, str) and scope in SIMMONS_MOBILITY_SCOPES):
             reasons.append("%s.%s: Simmons chỉ đo hỗ trợ giường–ghế hoặc đi lại; cần xác nhận loại "
                            "hỗ trợ (bed_to_chair/walking)" % (prefix, MOBILITY_SCOPE_FIELD))
         setting = task.get(SETTING_FIELD)
-        if setting is not None and setting not in INPATIENT_SETTINGS:
-            reasons.append("%s.%s: '%s' ngoài phạm vi nguồn (nội trú ACE); cần thời lượng đã xác nhận"
+        if setting is not None and not (isinstance(setting, str) and setting in INPATIENT_SETTINGS):
+            reasons.append("%s.%s: %r ngoài phạm vi nguồn (nội trú ACE); cần thời lượng đã xác nhận"
                            % (prefix, SETTING_FIELD, setting))
         complexity = task.get(COMPLEXITY_FIELD)
         if complexity is not None and complexity != "standard":
             reasons.append("%s.%s: task phức tạp hơn phạm vi mean nguồn; cần thời lượng đã xác nhận"
                            % (prefix, COMPLEXITY_FIELD))
         if task.get("synchronization"):
-            reasons.append(prefix + ".synchronization: cần đồng bộ nhân viên, schema chưa hỗ trợ")
+            reasons.append(prefix + ".synchronization: cần đồng bộ nhân viên, ngoài phạm vi nguồn")
         return reasons
 
     def predict(self, features):
