@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NurseFlow — Pitch</title>
+<title>NurseFlow — Pitch (technical)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <style>
   /* NurseFlow pitch deck — flat/editorial, khớp style kit của web demo.
@@ -14,66 +14,65 @@
   }
   *{box-sizing:border-box;}
   html,body{margin:0;height:100%;}
-  body{
-    background:#edece8; color:var(--fg);
-    font-family:"Inter",Arial,sans-serif; font-weight:400;
-    overflow:hidden;
-  }
-  .slide{
-    position:absolute; inset:0; display:none;
-    flex-direction:column; justify-content:flex-start;
-    padding:7.5vh 8vw; background:var(--bg);
-  }
+  body{background:#edece8; color:var(--fg); font-family:"Inter",Arial,sans-serif; font-weight:400; overflow:hidden;}
+  .slide{position:absolute; inset:0; display:none; flex-direction:column; justify-content:flex-start; padding:6.5vh 6vw; background:var(--bg);}
   .slide.active{display:flex;}
   .slide.center{justify-content:center;}
 
   h1{font-size:6.2vh; font-weight:600; letter-spacing:-.02em; margin:0; line-height:1.05;}
-  h2{font-size:4.6vh; font-weight:600; letter-spacing:-.015em; margin:0 0 .5em; line-height:1.1;}
+  h2{font-size:4.3vh; font-weight:600; letter-spacing:-.015em; margin:0 0 .4em; line-height:1.12;}
   h3{font-size:2.7vh; font-weight:600; margin:0;}
-  p{margin:0; font-size:2.6vh; line-height:1.5;}
-  .eyebrow{font-size:2vh; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--ink); margin:0 0 1.4em;}
-  .lead{font-size:3.4vh; line-height:1.4; color:var(--muted);}
+  p{margin:0; font-size:2.5vh; line-height:1.5;}
+  .eyebrow{font-size:2vh; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--ink); margin:0 0 1.2em;}
+  .lead{font-size:3.3vh; line-height:1.4; color:var(--muted);}
   .muted{color:var(--muted);} .ink{color:var(--ink);} .b{font-weight:600; color:var(--fg);}
-  hr.hair{height:1px; background:var(--border); border:0; width:100%; margin:3.5vh 0 3vh;}
-  .spacer{flex:1;}
-  .foot{margin-top:auto; display:flex; justify-content:space-between; align-items:center;
-        font-size:2vh; color:var(--muted); border-top:1px solid var(--border); padding-top:2vh;}
+  hr.hair{height:1px; background:var(--border); border:0; width:100%; margin:3vh 0;}
+  .foot{margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:2vw;
+        font-size:1.9vh; color:var(--muted); border-top:1px solid var(--border); padding-top:1.8vh;}
 
-  .cards{display:grid; gap:2.4vh 2vw;}
+  .cards{display:grid; gap:2.2vh 1.8vw;}
   .c2{grid-template-columns:1fr 1fr;} .c3{grid-template-columns:1fr 1fr 1fr;}
-  .card{border:1px solid var(--border); border-left:3px solid var(--accent);
-        border-radius:0 12px 12px 0; padding:2.6vh 1.9vw; background:var(--card);}
-  .card h3{margin-bottom:.5em;}
-  .card p{font-size:2.3vh; line-height:1.4; color:var(--muted); margin-top:.3em;}
-  .tag{font-size:1.9vh; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink);}
-  .pill{display:inline-block; border:1px solid var(--border); border-radius:999px;
-        padding:.5vh 1vw; font-size:2vh; color:var(--muted);}
+  .card{border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:0 12px 12px 0; padding:2.4vh 1.7vw; background:var(--card);}
+  .card h3{margin-bottom:.4em;}
+  .card p{font-size:2.2vh; line-height:1.4; color:var(--muted); margin-top:.3em;}
+  .tag{font-size:1.8vh; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink);}
+  .pill{display:inline-block; border:1px solid var(--border); border-radius:999px; padding:.5vh 1vw; font-size:2vh; color:var(--muted);}
 
-  .flow{display:flex; align-items:stretch; gap:1vw;}
-  .flow .step{flex:1; border:1px solid var(--border); border-top:3px solid var(--accent);
-              border-radius:0 0 12px 12px; padding:2.4vh 1.3vw; background:var(--card); display:flex; flex-direction:column;}
-  .flow .step .tag{margin-bottom:.5em;}
-  .flow .step p{font-size:2.1vh; color:var(--muted); line-height:1.35;}
-  .flow .arw{align-self:center; color:var(--accent); font-size:3.4vh; flex:none;}
+  .flow{display:flex; align-items:stretch; gap:.8vw;}
+  .flow .step{flex:1; border:1px solid var(--border); border-top:3px solid var(--accent); border-radius:0 0 12px 12px; padding:2.2vh 1.1vw; background:var(--card); display:flex; flex-direction:column;}
+  .flow .step .tag{margin-bottom:.4em;} .flow .step p{font-size:2vh; color:var(--muted); line-height:1.32;}
+  .flow .arw{align-self:center; color:var(--accent); font-size:3.2vh; flex:none;}
 
-  .grid-stats{display:grid; grid-template-columns:1fr 1fr; gap:3vh 4vw; margin-top:1vh;}
-  .stat{font-size:7vh; font-weight:600; line-height:1; letter-spacing:-.02em;}
-  .stat .u{font-size:2.6vh; color:var(--muted); font-weight:400; letter-spacing:0;}
-  .statlab{font-size:2.3vh; color:var(--muted); margin-top:.4em;}
+  /* figure slides */
+  .fig{flex-direction:row; align-items:center; gap:2.6vw;}
+  .fig .figwrap{flex:1.4; display:flex; align-items:center; justify-content:center; min-width:0;}
+  .fig .figwrap img{width:100%; max-height:76vh; object-fit:contain; border:1px solid var(--border); border-radius:8px; background:#fff;}
+  .fig .figtext{flex:1; display:flex; flex-direction:column; min-width:0;}
+  .fig .figtext h2{font-size:3.6vh;}
+  .fig .figtext ul{margin:1.2vh 0 0; padding-left:1.05em;}
+  .fig .figtext li{font-size:2.15vh; line-height:1.4; margin-bottom:1vh;}
+  .takeaway{margin-top:auto; border-left:3px solid var(--accent); padding:.4vh 0 .4vh 1vw; font-size:2.2vh; line-height:1.4;}
+  .takeaway b{color:var(--ink);}
+  .figrow{display:flex; gap:1.6vw; width:100%;}
+  .figrow figure{margin:0; flex:1; display:flex; flex-direction:column; gap:.8vh;}
+  .figrow img{width:100%; max-height:52vh; object-fit:contain; border:1px solid var(--border); border-radius:8px; background:#fff;}
+  .figrow figcaption{font-size:1.9vh; color:var(--muted); text-align:center;}
 
-  .bars{display:flex; flex-direction:column; gap:1.8vh; margin-top:1vh;}
-  .barrow{display:grid; grid-template-columns:22vw 1fr 8vw; align-items:center; gap:1.5vw; font-size:2.3vh;}
-  .bar{height:3.4vh; border-radius:5px;}
-  .bar.base{background:var(--border);} .bar.us{background:var(--accent);}
+  .grid-stats{display:grid; grid-template-columns:1fr 1fr; gap:2.6vh 4vw; margin-top:1vh;}
+  .stat{font-size:6.6vh; font-weight:600; line-height:1; letter-spacing:-.02em;}
+  .stat .u{font-size:2.5vh; color:var(--muted); font-weight:400; letter-spacing:0;}
+  .statlab{font-size:2.2vh; color:var(--muted); margin-top:.4em;}
+  .bars{display:flex; flex-direction:column; gap:1.5vh; margin-top:.5vh;}
+  .barrow{display:grid; grid-template-columns:24vw 1fr 7vw; align-items:center; gap:1.2vw; font-size:2.2vh;}
+  .bar{height:3.2vh; border-radius:5px;} .bar.base{background:var(--border);} .bar.us{background:var(--accent);}
 
-  table{width:100%; border-collapse:collapse; font-size:2.4vh;}
-  th,td{text-align:left; padding:1.4vh 1vw; border-bottom:1px solid var(--border);}
-  th{font-weight:500; color:var(--muted); font-size:1.9vh; text-transform:uppercase; letter-spacing:.06em;}
+  table{width:100%; border-collapse:collapse; font-size:2.3vh;}
+  th,td{text-align:left; padding:1.3vh .9vw; border-bottom:1px solid var(--border);}
+  th{font-weight:500; color:var(--muted); font-size:1.8vh; text-transform:uppercase; letter-spacing:.06em;}
   td .k{font-weight:600; color:var(--fg);}
 
-  .counter{position:fixed; right:2vw; bottom:2vh; font-size:1.8vh; color:var(--muted);
-           background:rgba(255,255,255,.7); padding:.4vh .8vw; border-radius:999px; z-index:10;}
-  .hint{position:fixed; left:2vw; bottom:2vh; font-size:1.6vh; color:var(--muted); z-index:10;}
+  .counter{position:fixed; right:1.6vw; bottom:1.8vh; font-size:1.7vh; color:var(--muted); background:rgba(255,255,255,.72); padding:.4vh .8vw; border-radius:999px; z-index:10;}
+  .hint{position:fixed; left:1.6vw; bottom:1.8vh; font-size:1.5vh; color:var(--muted); z-index:10;}
 
   @media print{
     @page{size:landscape;}
@@ -88,126 +87,219 @@
 <!-- 1 · Cover -->
 <section class="slide center active">
   <p class="eyebrow">VinAI · AI20K · Track B — Healthcare</p>
-  <h1 style="font-size:12vh; margin-bottom:.25em;">NurseFlow</h1>
-  <p class="lead" style="font-size:4vh; max-width:70vw;">Lập phân công điều dưỡng theo ca — <span class="b">AI đề xuất, trưởng ca quyết định.</span></p>
-  <hr class="hair" style="max-width:70vw;">
-  <div style="display:flex; gap:3vw; align-items:baseline; font-size:2.8vh;">
+  <h1 style="font-size:11.5vh; margin-bottom:.25em;">NurseFlow</h1>
+  <p class="lead" style="font-size:3.9vh; max-width:72vw;">Trợ lý lập phân công đầu ca cho điều dưỡng — <span class="b">AI đề xuất bản nháp, trưởng ca duyệt.</span></p>
+  <hr class="hair" style="max-width:72vw;">
+  <div style="display:flex; gap:3vw; align-items:baseline; font-size:2.7vh;">
     <span class="b">Tôi Yêu Vingroup</span><span class="muted">Lớp L3B</span><span class="muted">Khoa · Lam · Kiên · Tiệp</span>
   </div>
-  <div style="display:flex; gap:1vw; margin-top:3.5vh; flex-wrap:wrap;">
-    <span class="pill">Benchmark 20 / 20 · 100% an toàn</span>
-    <span class="pill">Tải cân bằng ~34× vs truyền thống</span>
-    <span class="pill">L1 LLM · L2 CP-SAT · L3 + L4 ML</span>
+  <div style="display:flex; gap:1vw; margin-top:3.2vh; flex-wrap:wrap;">
+    <span class="pill">Benchmark hành vi 20 / 20 · an toàn 100%</span>
+    <span class="pill">Tải đều hơn ~34× so với cách chia truyền thống</span>
+    <span class="pill">L1 LLM · L2 CP-SAT · L3 + L4 học máy</span>
   </div>
 </section>
 
 <!-- 2 · Problem -->
 <section class="slide">
   <p class="eyebrow">Vấn đề</p>
-  <h2>Phân công đầu ca đang làm thủ công, theo kinh nghiệm</h2>
-  <div class="cards c2" style="margin-top:2vh;">
-    <div class="card"><h3>Tải lệch giữa điều dưỡng</h3><p>Người quá tải, người nhàn — chất lượng chăm sóc và an toàn đi xuống.</p></div>
-    <div class="card"><h3>Giao việc lệch kỹ năng</h3><p>Việc cần kỹ năng chuyên biệt rơi vào người chưa đủ năng lực → rủi ro trực tiếp.</p></div>
-    <div class="card"><h3>Giờ nghỉ bị cắt</h3><p>Không đảm bảo nghỉ được bảo vệ mà vẫn đủ người trực.</p></div>
-    <div class="card"><h3>Thiếu minh bạch</h3><p>Khó giải thích vì sao phân công như vậy, khó rà soát nhanh.</p></div>
+  <h2>Đầu mỗi ca, việc chia công việc vẫn làm bằng tay</h2>
+  <p class="lead" style="margin:-.2em 0 1.5vh;">Trưởng ca phải cân nhắc kỹ năng, tải và giờ nghỉ của cả kíp trong vài phút — chủ yếu dựa vào kinh nghiệm.</p>
+  <div class="cards c2">
+    <div class="card"><h3>Tải lệch giữa các điều dưỡng</h3><p>Người gánh quá nhiều, người lại rảnh — ảnh hưởng chất lượng chăm sóc.</p></div>
+    <div class="card"><h3>Việc giao chưa khớp kỹ năng</h3><p>Việc cần kỹ năng chuyên biệt rơi vào người chưa đủ năng lực là rủi ro trực tiếp cho người bệnh.</p></div>
+    <div class="card"><h3>Giờ nghỉ khó được bảo đảm</h3><p>Muốn ai cũng có giờ nghỉ mà vẫn đủ người trực là bài toán không dễ nhẩm.</p></div>
+    <div class="card"><h3>Khó giải thích, khó rà soát</h3><p>Không có căn cứ rõ ràng để trưởng ca kiểm lại nhanh một phương án.</p></div>
   </div>
-  <div class="foot"><span>Bằng chứng áp lực: khảo sát MatchRN, dữ liệu MIMIC</span><span>Số thật — không bịa</span></div>
+  <div class="foot"><span>Áp lực này có bằng chứng từ khảo sát MatchRN và dữ liệu MIMIC — số thật, không bịa.</span></div>
 </section>
 
 <!-- 3 · Design principles -->
 <section class="slide">
   <p class="eyebrow">Nguyên tắc thiết kế</p>
-  <h2>Bốn nguyên tắc</h2>
-  <div class="cards c2" style="margin-top:2vh;">
-    <div class="card"><div class="tag">01 · Con người quyết định</div><h3 style="margin-top:.4em;">AI chỉ tạo bản nháp</h3><p>Trưởng ca duyệt; điều dưỡng không tự áp dụng thay đổi.</p></div>
-    <div class="card"><div class="tag">02 · An toàn trên hết</div><h3 style="margin-top:.4em;">Từ chối & hỏi lại</h3><p>Không ra quyết định lâm sàng; thiếu dữ liệu thì HỎI, không bịa.</p></div>
-    <div class="card"><div class="tag">03 · Lấy tối ưu làm lõi</div><h3 style="margin-top:.4em;">Hybrid, đúng công cụ</h3><p>Mỗi tầng một việc — không nhồi tất cả vào một mạng nơ-ron.</p></div>
-    <div class="card"><div class="tag">04 · Trung thực</div><h3 style="margin-top:.4em;">Dữ liệu & đánh giá</h3><p>Số có nguồn; benchmark khoá; không sửa kết quả cho đẹp.</p></div>
+  <h2>Bốn nguyên tắc xuyên suốt</h2>
+  <div class="cards c2" style="margin-top:1vh;">
+    <div class="card"><div class="tag">01 · Người quyết định</div><h3 style="margin-top:.35em;">AI chỉ đưa bản nháp</h3><p>Trưởng ca duyệt mới áp dụng; điều dưỡng không tự thay đổi kế hoạch.</p></div>
+    <div class="card"><div class="tag">02 · An toàn trước hết</div><h3 style="margin-top:.35em;">Biết từ chối, biết hỏi lại</h3><p>Không đụng tới quyết định lâm sàng; thiếu dữ liệu thì hỏi, tuyệt đối không tự điền.</p></div>
+    <div class="card"><div class="tag">03 · Tối ưu làm lõi</div><h3 style="margin-top:.35em;">Đúng công cụ cho từng việc</h3><p>Bài toán xếp lịch là tối ưu tổ hợp — không nhồi tất cả vào một mạng nơ-ron.</p></div>
+    <div class="card"><div class="tag">04 · Trung thực</div><h3 style="margin-top:.35em;">Số liệu và đánh giá minh bạch</h3><p>Mọi con số đều có nguồn; bộ đề đánh giá được khoá; không chỉnh kết quả cho đẹp.</p></div>
   </div>
 </section>
 
 <!-- 4 · Architecture -->
 <section class="slide">
   <p class="eyebrow">Kiến trúc</p>
-  <h2>Bốn tầng — mỗi tầng một việc</h2>
-  <div class="flow" style="margin-top:3vh;">
-    <div class="step"><div class="tag">Nhập ca</div><h3 style="margin:.3em 0;">Ngôn ngữ tự nhiên</h3><p>Trưởng ca mô tả ca, điều dưỡng, việc.</p></div>
+  <h2>Bốn tầng, mỗi tầng một việc rõ ràng</h2>
+  <div class="flow" style="margin-top:2vh;">
+    <div class="step"><div class="tag">Nhập ca</div><h3 style="margin:.3em 0;">Ngôn ngữ tự nhiên</h3><p>Trưởng ca mô tả kíp trực và danh sách việc.</p></div>
     <div class="arw">→</div>
-    <div class="step"><div class="tag">L1 · LLM</div><h3 style="margin:.3em 0;">Điều phối</h3><p>Hiểu yêu cầu, từ chối/hỏi, giải thích. Gọi công cụ.</p></div>
+    <div class="step"><div class="tag">L1 · LLM</div><h3 style="margin:.3em 0;">Điều phối</h3><p>Hiểu yêu cầu, từ chối hoặc hỏi lại, rồi gọi công cụ và giải thích.</p></div>
     <div class="arw">→</div>
-    <div class="step"><div class="tag">L3 + L2</div><h3 style="margin:.3em 0;">Ước lượng → CP-SAT</h3><p>L3 điền thời lượng việc; L2 xếp lịch tối ưu, khả thi.</p></div>
+    <div class="step"><div class="tag">L3 → L2</div><h3 style="margin:.3em 0;">Ước lượng → xếp lịch</h3><p>L3 điền thời lượng việc; L2 (CP-SAT) xếp lịch tối ưu và khả thi.</p></div>
     <div class="arw">→</div>
-    <div class="step"><div class="tag">Kiểm & duyệt</div><h3 style="margin:.3em 0;">Bản nháp</h3><p>Validator: 0 vi phạm kỹ năng/coverage → chờ trưởng ca duyệt.</p></div>
+    <div class="step"><div class="tag">Kiểm & duyệt</div><h3 style="margin:.3em 0;">Bản nháp</h3><p>Validator soát 0 vi phạm kỹ năng/coverage, rồi chờ trưởng ca duyệt.</p></div>
   </div>
-  <div class="foot"><span><span class="ink b">L4 · Taxonomy bệnh nhân + baseline</span> — đối chứng trên cùng một instance bằng cùng validator.</span><span>human-in-the-loop</span></div>
+  <div class="foot"><span><span class="b ink">L4 · phân bậc bệnh nhân + baseline</span> chạy trên đúng ca đó, qua cùng validator, để làm mốc đối chứng.</span><span>con người trong vòng lặp</span></div>
 </section>
 
-<!-- 5 · The AI/ML brain -->
+<!-- 5 · AI/ML brain -->
 <section class="slide">
-  <p class="eyebrow">Mô hình AI / ML</p>
-  <h2>Một bộ não ba lớp</h2>
-  <div class="cards c3" style="margin-top:2vh;">
-    <div class="card"><div class="tag">L1 · LLM</div><h3 style="margin-top:.4em;">Điều phối hội thoại</h3><p>Hiểu ngôn ngữ, từ chối lâm sàng, hỏi khi thiếu, giải thích. Provider-agnostic: OpenAI / Claude / Gemini / Ollama.</p></div>
-    <div class="card"><div class="tag">L3 · Ước lượng (ML)</div><h3 style="margin-top:.4em;">Thời lượng việc</h3><p>Dữ liệu thật Zenodo (2.192 episode). Thử gradient boosting; median theo tên MAE ~23′ — baseline đơn giản đã cạnh tranh.</p></div>
-    <div class="card"><div class="tag">L4 · KMeans</div><h3 style="margin-top:.4em;">Taxonomy bệnh nhân</h3><p>Gom cụm KHÔNG giám sát → bậc tải; điểm cắt do dữ liệu quyết. Ship kèm rule fallback (chạy cả khi thiếu sklearn).</p></div>
+  <p class="eyebrow">Trí tuệ của hệ thống</p>
+  <h2>Một bộ não gồm ba lớp, mỗi lớp một kiểu AI</h2>
+  <div class="cards c3" style="margin-top:1vh;">
+    <div class="card"><div class="tag">L1 · LLM</div><h3 style="margin-top:.35em;">Điều phối hội thoại</h3><p>Hiểu tiếng Việt tự nhiên, từ chối việc lâm sàng, hỏi khi thiếu và giải thích phương án. Chạy được với OpenAI, Claude, Gemini hay Ollama.</p></div>
+    <div class="card"><div class="tag">L3 · Hồi quy</div><h3 style="margin-top:.35em;">Ước lượng thời lượng</h3><p>Học trên dữ liệu phòng mổ thật (Zenodo). Thực tế chạy nội trú dùng bảng tra có nguồn (Simmons) và hỏi lại khi thiếu.</p></div>
+    <div class="card"><div class="tag">L4 · KMeans</div><h3 style="margin-top:.35em;">Phân bậc bệnh nhân</h3><p>Gom cụm không giám sát theo acuity + ADL + cách ly; điểm cắt bậc do dữ liệu quyết. Ship kèm quy tắc dự phòng.</p></div>
   </div>
-  <div class="foot"><span>Không có nhãn patient–workload → chọn clustering + rule, KHÔNG bịa mô hình supervised.</span><span>đúng công cụ cho từng tầng</span></div>
+  <div class="foot"><span>Không có dữ liệu gán nhãn workload cho bệnh nhân → chọn phương pháp trung thực (clustering + bảng tra), thay vì dựng một mô hình supervised không có nhãn.</span></div>
 </section>
 
-<!-- 6 · Tools together -->
+<!-- 6 · Methodology -->
 <section class="slide">
-  <p class="eyebrow">Công cụ</p>
-  <h2>Các công cụ ghép thành một luồng</h2>
-  <table style="margin-top:1.5vh;">
-    <tr><th>Công cụ</th><th>Vai trò trong luồng</th></tr>
-    <tr><td><span class="k">ai.py</span> · call_model</td><td>Gọi LLM thật (L1) — đo token, đa nhà cung cấp</td></tr>
-    <tr><td><span class="k">tools.py</span> · @tool</td><td>Cổng công cụ cho agent gọi</td></tr>
-    <tr><td><span class="k">workload/</span> · scikit-learn</td><td>L3 — ước lượng thời lượng (estimate_duration)</td></tr>
-    <tr><td><span class="k">cp_sat_engine.py</span> · Google OR-Tools</td><td>L2 — xếp lịch tối ưu có ràng buộc (CP-SAT)</td></tr>
-    <tr><td><span class="k">validate_plan</span></td><td>Oracle — tính lại mọi ràng buộc cứng (nguồn chân lý)</td></tr>
-    <tr><td><span class="k">baseline.py</span> · KMeans</td><td>L4 — taxonomy + baseline đối chứng</td></tr>
-    <tr><td><span class="k">run.py eval</span></td><td>Benchmark hội thoại đã khoá — chấm hành vi agent</td></tr>
-  </table>
-  <div class="foot"><span>Nhập ca → L1 → L3 → L2 → validate → L4 đối chứng → bản nháp chờ duyệt</span><span>182 unit tests pass</span></div>
+  <p class="eyebrow">Cách huấn luyện &amp; kiểm thử</p>
+  <h2>Làm chặt tay, và ghi lại cả kết quả không đẹp</h2>
+  <div class="cards c2" style="margin-top:1vh;">
+    <div class="card"><h3>Dữ liệu thật, không cắt gọt</h3><p>2.192 lượt hoạt động của 37 điều dưỡng phòng mổ (Zenodo). Giữ nguyên toàn bộ outlier, không xóa để giảm sai số.</p></div>
+    <div class="card"><h3>Đánh giá tránh rò rỉ</h3><p>Chia fold theo nhân viên (GroupKFold) và tách holdout theo thời gian — không ai vừa ở train vừa ở test.</p></div>
+    <div class="card"><h3>Thử 7 mô hình</h3><p>Ba baseline median → Ridge, Random Forest, Gradient Boosting và một mạng nơ-ron (MLP). Seed cố định, cấu hình cố định.</p></div>
+    <div class="card"><h3>Tách nghiên cứu khỏi sản phẩm</h3><p>Model phòng mổ chỉ để nghiên cứu (metadata <span class="b">production: false</span>). Nội trú dùng bảng tra có nguồn.</p></div>
+  </div>
+  <div class="foot"><span>Các slide sau là kết quả thật từ <span class="b">docs/figures/</span>.</span><span>scikit-learn · GroupKFold(5) · seed 42</span></div>
 </section>
 
-<!-- 7 · Results -->
+<!-- 7 · EDA 01 -->
+<section class="slide fig">
+  <div class="figwrap"><img src="../figures/eda_01_activity_duration.png" alt="Phân phối thời lượng và cơ cấu hoạt động điều dưỡng phòng mổ"></div>
+  <div class="figtext">
+    <p class="eyebrow">Dữ liệu · EDA</p>
+    <h2>Thời lượng công việc lệch rất mạnh</h2>
+    <ul>
+      <li>Mỗi nhóm việc có trung vị và đuôi dài khác hẳn nhau — từ vài phút tới hàng trăm phút.</li>
+      <li>Nhiều outlier; nhóm giữ lại tất cả để phản ánh đúng độ biến thiên.</li>
+      <li>Tổng thời gian còn được bóc theo từng giờ trong ca.</li>
+    </ul>
+    <p class="takeaway">Không thể gán một con số chung cho mọi việc → <b>cần ước lượng theo loại việc</b>, và phải lường trước phương sai lớn.</p>
+  </div>
+</section>
+
+<!-- 8 · EDA 02 -->
+<section class="slide fig">
+  <div class="figwrap"><img src="../figures/eda_02_hourly_and_validation.png" alt="Phân bố công việc theo giờ và kiểm chứng sai số dự đoán"></div>
+  <div class="figtext">
+    <p class="eyebrow">Dữ liệu · EDA</p>
+    <h2>Nhu cầu dồn theo giờ</h2>
+    <ul>
+      <li>Việc bắt đầu dồn vào khung cao điểm (quanh 09–10h) — đúng chỗ dễ vỡ lịch và cắt giờ nghỉ.</li>
+      <li>Bên phải là cách kiểm chứng sai số dự đoán trên tập đánh giá.</li>
+    </ul>
+    <p class="takeaway">Lịch phải bám cao điểm để bảo vệ giờ nghỉ; và <b>đánh giá phải tránh rò rỉ</b> giữa train và test.</p>
+  </div>
+</section>
+
+<!-- 9 · L3 distribution + model comparison -->
+<section class="slide">
+  <p class="eyebrow">L3 · Huấn luyện</p>
+  <h2>Thử cả mạng nơ-ron — baseline vẫn thắng</h2>
+  <div class="figrow" style="margin-top:1.5vh;">
+    <figure><img src="../figures/l3_01_duration_distribution.png" alt="Phân phối thời lượng công việc, lệch phải mạnh"><figcaption>Target lệch phải mạnh — trung vị 19′, đuôi kéo tới 423′.</figcaption></figure>
+    <figure><img src="../figures/l3_02_model_comparison.png" alt="So sánh sai số của bảy mô hình ước lượng thời lượng"><figcaption>7 mô hình — không model ML/DL nào thắng median về MAE.</figcaption></figure>
+  </div>
+  <p class="takeaway" style="margin-top:2vh;">Dữ liệu chỉ có một feature phân loại nên mọi model hội tụ về trung bình theo hoạt động — kể cả MLP. Bài học trung thực: <b>baseline đơn giản là đủ</b>, và chúng tôi ghi lại đúng như vậy.</p>
+  <div class="foot"><span>GroupKFold(5) theo nhân viên · seed 42 · giữ nguyên outlier</span></div>
+</section>
+
+<!-- 10 · L3 predictions + residuals -->
+<section class="slide" style="justify-content:flex-start;">
+  <p class="eyebrow">L3 · Phân tích sai số</p>
+  <h2>Median đoán thiếu tổng workload</h2>
+  <div class="figrow" style="margin-top:1.5vh;">
+    <figure><img src="../figures/l3_03_actual_vs_predicted.png" alt="Thực tế so với dự đoán"><figcaption>Thực tế vs dự đoán — việc dài (ca mổ) bị đoán thiếu.</figcaption></figure>
+    <figure><img src="../figures/l3_04_residuals.png" alt="Phân bố residual của dự đoán"><figcaption>Residual — median lệch âm một cách hệ thống.</figcaption></figure>
+  </div>
+  <p class="takeaway" style="margin-top:2vh;">Median thiếu ~<b>7,7 phút/lượt</b>, cộng dồn cả ca thì free time bị tính dư. Ridge kéo bias về ~0 — quan trọng cho việc <b>tính đúng giờ nghỉ</b>.</p>
+  <div class="foot"><span>GroupKFold theo nhân viên · gộp 2.192 dự đoán out-of-fold</span></div>
+</section>
+
+<!-- 11 · L3 error by task type -->
+<section class="slide fig">
+  <div class="figwrap"><img src="../figures/l3_05_error_by_task_type.png" alt="Sai số MAE theo từng loại hoạt động"></div>
+  <div class="figtext">
+    <p class="eyebrow">L3 · Phân tích sai số</p>
+    <h2>Sai số nằm ở việc dài, khó đoán</h2>
+    <ul>
+      <li>MAE lớn nhất ở Scrub Nursing, Circulating Nursing, Shift Leader — các việc dài và biến thiên mạnh.</li>
+      <li>Thời lượng của chúng phụ thuộc ca mổ, mà dữ liệu không có thông tin đó.</li>
+    </ul>
+    <p class="takeaway">Phần khó không phải việc thường quy mà là <b>việc dài phụ thuộc bối cảnh</b> — cần thêm dữ liệu để thu hẹp.</p>
+  </div>
+</section>
+
+<!-- 12 · L3 underestimate -> free time -->
+<section class="slide fig">
+  <div class="figwrap"><img src="../figures/l3_06_underestimate_free_time.png" alt="Ảnh hưởng của đánh giá thiếu tới quỹ giờ nghỉ"></div>
+  <div class="figtext">
+    <p class="eyebrow">L3 · Ý nghĩa thiết kế</p>
+    <h2>Đoán thiếu thời lượng → đe doạ giờ nghỉ</h2>
+    <ul>
+      <li>Mô phỏng: nếu ước lượng thiếu, xác suất quỹ nghỉ còn &lt; 30 phút tăng vọt.</li>
+      <li>Estimator có bias ~0 (Ridge) an toàn hơn median ở mọi mức kế hoạch.</li>
+    </ul>
+    <p class="takeaway">Chọn mô hình phải nhìn <b>bias ở mức tổng cả ca</b>, không chỉ MAE từng việc — để bảo vệ giờ nghỉ.</p>
+  </div>
+</section>
+
+<!-- 13 · L4 clusters -->
+<section class="slide fig">
+  <div class="figwrap"><img src="../figures/l4_patient_clusters.png" alt="Silhouette, phân bố điểm workload và bản đồ bậc bệnh nhân từ KMeans"></div>
+  <div class="figtext">
+    <p class="eyebrow">L4 · Phân bậc bệnh nhân</p>
+    <h2>KMeans tìm bậc tải từ dữ liệu</h2>
+    <ul>
+      <li>Không có nhãn workload → gom cụm <span class="b">không giám sát</span> trên điểm acuity + ADL + cách ly.</li>
+      <li>Silhouette chọn số cụm; điểm cắt giữa các bậc do dữ liệu quyết, không chọn tay.</li>
+      <li>Ship kèm quy tắc dự phòng nên chạy được cả khi thiếu thư viện.</li>
+    </ul>
+    <p class="takeaway">Dùng clustering trung thực <b>thay vì bịa</b> một mô hình supervised khi không có nhãn.</p>
+  </div>
+</section>
+
+<!-- 14 · Results -->
 <section class="slide">
   <p class="eyebrow">Kết quả</p>
-  <h2>Số, không phải tính từ</h2>
+  <h2>Số đo được, không phải tính từ</h2>
   <div class="grid-stats">
     <div>
       <div class="stat">17 → <span class="ink">20</span>/20 <span class="u">(100%)</span></div>
-      <div class="statlab">Benchmark hội thoại (gemini-flash-lite) · 100% an toàn kỹ năng + 100% từ chối đúng</div>
+      <div class="statlab">Benchmark hội thoại (gemini-flash-lite) sau một vòng cải tiến L1 · an toàn kỹ năng 100% · từ chối đúng 100%</div>
     </div>
     <div>
-      <div class="stat">~23<span class="u"> phút</span></div>
-      <div class="statlab">Sai số L3 (MAE) ước lượng thời lượng trên dữ liệu thật</div>
+      <div class="stat">182 <span class="u">test pass</span></div>
+      <div class="statlab">Toàn bộ unit/integration test của 4 tầng đều xanh</div>
     </div>
   </div>
-  <h3 style="margin:3vh 0 1vh;">Cân bằng tải (CV — thấp hơn = đều hơn), cùng một ca</h3>
+  <h3 style="margin:2.6vh 0 1vh;">Cân bằng tải (CV — càng thấp càng đều), trên cùng một ca</h3>
   <div class="bars">
-    <div class="barrow"><span class="muted">Truyền thống · theo đầu bệnh nhân</span><div class="bar base" style="width:86%;"></div><span>0.309</span></div>
-    <div class="barrow"><span class="muted">Truyền thống · acuity-weighted</span><div class="bar base" style="width:100%;"></div><span>0.357</span></div>
+    <div class="barrow"><span class="muted">Truyền thống · chia theo đầu bệnh nhân</span><div class="bar base" style="width:86%;"></div><span>0.309</span></div>
+    <div class="barrow"><span class="muted">Truyền thống · theo acuity</span><div class="bar base" style="width:100%;"></div><span>0.357</span></div>
     <div class="barrow"><span class="b">NurseFlow · CP-SAT</span><div class="bar us" style="width:2.5%;"></div><span class="ink b">0.009</span></div>
   </div>
-  <div class="foot"><span>~34× cân bằng hơn · 0 vi phạm kỹ năng/coverage (validator)</span><span>5 điều dưỡng · 20 bệnh nhân · 24 việc</span></div>
+  <div class="foot"><span>Đều hơn ~34× · 0 vi phạm kỹ năng và coverage (validator)</span><span>ca demo: 5 điều dưỡng · 20 bệnh nhân · 24 việc</span></div>
 </section>
 
-<!-- 8 · Demo handoff -->
+<!-- 15 · Demo handoff -->
 <section class="slide center">
   <p class="eyebrow">Demo trực tiếp</p>
-  <h2 style="font-size:5.4vh;">Thấy tận mắt — cổng web</h2>
-  <div class="cards c3" style="margin:2vh 0 3vh;">
-    <div class="card"><h3>Đăng nhập theo vai</h3><p>Điều dưỡng xem ca của mình; trưởng ca xem cả 5 người.</p></div>
-    <div class="card"><h3>AI giải thích</h3><p>Lời giải thích kế hoạch bằng tiếng Việt từ model thật.</p></div>
+  <h2 style="font-size:5.2vh;">Mời xem trên cổng web</h2>
+  <div class="cards c3" style="margin:2vh 0 2.8vh;">
+    <div class="card"><h3>Đăng nhập theo vai</h3><p>Điều dưỡng chỉ thấy ca của mình; trưởng ca thấy cả kíp.</p></div>
+    <div class="card"><h3>AI tự giải thích</h3><p>Lời giải thích kế hoạch bằng tiếng Việt, từ model thật.</p></div>
     <div class="card"><h3>Trưởng ca duyệt</h3><p>Mọi thay đổi là bản nháp chờ duyệt — không tự áp dụng.</p></div>
   </div>
-  <p class="lead" style="font-size:3.6vh; color:var(--fg);"><span class="b">AI đề xuất, trưởng ca quyết định</span> — điều dưỡng không tự áp dụng.</p>
-  <p class="eyebrow" style="margin:2.5vh 0 0; color:var(--muted);">→ Chuyển sang trình duyệt: design/wireframes/login.html</p>
+  <p class="lead" style="font-size:3.5vh; color:var(--fg);"><span class="b">AI đề xuất, trưởng ca quyết định</span> — điều dưỡng không tự áp dụng.</p>
+  <p class="eyebrow" style="margin:2.2vh 0 0; color:var(--muted);">→ Chuyển sang trình duyệt: design/wireframes/login.html</p>
 </section>
 
-<div class="counter">1 / 8</div>
+<div class="counter">1 / 15</div>
 <div class="hint">← → để chuyển slide · Cmd/Ctrl + P để xuất PDF</div>
 
 <script>
