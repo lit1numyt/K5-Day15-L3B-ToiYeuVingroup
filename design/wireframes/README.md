@@ -4,13 +4,30 @@ Hai màn hình hiển thị lịch đầu ca từ file do pipeline xuất, phụ
 Lệnh xuất và phạm vi tương tác được ghi trong [hướng dẫn demo](../../scripts/demo/README.md).
 
 ## Mở thế nào
-Mở trực tiếp trong trình duyệt (không cần server):
+Mở trực tiếp trong trình duyệt (không cần server). Vào bằng trang đăng nhập:
 
 ```
-design/wireframes/index.html   → trang đích, dẫn vào hai màn hình
-design/wireframes/nurse.html   → màn hình điều dưỡng
-design/wireframes/lead.html    → màn hình trưởng ca
+design/wireframes/login.html   → ĐĂNG NHẬP (điểm vào; index.html tự chuyển về đây)
+design/wireframes/nurse.html   → màn hình điều dưỡng (tự chuyển về login nếu chưa đăng nhập)
+design/wireframes/lead.html    → màn hình trưởng ca (chỉ vai trò trưởng ca)
 ```
+
+## Đăng nhập (mock phía client)
+Tài khoản IT cấp (không có đăng ký). **Đăng nhập mô phỏng cho demo — không phải bảo mật thật**
+(mật khẩu nằm trong `accounts.js`). Mật khẩu chung: `vinai_hackathon`.
+
+| Họ tên | Tài khoản | Vai trò | Thấy gì |
+|---|---|---|---|
+| Nguyễn Thị An | `annt` | Điều dưỡng (N1) | ca của riêng An |
+| Trần Văn Bình | `binhtv` | Điều dưỡng (N2) | ca của riêng Bình |
+| Lê Thị Cúc | `cuclt` | Điều dưỡng (N3) | ca của riêng Cúc |
+| Phạm Minh Dũng | `dungpm` | Điều dưỡng (N4) | ca của riêng Dũng |
+| Hoàng Thị Hoa | `hoaht` | Điều dưỡng (N5) | ca của riêng Hoa |
+| Đông Hữu Nguyễn Khoa | `khoadhn` | Trưởng ca | lịch cả 5 điều dưỡng |
+
+Phiên lưu ở `sessionStorage`; có dự phòng `?u=<tài khoản>` để chạy tốt trên `file://`.
+"Đăng xuất" xoá phiên và quay về `login.html`. Tài khoản và dữ liệu do
+`scripts/demo/build_demo.py` sinh ra (`accounts.js` + `demo-data.js`).
 
 ## Các màn hình
 - **Điều dưỡng (`nurse.html`)** — xem ca cá nhân, **gói gọn trong một màn hình** (khoá viewport ở ≥64rem,

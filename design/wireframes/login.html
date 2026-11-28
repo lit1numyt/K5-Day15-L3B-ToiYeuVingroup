@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NurseFlow — Đăng nhập</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../../style/style.css">
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><a href="login.html">NurseFlow</a><span class="ctx">Cổng điều dưỡng · Đăng nhập</span></div>
+  </header>
+
+  <main>
+    <h1 class="page-h">Đăng nhập</h1>
+    <p class="page-sub">Tài khoản do bộ phận IT cấp. Không có đăng ký — nhập tài khoản để vào ca của bạn.</p>
+
+    <form id="loginform" style="max-width:22rem" autocomplete="off">
+      <div class="field">
+        <label for="u">Tài khoản</label>
+        <input id="u" placeholder="vd: annt" aria-label="Tài khoản">
+      </div>
+      <div class="field">
+        <label for="p">Mật khẩu</label>
+        <input id="p" type="password" placeholder="••••••••" aria-label="Mật khẩu">
+      </div>
+      <p id="err" class="hint" style="color:var(--accent);min-height:1rem"></p>
+      <button class="btn primary" type="submit">Đăng nhập</button>
+    </form>
+
+    <h2 class="sec-h">Tài khoản demo</h2>
+    <p class="note">Mật khẩu chung cho mọi tài khoản: <code>vinai_hackathon</code>. (Đăng nhập mô phỏng cho demo — không phải bảo mật thật.)</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Họ tên</th><th>Tài khoản</th><th>Vai trò</th></tr></thead>
+      <tbody id="acctrows"></tbody>
+    </table></div>
+  </main>
+
+  <footer><div>NurseFlow — AI đề xuất, trưởng ca quyết định</div></footer>
+
+  <script src="accounts.js"></script>
+  <script>
+    (function () {
+      var accounts = window.NURSEFLOW_ACCOUNTS || [];
+      var ROLE = { nurse: "Điều dưỡng", lead: "Trưởng ca" };
+      // Bảng gợi ý tài khoản
+      document.getElementById("acctrows").innerHTML = accounts.map(function (a) {
+        return "<tr><td>" + a.name + "</td><td><code>" + a.username + "</code></td><td>" +
+          (ROLE[a.role] || a.role) + "</td></tr>";
+      }).join("");
+      // Đăng nhập
+      document.getElementById("loginform").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var u = document.getElementById("u").value.trim().toLowerCase();
+        var p = document.getElementById("p").value;
+        var acc = accounts.filter(function (a) { return a.username === u; })[0];
+        var err = document.getElementById("err");
+        if (!acc || acc.password !== p) { err.textContent = "Sai tài khoản hoặc mật khẩu."; return; }
+        try { sessionStorage.setItem("nf_user", JSON.stringify(acc)); } catch (ignore) {}
+        var page = acc.role === "lead" ? "lead.html" : "nurse.html";
+        location.href = page + "?u=" + encodeURIComponent(acc.username);
+      });
+    })();
+  </script>
+</body>
+</html>
