@@ -15,6 +15,7 @@ python -m pip install -r requirements.txt
 python scripts/data/build_cp3_engine_cases.py
 python -B -m unittest discover -s tests -v
 python run.py check
+python scripts/benchmark/compare_baseline.py
 ```
 
 API vẫn là `tools.solve_allocation(instance)` và `planning.validate_plan(instance, plan)`.
@@ -23,6 +24,9 @@ duration sai nếu đã được cung cấp. Backend solver cần OR-Tools; các
 vẫn dùng thư viện chuẩn. CLI `run.py` hiện giữ điều phối/model fake của CP2 trong khi
 L1 được tích hợp; kết quả L2 có `method="cp_sat"` và diagnostic solver. Kiểm này không thay
 cho lượt đánh giá hội thoại gọi AI thật của CP3.
+Script đối chứng chạy L4 của Khoa, CP-SAT và heuristic trên cùng 11 ca kỹ thuật, luôn
+tính lại metrics qua oracle; mỗi lần sinh `eval/l2-comparison-N.json` và CSV mới.
+L4 giữ chính sách một nurse/patient; đó không phải hard constraint của CP-SAT.
 
 ## Preliminary CP3
 

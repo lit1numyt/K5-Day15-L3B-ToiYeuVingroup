@@ -17,3 +17,10 @@ Codex hỗ trợ tham vấn, lập trình, đối chiếu tài liệu nguồn, c
 Kết quả được lưu cùng mã tái lập và tham chiếu nguồn trong hồ sơ Preliminary. Nhóm chịu
 trách nhiệm về lựa chọn phương pháp, nội dung báo cáo và việc tích hợp vào project.
 [Báo cáo Preliminary](eda-report.md) · [Data card](../data/DATA_CARD.md).
+
+## L2 CP3
+
+Lam phụ trách mô hình CP-SAT, validator, thiết kế ca kiểm và đối chứng theo kiến trúc nhóm.
+Codex hỗ trợ lập trình, kiểm ràng buộc, chạy phép đo và biên tập hồ sơ. L4 được kế thừa từ
+nhánh Khoa, giữ tác giả và mô hình gốc; phần hỗ trợ chỉ điều chỉnh trạng thái continuity và
+cách chấm lại phép so. L3 của Tiệp được kiểm ở giao diện tích hợp, không nhận là phần Lam viết.
