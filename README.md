@@ -20,13 +20,17 @@ python scripts/benchmark/compare_baseline.py
 
 API vẫn là `tools.solve_allocation(instance)` và `planning.validate_plan(instance, plan)`.
 `planning.input_issues(instance, require_duration=False)` kiểm cấu trúc trước L3, giữ kiểm
-duration sai nếu đã được cung cấp. Backend solver cần OR-Tools; các lệnh kiểm cấu trúc
+duration sai nếu đã được cung cấp. Khi thiếu duration, L1 gọi `workload.estimate_duration`
+trước solver và dùng instance đã điền để validate; `DurationNeedInfo` trả về bước hỏi lại.
+[API và điều kiện tra duration L3](docs/l3-workload-estimator.md).
+Backend solver cần OR-Tools; các lệnh kiểm cấu trúc
 vẫn dùng thư viện chuẩn. CLI `run.py` hiện giữ điều phối/model fake của CP2 trong khi
 L1 được tích hợp; kết quả L2 có `method="cp_sat"` và diagnostic solver. Kiểm này không thay
 cho lượt đánh giá hội thoại gọi AI thật của CP3.
-Script đối chứng chạy L4 của Khoa, CP-SAT và heuristic trên cùng 11 ca kỹ thuật, luôn
-tính lại metrics qua oracle; mỗi lần sinh `eval/l2-comparison-N.json` và CSV mới.
+Script đối chứng chạy hai baseline L4 của Khoa (count và acuity-weighted), CP-SAT và
+heuristic trên cùng 11 ca kỹ thuật, luôn tính lại metrics qua oracle; mỗi lần sinh `eval/l2-comparison-N.json` và CSV mới.
 L4 giữ chính sách một nurse/patient; đó không phải hard constraint của CP-SAT.
+[Kết quả và giới hạn](eval/cp3-engine-report.md).
 
 ## Preliminary CP3
 

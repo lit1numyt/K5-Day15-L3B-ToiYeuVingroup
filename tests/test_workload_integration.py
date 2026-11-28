@@ -36,7 +36,11 @@ class L3ToSolverIntegrationTests(unittest.TestCase):
     def test_l3_output_passes_full_check_cp_sat_and_validator(self):
         for case in BUNDLE["cases"]:
             with self.subTest(case=case["id"]):
-                instance = estimate_duration(copy.deepcopy(case["l3_input"]))
+                original = copy.deepcopy(case["l3_input"])
+                self.assertEqual(input_issues(original, require_duration=False), [])
+                instance = estimate_duration(original)
+                self.assertEqual(original, case["l3_input"])
+                self.assertEqual(instance, case["instance"])
                 self.assertEqual(input_issues(instance), [])
                 plan = solve_allocation(instance)
                 self.assertEqual(plan["status"], "draft", plan.get("warnings"))

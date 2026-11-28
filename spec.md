@@ -125,6 +125,7 @@ flowchart LR
 ## §10. Phân công & changelog
 - **Trần Trung Kiên** nghiên cứu yêu cầu dữ liệu cho NurseFlow, so sánh MIMIC-IV-ED Demo với MIMIC-IV Clinical Database Demo và trình bày cách khai thác hai nguồn trong `data_research.md`.
 - **Nguyễn Đức Khương Lam** nghiên cứu và đề xuất phương án dữ liệu, engine và đánh giá CP2. Lam đối chiếu các bảng nguồn với schema của Khoa, thực hiện EDA, xây dựng dữ liệu đầu ca và kiểm luồng lập lịch bằng 15 fixture. Lam bổ sung 6 câu benchmark có nguồn, gồm B16–B18 dựa trên hai bộ dữ liệu Kiên đề xuất. Phần thiết kế cũng tham khảo khảo sát tài liệu của Tiệp.
+- **CP3:** Lam và Kiên thực hiện Preliminary dữ liệu/EDA. Lam triển khai L2 CP-SAT, validator dùng chung, đối chứng với L4 của Khoa và kiểm tích hợp L3 của Tiệp. Phân công hiện tại theo [module contract](docs/module-contract.md); kết quả và giới hạn ở [báo cáo L2](eval/cp3-engine-report.md).
 - Codex hỗ trợ đối chiếu nguồn, viết mã và kiểm tra. [Khai báo dùng AI](docs/ai-usage.md)
 - Nhật ký thay đổi — **mọi thay đổi sau CP2 19:30 Thứ Sáu 27/11 phải có dòng ở đây**:
 
@@ -134,7 +135,7 @@ flowchart LR
 |---|---|---|
 | 27/11 19:42 (UTC+7) | Bổ sung cách tái lập số liệu MIMIC, hướng dẫn nhập JSON, kết quả kiểm 18 câu hội thoại và giới hạn đo impact. | B16–B18 dùng số liệu nguồn. CLI cần hướng dẫn đầu vào rõ ràng khi nhận văn bản. |
 | 28/11 04:46 (UTC+7) | Chuẩn bị Preliminary, bộ ca dùng chung, cập nhật nguồn L3 theo đối chiếu McGill/Simmons và bổ sung B19–B20. | [Báo cáo](docs/eda-report.md) ghi căn cứ chọn nguồn và EDA. [Bộ bàn giao](data/preliminary/README.md) khai báo giả định, nguồn duration và kiểm giao diện từng module. |
-| 28/11 (UTC+7) | Triển khai L2 CP-SAT, mở rộng oracle cho precedence/thiết bị khai báo và thêm ca kiểm kỹ thuật. | [Contract](docs/module-contract.md) ghi ngữ nghĩa; [ca L2](data/cp3-engine-cases.json) kiểm nghỉ, phase, resource, skill, travel và vô nghiệm. Giữ metric/chuẩn đạt và output cũ. |
+| 28/11 (UTC+7) | Triển khai L2 CP-SAT, mở rộng oracle cho precedence/thiết bị khai báo và thêm ca kiểm kỹ thuật; kiểm tích hợp L3, đối chứng hai baseline L4, đồng bộ hướng dẫn và phân công theo contract. | [Contract](docs/module-contract.md) ghi ngữ nghĩa; [ca L2](data/cp3-engine-cases.json) kiểm nghỉ, phase, resource, skill, travel và vô nghiệm. [Báo cáo](eval/cp3-engine-report.md) ghi kết quả thật; giữ metric/chuẩn đạt và output cũ. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

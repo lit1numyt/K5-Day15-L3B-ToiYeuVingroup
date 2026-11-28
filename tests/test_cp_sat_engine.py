@@ -122,6 +122,29 @@ class SolverTests(unittest.TestCase):
         row = plan["assignments"][0]
         self.assertEqual(row["end"] - row["start"], 20)
 
+    def test_compatible_groups_are_kept_consecutive(self):
+        for basis in ("compat_group_key", "equipment_required"):
+            with self.subTest(basis=basis):
+                instance, _ = sample()
+                instance["nurses"] = instance["nurses"][:1]
+                instance["shift"]["coverage_rules"][0]["min_staff"] = 0
+                instance["shift"]["equipment_capacity"] = {"E1": 1, "E2": 1}
+                first = instance["tasks"][0]
+                instance["tasks"] = []
+                for index, group in enumerate(("E1", "E2", "E1", "E2")):
+                    value = group if basis == "compat_group_key" else [group]
+                    instance["tasks"].append(dict(
+                        first, task_id=f"T{index}", est_duration_min=1,
+                        **{basis: value},
+                    ))
+                plan = self.checked(instance)
+                groups = {t["task_id"]: t[basis] for t in instance["tasks"]}
+                sequence = [groups[a["task_id"]] for a in sorted(
+                    plan["assignments"], key=lambda a: a["start"],
+                )]
+                self.assertEqual(sum(a != b for a, b in zip(sequence, sequence[1:])), 1)
+                self.assertEqual(plan["metrics"]["workload_minutes"], {"N1": 4})
+
     def test_resolve_uses_new_roster_tasks_and_windows(self):
         root = Path(__file__).resolve().parents[1]
         original = json.loads((root / "data/preliminary/instances.json").read_text(encoding="utf-8"))["cases"][0]["instance"]

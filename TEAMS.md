@@ -11,10 +11,10 @@
 
 | STT | Họ và tên | Mã học viên | Vai trò | Phần việc chính |
 |---|---|---|---|---|
-| 1 | Đồng Hữu Nguyên Khoa | 2A202604000 | Đội trưởng | Điều phối nhóm, luồng chính `codebase/agent.py`, spec & canvas |
-| 2 | Nguyễn Đức Khương Lam | 2A202604020 | Thành viên | Lập lịch đầu ca, phân tích dữ liệu, xây dựng kịch bản và kiểm kết quả CP2 |
-| 3 | Trần Trung Kiên | 2A202604014 | Thành viên | Nghiên cứu yêu cầu dữ liệu, so sánh và đề xuất hai bộ MIMIC-IV Demo cho NurseFlow |
-| 4 | Nguyễn Quang Tiệp | 2A202603946 | Thành viên | Dashboard hiển thị khối lượng/lịch + mô phỏng chi phí |
+| 1 | Đồng Hữu Nguyên Khoa | 2A202604000 | Đội trưởng | Kiến trúc/contract, L4 taxonomy và baseline, tích hợp nhóm, spec & canvas |
+| 2 | Nguyễn Đức Khương Lam | 2A202604020 | Thành viên | Preliminary dữ liệu/EDA, L2 CP-SAT, validator và kiểm đối chứng |
+| 3 | Trần Trung Kiên | 2A202604014 | Thành viên | Nghiên cứu dữ liệu và EDA ban đầu; phụ trách L1 orchestrator theo phân công |
+| 4 | Nguyễn Quang Tiệp | 2A202603946 | Thành viên | L3 ước lượng thời lượng/workload, nghiên cứu chính sách nghỉ |
 
 **Quy tắc điền**
 - **Lớp:** `L3A` hoặc `L3B`. **Track:** một chữ `A` (EdTech), `B` (Y tế), `C` (Du lịch), `D` (Thương mại điện tử), `E` (Tài chính) hoặc `F` (Làn khác). **Link repo:** link GitHub công khai của nhóm.
