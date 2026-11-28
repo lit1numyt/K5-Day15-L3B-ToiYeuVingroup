@@ -43,6 +43,14 @@
   .flow .step .tag{margin-bottom:.4em;} .flow .step p{font-size:2vh; color:var(--muted); line-height:1.32;}
   .flow .arw{align-self:center; color:var(--accent); font-size:3.2vh; flex:none;}
 
+  .clist{margin:1vh 0 0; padding-left:1.1em;} .clist li{font-size:2.2vh; line-height:1.42; margin-bottom:.8vh; color:var(--fg);}
+  .ba{display:flex; flex-direction:column; gap:1.6vh; margin-top:1vh;}
+  .ba .row{display:flex; align-items:center; gap:.7vw; flex-wrap:wrap;}
+  .ba .lab{width:9vw; flex:none; font-size:2vh;}
+  .chip{border:1px solid var(--border); border-radius:8px; padding:.8vh .9vw; font-size:2vh; white-space:nowrap; background:var(--card);}
+  .chip.r1{border-left:4px solid var(--accent);} .chip.r2{border-left:4px solid var(--muted);}
+  .ba .arw{color:var(--accent); font-size:2.3vh;} .ba .note{margin-left:.6vw; font-size:1.9vh;}
+
   /* figure slides */
   .fig{flex-direction:row; align-items:center; gap:2.6vw;}
   .fig .figwrap{flex:1.4; display:flex; align-items:center; justify-content:center; min-width:0;}
@@ -142,7 +150,63 @@
   <div class="foot"><span><span class="b ink">L4 · phân bậc bệnh nhân + baseline</span> chạy trên đúng ca đó, qua cùng validator, để làm mốc đối chứng.</span><span>con người trong vòng lặp</span></div>
 </section>
 
-<!-- 5 · AI/ML brain -->
+<!-- 5 · L2 engine formulation -->
+<section class="slide">
+  <p class="eyebrow">Giải pháp · Engine xếp lịch (L2)</p>
+  <h2>Xếp lịch là bài toán tối ưu — giải bằng CP-SAT</h2>
+  <div class="cards c2" style="margin-top:1vh;">
+    <div class="card">
+      <div class="tag">Ràng buộc cứng — không được phạm</div>
+      <ul class="clist">
+        <li>Đúng kỹ năng, cấp độ và khu vực</li>
+        <li>Trong cửa giờ việc &amp; khả dụng của điều dưỡng</li>
+        <li>Không chồng lịch (việc + di chuyển + nghỉ)</li>
+        <li>Không vượt capacity từng người</li>
+        <li>Đủ coverage tối thiểu theo khu · giờ</li>
+        <li>Mỗi người đúng một giờ nghỉ được bảo vệ</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="tag">Mục tiêu mềm — theo thứ tự ưu tiên</div>
+      <ul class="clist">
+        <li><span class="b">1 ·</span> Hạ đỉnh tải — người bận nhất nhẹ nhất có thể</li>
+        <li><span class="b">2 ·</span> Cân bằng tải đều giữa mọi người</li>
+        <li><span class="b">3 ·</span> Gom việc tương thích + giảm phút di chuyển</li>
+      </ul>
+      <p style="font-size:2vh; color:var(--muted); margin-top:1.2vh;">Ưu tiên bậc thang: an toàn trước, rồi mới tới cân bằng và gọn lịch.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Google OR-Tools (CP-SAT) · giới hạn 10 giây · seed cố định → kết quả tất định.</span><span>Validator độc lập duyệt lại mọi bản nháp.</span></div>
+</section>
+
+<!-- 6 · Work clustering -->
+<section class="slide">
+  <p class="eyebrow">Giải pháp · Gom việc</p>
+  <h2>Gom việc tương thích để bớt chạy qua lại</h2>
+  <p class="lead" style="font-size:2.9vh; margin:-.2em 0 1.5vh; max-width:84vw;">Mỗi việc có một “nhóm tương thích” = <span class="b">(phòng · loại việc · thiết bị)</span>. Engine phạt mỗi lần đổi nhóm và mỗi phút chuyển phòng, nên việc cùng chỗ và cùng loại được xếp liền nhau.</p>
+  <div class="ba">
+    <div class="row">
+      <span class="lab muted">Ngây thơ</span>
+      <span class="chip r1">P1 · tiêm</span><span class="arw">→</span>
+      <span class="chip r2">P2 · thay băng</span><span class="arw">→</span>
+      <span class="chip r1">P1 · đo dấu hiệu</span><span class="arw">→</span>
+      <span class="chip r2">P2 · tiêm</span>
+      <span class="note muted">3 lần đổi phòng</span>
+    </div>
+    <div class="row">
+      <span class="lab ink b">Gom việc</span>
+      <span class="chip r1">P1 · tiêm</span><span class="arw">→</span>
+      <span class="chip r1">P1 · đo dấu hiệu</span><span class="arw">→</span>
+      <span class="chip r2">P2 · thay băng</span><span class="arw">→</span>
+      <span class="chip r2">P2 · tiêm</span>
+      <span class="note ink b">1 lần đổi phòng</span>
+    </div>
+  </div>
+  <p class="takeaway" style="margin-top:3vh;">Vẫn thỏa mọi ràng buộc an toàn, nhưng <b>ít đi lại, ít chuyển ngữ cảnh</b> và tải đều hơn — đây chính là nguồn gốc của CV 0.009 và overhead thấp.</p>
+  <div class="foot"><span>Khu vực: <span class="ink">▎</span> Phòng 1 &nbsp; <span class="muted">▎</span> Phòng 2</span><span>cùng cơ chế cho thiết bị và loại chăm sóc</span></div>
+</section>
+
+<!-- 7 · AI/ML brain -->
 <section class="slide">
   <p class="eyebrow">Trí tuệ của hệ thống</p>
   <h2>Một bộ não gồm ba lớp, mỗi lớp một kiểu AI</h2>
@@ -299,7 +363,7 @@
   <p class="eyebrow" style="margin:2.2vh 0 0; color:var(--muted);">→ Chuyển sang trình duyệt: design/wireframes/login.html</p>
 </section>
 
-<div class="counter">1 / 15</div>
+<div class="counter">1 / 17</div>
 <div class="hint">← → để chuyển slide · Cmd/Ctrl + P để xuất PDF</div>
 
 <script>
