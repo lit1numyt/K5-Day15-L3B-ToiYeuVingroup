@@ -8,3 +8,8 @@ __pycache__/
 
 # OS / editor
 .DS_Store
+
+# Secrets / local environment
+.env
+.env.*
+!.env.example
