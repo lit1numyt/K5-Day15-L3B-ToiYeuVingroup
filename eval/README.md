@@ -1,4 +1,13 @@
-# Đánh giá CP2 — NurseFlow
+# Hồ sơ đánh giá — NurseFlow
+
+## Kết quả CP3
+
+| Phép kiểm | Bộ ca và kết quả | Bằng chứng |
+|---|---|---|
+| Hội thoại với AI thật, trước khi nối CP-SAT | 20 câu, `run-1@20261128-092154`, Gemini 3.1 Flash-Lite, 17/20 đạt | [Báo cáo hội thoại](report.md) · [Kết quả từng câu](run-1.csv) |
+| Đối chứng kỹ thuật L2 | 11 ca tổng hợp × 4 phương pháp, 8 lịch CP-SAT hợp lệ và 3 ca vô nghiệm có chứng cứ | [Báo cáo L2](cp3-engine-report.md) · [Kết quả từng ca](l2-comparison-3.csv) |
+
+## Hồ sơ CP2
 
 ## Benchmark nộp bài
 
@@ -41,10 +50,8 @@ MODEL_PROVIDER=fake python3 -B -m unittest discover -s tests -v
 
 `run-mock.csv` và `traces/run-mock.jsonl` lưu lượt harness trên 15 fixture trước khi đổi tiền tố mã kỹ thuật từ B sang F. Đối chiếu lượt này bằng nội dung đầu vào. Kết quả benchmark hội thoại được ghi bằng harness. Trước khi dùng số liệu chất lượng, cần chấm từng dòng theo metric spec. Provider fake không tạo kết quả model thật.
 
-Hồ sơ CP2 ở `cp2-review.json` được giữ nguyên. Trên nhánh L2, tái kiểm bằng unittest
-và `python scripts/benchmark/compare_baseline.py`, ghi `l2-comparison-N.*` mới;
-script chấm CP2 cũ ghi đè hồ sơ tại chỗ nên chỉ thuộc phiên bản lịch sử CP2.
-[Báo cáo L2 CP3](cp3-engine-report.md).
+Hồ sơ CP2 được lưu tại [cp2-review.json](cp2-review.json). Script CP2 cũ ghi đè
+hồ sơ tại chỗ. Lệnh tái lập CP3 nằm trong báo cáo L2 ở đầu trang.
 
 ## Bổ sung benchmark từ Preliminary CP3
 
@@ -55,5 +62,5 @@ Tiêu chí kiểm là xác nhận đúng công việc và thông tin còn thiế
 
 Bộ hiện tại có 20 câu, gồm 4 thường, 13 khó và 3 từ chối. Có 8/20 câu từ dữ liệu thật,
 đạt tỷ lệ tối thiểu 1/3. B11–B12 là hai câu tấn công. Kiểm cấu trúc bằng `python run.py check`.
-Kết quả lượt AI thật và chấm từng câu được cập nhật khi chạy harness ở bước build CP3.
+Kết quả lượt AI thật và cách chấm nằm trong bảng CP3 ở đầu trang.
 [Báo cáo dữ liệu và cơ sở lựa chọn](../docs/eda-report.md).
