@@ -41,14 +41,16 @@ class ComparisonTests(unittest.TestCase):
     def test_baseline_continuity_failure_is_not_global_infeasible(self):
         data = json.loads((ROOT / "data/cp3-engine-cases.json").read_text(encoding="utf-8"))
         instance = next(c["instance"] for c in data["cases"] if c["id"] == "C05")
-        out = baseline_allocate(instance)
-        self.assertEqual(out["status"], "unknown", out)
-        self.assertFalse(out.get("assignments"))
+        for balance in ("count", "weight"):
+            out = baseline_allocate(instance, balance)
+            self.assertEqual(out["status"], "unknown", out)
+            self.assertFalse(out.get("assignments"))
 
     def test_baseline_direct_skill_gap_still_has_infeasibility_evidence(self):
         instance, _ = sample()
         instance["tasks"][0]["required_skill"] = ["Z"]
-        self.assertEqual(baseline_allocate(instance)["status"], "infeasible")
+        for balance in ("count", "weight"):
+            self.assertEqual(baseline_allocate(instance, balance)["status"], "infeasible")
 
     def test_runner_copies_inputs_and_keeps_failed_results(self):
         instance, plan = sample()
@@ -78,6 +80,24 @@ class ComparisonTests(unittest.TestCase):
             self.assertNotEqual(first, second)
             self.assertEqual(first.read_bytes(), before)
             self.assertTrue(first.with_suffix(".csv").exists())
+
+    def test_cli_keeps_both_khoa_baselines_and_real_l2(self):
+        import subprocess
+        import sys
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            subprocess.run(
+                [sys.executable, "-B", str(ROOT / "scripts/benchmark/compare_baseline.py"),
+                 "--output-dir", folder], check=True, capture_output=True, text=True,
+            )
+            run = json.loads((Path(folder) / "l2-comparison-1.json").read_text())
+            self.assertEqual(len(run["records"]), 44)
+            self.assertEqual({r["allocator"] for r in run["records"]}, {
+                "l4_patient_count", "l4_patient_weight", "cp_sat", "cp2_heuristic",
+            })
+            for record in run["records"]:
+                if record["allocator"] == "cp_sat":
+                    self.assertEqual(record["output"]["method"], "cp_sat")
 
 
 if __name__ == "__main__":

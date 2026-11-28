@@ -1,4 +1,4 @@
-"""Compare Khoa's patient-count L4, Lam's CP-SAT and the CP2 heuristic.
+"""Compare Khoa's count/acuity-weighted L4, Lam's CP-SAT and the CP2 heuristic.
 
 Every draft is independently revalidated on the same original instance. This
 technical comparison is separate from the hackathon's conversational benchmark.
@@ -90,7 +90,7 @@ def metadata():
             "git_revision": revision, "python": platform.python_version(), "ortools": ortools.__version__,
             "seed": RANDOM_SEED, "time_limit_s": TIME_LIMIT_SECONDS, "workers": 1,
             "source_sha256": {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in paths},
-            "baseline_policy": "patient_count; one nurse per patient; stricter than task allocation",
+            "baseline_policy": "patient_count and acuity_weight; one nurse per patient; stricter than task allocation",
             "clinical_validation": False}
 
 
@@ -102,6 +102,7 @@ def main():
     for relative in ["data/preliminary/instances.json", "data/cp3-engine-cases.json"]:
         cases.extend(json.loads((ROOT / relative).read_text(encoding="utf-8"))["cases"])
     records = compare_cases(cases, {"l4_patient_count": baseline_allocate,
+                                    "l4_patient_weight": lambda instance: baseline_allocate(instance, "weight"),
                                     "cp_sat": solve_allocation, "cp2_heuristic": draft_schedule})
     print(f"{'case':5s} {'method':18s} {'status':11s} {'valid':5s} {'CV':>7s} {'peak':>7s} {'travel':>7s} {'ms':>9s}")
     for record in records:

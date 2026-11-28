@@ -127,30 +127,58 @@ def main():
     }
     META_OUT.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # Figure: silhouette theo k + histogram workload_score tô theo tier (điểm cắt tự nhiên).
+    # --- Bản đồ cluster: acuity × adl -> tier (cho mỗi mức isolation) ---
+    acuities, adls = range(1, 6), range(1, 5)
+
+    def tier_grid(iso):  # hàng = adl giảm dần (cao ở trên), cột = acuity
+        return np.array([[tier_of(a, d, iso) for a in acuities] for d in reversed(adls)])
+
+    # Figure 2×2: silhouette, histogram điểm cắt, và 2 bản đồ tier (isolation 0/1).
     tiers = np.array([cluster_to_tier[int(c)] for c in labels])
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.2))
+    cmap = plt.get_cmap("YlOrRd", SELECT_K)
+    fig, axes = plt.subplots(2, 2, figsize=(11.5, 8.4))
+    (ax1, ax2), (ax3, ax4) = axes
+
     ax1.plot(list(sil), list(sil.values()), "o-")
     ax1.axvline(SELECT_K, color="crimson", ls="--", lw=1, label=f"chọn k={SELECT_K}")
-    ax1.set(xlabel="k", ylabel="silhouette", title="Silhouette theo k (chẩn đoán)")
+    ax1.set(xlabel="k", ylabel="silhouette", title="(1) Silhouette theo k (chẩn đoán)")
     ax1.legend()
+
     bins = np.arange(1.5, 11.5, 1)
     for t in sorted(set(tiers)):
-        ax2.hist(scores[tiers == t], bins=bins, alpha=0.7, label=f"tier {t}")
-    ax2.set(xlabel="workload_score (acuity+adl+isolation)", ylabel="số bệnh nhân",
-            title="Điểm cắt tier do KMeans tìm")
+        ax2.hist(scores[tiers == t], bins=bins, color=cmap(t - 1), alpha=0.85, label=f"tier {t}")
+    ax2.set(xlabel="workload_score = acuity+adl+isolation", ylabel="số bệnh nhân",
+            title="(2) Điểm cắt tier do KMeans tìm")
     ax2.legend()
-    fig.tight_layout()
+
+    for ax, iso, tag in ((ax3, 0, "(3) Bản đồ tier · isolation=0"),
+                         (ax4, 1, "(4) Bản đồ tier · isolation=1")):
+        grid = tier_grid(iso)
+        ax.imshow(grid, cmap=cmap, vmin=1, vmax=SELECT_K, aspect="auto")
+        ax.set_xticks(range(len(acuities)), list(acuities))
+        ax.set_yticks(range(len(adls)), list(reversed(adls)))
+        ax.set(xlabel="acuity_score", ylabel="adl_dependency", title=tag)
+        for r, d in enumerate(reversed(adls)):
+            for c, a in enumerate(acuities):
+                ax.text(c, r, f"T{grid[r, c]}\n{a + d + iso}", ha="center", va="center",
+                        fontsize=8, color="black")
+    fig.suptitle("L4 · Taxonomy bệnh nhân (KMeans 1D trên workload_score) — "
+                 "ô ghi Tier / điểm", fontsize=12)
+    fig.tight_layout(rect=(0, 0, 1, 0.97))
     FIG_OUT.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG_OUT, dpi=120)
 
+    # --- In bản đồ cluster ra console (đọc nhanh, không cần mở ảnh) ---
     print(f"k={SELECT_K} (silhouette_max tại k={meta['k_silhouette_max']}) | "
           f"fixture {agree}/{len(FIXTURES)}")
     print(f"tier_score_ranges={tier_ranges} | cluster_to_tier={cluster_to_tier}")
-    for r in fixture_report:
-        print(f"  a={r['acuity']} d={r['adl']} i={r['isolation']}: "
-              f"rule={r['rule_tier']} model={r['model_tier']}")
-    print(f"Wrote {MODEL_OUT.name}, {META_OUT.name}, {FIG_OUT.name}")
+    for iso in (0, 1):
+        print(f"\nBản đồ tier (isolation={iso})  [ô = Tier(điểm)]")
+        print("  adl\\acu " + "".join(f"{a:>8}" for a in acuities))
+        for d in reversed(list(adls)):
+            cells = "".join(f"  T{tier_of(a, d, iso)}({a + d + iso:>2})" for a in acuities)
+            print(f"    {d:>4}  {cells}")
+    print(f"\nWrote {MODEL_OUT.name}, {META_OUT.name}, {FIG_OUT.name}")
 
 
 if __name__ == "__main__":
