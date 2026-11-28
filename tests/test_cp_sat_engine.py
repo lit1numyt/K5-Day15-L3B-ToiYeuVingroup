@@ -11,6 +11,15 @@ from cp_sat_engine import solve_allocation
 
 
 class SolverTests(unittest.TestCase):
+    def test_blank_skills_never_produce_a_valid_draft(self):
+        instance, plan = sample()
+        for nurse in instance["nurses"]:
+            nurse["skills"] = [" "]
+        instance["tasks"][0]["required_skill"] = [" "]
+        instance["shift"]["coverage_rules"][0]["required_skill"] = " "
+        self.assertEqual(solve_allocation(instance)["status"], "need_info")
+        self.assertFalse(validate_plan(instance, plan)["valid"])
+
     def test_registered_tool_runs_the_real_cp_sat_backend(self):
         from tools import solve_allocation as tool_solve
         instance, _ = sample()
@@ -112,6 +121,21 @@ class SolverTests(unittest.TestCase):
         plan = self.checked(instance)
         row = plan["assignments"][0]
         self.assertEqual(row["end"] - row["start"], 20)
+
+    def test_resolve_uses_new_roster_tasks_and_windows(self):
+        root = Path(__file__).resolve().parents[1]
+        original = json.loads((root / "data/preliminary/instances.json").read_text(encoding="utf-8"))["cases"][0]["instance"]
+        self.checked(original)
+        updated = copy.deepcopy(original)
+        updated["nurses"] = [n for n in updated["nurses"] if n["nurse_id"] != "N3"]
+        updated["tasks"].append(dict(updated["tasks"][0], task_id="T7", est_duration_min=5))
+        updated["tasks"][0].update(earliest_start=20, deadline=40)
+        plan = self.checked(updated)
+        self.assertEqual({a["task_id"] for a in plan["assignments"]}, {"T1", "T2", "T3", "T4", "T5", "T6", "T7"})
+        self.assertNotIn("N3", {a["nurse_id"] for a in plan["assignments"] + plan["breaks"]})
+        first = next(a for a in plan["assignments"] if a["task_id"] == "T1")
+        self.assertGreaterEqual(first["start"], 20)
+        self.assertLessEqual(first["end"], 40)
 
     def test_zero_search_budget_is_unknown_not_infeasible(self):
         instance, _ = sample()

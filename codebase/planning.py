@@ -36,7 +36,7 @@ def input_issues(instance, *, require_duration=True):
             errors.append(entity + ": cần danh sách không rỗng")
             continue
         ids = [r.get(key) for r in rows]
-        if any(not isinstance(i, str) or not i for i in ids) or len(set(map(str, ids))) != len(ids):
+        if any(not isinstance(i, str) or not i.strip() for i in ids) or len(set(map(str, ids))) != len(ids):
             errors.append(entity + ": ID thiếu/trùng")
     if errors:
         return errors
@@ -46,6 +46,8 @@ def input_issues(instance, *, require_duration=True):
             and integer(policy.get("duration_min"), 1)
             and policy["duration_min"] <= window[1] - window[0]):
         errors.append("shift.break_policy: cần độ dài/cửa nghỉ hợp lệ")
+    if isinstance(policy, dict) and policy.get("blocks"):
+        errors.append("shift.break_policy.blocks: chưa hỗ trợ nhiều block nghỉ")
     if not integer(shift.get("room_switch_min")):
         errors.append("shift.room_switch_min: cần số phút nguyên không âm")
     equipment = shift.get("equipment_capacity", {})
@@ -63,15 +65,17 @@ def input_issues(instance, *, require_duration=True):
         for rule in rules:
             if not (isinstance(rule, dict) and interval(rule.get("start"), rule.get("end"), horizon)
                     and integer(rule.get("min_staff")) and isinstance(rule.get("zone"), str)
+                    and rule["zone"].strip()
                     and "required_skill" in rule
-                    and (rule["required_skill"] is None or isinstance(rule["required_skill"], str))):
+                    and (rule["required_skill"] is None
+                         or (isinstance(rule["required_skill"], str) and rule["required_skill"].strip()))):
                 errors.append("shift.coverage_rules: quy tắc không hợp lệ")
     for nurse in instance["nurses"]:
         if nurse.get("shift_id", shift["shift_id"]) != shift["shift_id"]:
             errors.append("nurses.%s.shift_id: khác ca" % nurse["nurse_id"])
         if not (isinstance(nurse.get("skills"), list) and nurse["skills"]
-                and all(isinstance(s, str) and s for s in nurse["skills"])
-                and isinstance(nurse.get("home_zone"), str)
+                and all(isinstance(s, str) and s.strip() for s in nurse["skills"])
+                and isinstance(nurse.get("home_zone"), str) and nurse["home_zone"].strip()
                 and interval(nurse.get("available_from"), nurse.get("available_to"), horizon)
                 and integer(nurse.get("max_capacity_min"), 1)):
             errors.append("nurses.%s: cần skill, zone, availability, capacity" % nurse["nurse_id"])
@@ -79,7 +83,7 @@ def input_issues(instance, *, require_duration=True):
     for patient in patients.values():
         if patient.get("ward_id", shift["ward_id"]) != shift["ward_id"]:
             errors.append("patients.%s.ward_id: khác khoa" % patient["patient_id"])
-        if not all(isinstance(patient.get(k), str) and patient[k] for k in ("room", "zone")):
+        if not all(isinstance(patient.get(k), str) and patient[k].strip() for k in ("room", "zone")):
             errors.append("patients.%s: cần room/zone" % patient["patient_id"])
     task_ids = {task["task_id"] for task in instance["tasks"]}
     predecessors = {}
@@ -87,6 +91,10 @@ def input_issues(instance, *, require_duration=True):
         prefix = "tasks." + task["task_id"]
         if task.get("synchronization"):
             errors.append(prefix + ".synchronization: chưa hỗ trợ, cần review")
+        if any(task.get(key) for key in ("status", "locked", "completed", "in_progress")):
+            errors.append(prefix + ": cần schema trạng thái/locked trước khi lập lại giữa ca")
+        if "staff_required" in task and not (type(task["staff_required"]) is int and task["staff_required"] == 1):
+            errors.append(prefix + ".staff_required: schema hiện chỉ hỗ trợ một người mỗi task")
         predecessor = task.get("precedence_task_id")
         if predecessor is not None:
             if not isinstance(predecessor, str) or predecessor not in task_ids or predecessor == task["task_id"]:
@@ -102,14 +110,14 @@ def input_issues(instance, *, require_duration=True):
                 and not integer(task.get("est_duration_min"), 1)):
             errors.append(prefix + ".est_duration_min: cần duration được cung cấp/xác nhận")
         if not (isinstance(task.get("required_skill"), list) and task["required_skill"]
-                and all(isinstance(s, str) and s for s in task["required_skill"])):
+                and all(isinstance(s, str) and s.strip() for s in task["required_skill"])):
             errors.append(prefix + ".required_skill: cần kỹ năng đã xác nhận")
         if not interval(task.get("earliest_start"), task.get("deadline"), horizon):
             errors.append(prefix + ": cần earliest_start/deadline hợp lệ")
         if (not isinstance(task.get("patient_id"), str) or task["patient_id"] not in patients
                 or task.get("mandatory") is not True):
             errors.append(prefix + ": cần patient_id/mandatory hợp lệ")
-        if not isinstance(task.get("task_type"), str) or not task["task_type"]:
+        if not isinstance(task.get("task_type"), str) or not task["task_type"].strip():
             errors.append(prefix + ".task_type: cần loại công việc")
         if "required_skill_level" in task:
             if not integer(task["required_skill_level"]) or any(
