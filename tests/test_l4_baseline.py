@@ -12,6 +12,15 @@ from planning import validate_plan  # noqa: E402
 
 BUNDLE = json.loads((ROOT / "data/preliminary/instances.json").read_text(encoding="utf-8"))
 CASES = {c["id"]: c["instance"] for c in BUNDLE["cases"]}
+META = json.loads((ROOT / "codebase/L4/taxonomy_meta.json").read_text(encoding="utf-8"))
+
+
+def _tier_from_meta(score):
+    """Tier theo điểm cắt đã ship trong taxonomy_meta.json (độc lập sklearn)."""
+    for tier, (lo, hi) in META["tier_score_ranges"].items():
+        if lo <= score <= hi:
+            return int(tier)
+    raise AssertionError(f"score {score} ngoài mọi tier range")
 
 
 class ClassifyPatient(unittest.TestCase):
@@ -63,6 +72,49 @@ class BaselineAllocate(unittest.TestCase):
     def test_draft_only_never_auto_applies(self):
         plan = baseline_allocate(CASES["P03"])
         self.assertTrue(plan["approval_required"])
+
+
+class TaxonomyModel(unittest.TestCase):
+    """L4 taxonomy đã ship (KMeans) + nhánh fallback — bất biến với/không có sklearn."""
+
+    def _patient(self, acuity, adl, iso=False):
+        return {"acuity_score": acuity, "adl_dependency": adl,
+                "isolation_precaution": iso, "care_category": "medical"}
+
+    def test_artifact_files_present(self):
+        from baseline import _MODEL_PATH, _META_PATH
+        self.assertTrue(_MODEL_PATH.exists(), "thiếu taxonomy_model.pkl đã ship")
+        self.assertTrue(_META_PATH.exists(), "thiếu taxonomy_meta.json")
+
+    def test_classify_matches_shipped_ranges(self):
+        # Dù chạy nhánh model hay fallback, tier phải khớp ranges đã ship.
+        for acuity in range(1, 6):
+            for adl in range(1, 5):
+                for iso in (0, 1):
+                    score = acuity + adl + iso
+                    tier = classify_patient(self._patient(acuity, adl, bool(iso)))["tier"]
+                    self.assertEqual(tier, _tier_from_meta(score),
+                                     f"a{acuity} d{adl} i{iso} (score {score})")
+
+    def test_fallback_in_sync_with_model(self):
+        # _fallback_tier (stdlib) phải cho đúng kết quả như ranges model đã học.
+        from baseline import _fallback_tier
+        for score in range(2, 11):
+            self.assertEqual(_fallback_tier(score), _tier_from_meta(score), f"score {score}")
+
+    def test_tier_monotonic_in_weight(self):
+        prev = 0
+        for score in range(2, 11):
+            tier = _tier_from_meta(score)
+            self.assertGreaterEqual(tier, prev, f"tier giảm tại score {score}")
+            prev = tier
+
+    def test_fixtures_agree_with_recorded_report(self):
+        # meta ghi 6/6 khớp rule; classify hiện tại cũng phải cho đúng model_tier đó.
+        for row in META["fixture_report"]:
+            tier = classify_patient(self._patient(
+                row["acuity"], row["adl"], bool(row["isolation"])))["tier"]
+            self.assertEqual(tier, row["model_tier"], row)
 
 
 if __name__ == "__main__":

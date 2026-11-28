@@ -15,15 +15,50 @@ Hai hàm theo module contract §3.4:
   `validate_plan` để benchmark đối đầu với L2 (CP-SAT) trên cùng instance. Chỉ tạo bản
   nháp, không tự áp dụng.
 """
+import json as _json
+import pickle as _pickle
+from pathlib import Path as _Path
+
 from planning import draft_schedule, input_issues, overlap, validate_plan  # noqa: F401
 
-# Thang giả định của fixture kỹ thuật: acuity 1–5, adl 1–4, isolation +1.
-# Cắt bậc tương đối; không phải phút, không phải điểm McGill tuyệt đối.
-_TIER_CUTS = ((3, 1), (6, 2))  # weight<=3 -> tier1; <=6 -> tier2; else tier3
+# --- Taxonomy: model KMeans đã ship (train bằng scripts/l4/train_taxonomy.py) ---
+# workload_score = acuity + adl + isolation; KMeans 1D chia 3 tier (điểm cắt học được).
+# Tier do model quyết; nếu không tải được sklearn/pickle -> fallback cùng điểm cắt (stdlib).
+_L4_DIR = _Path(__file__).resolve().parent / "L4"
+_MODEL_PATH = _L4_DIR / "taxonomy_model.pkl"
+_META_PATH = _L4_DIR / "taxonomy_meta.json"
+# Điểm cắt KMeans học (xem taxonomy_meta.json tier_score_ranges) — GIỮ ĐỒNG BỘ với model.
+_LEARNED_CUTS = ((4, 1), (6, 2))  # score<=4 -> 1; <=6 -> 2; else 3
+_model_cache = None  # None=chưa thử; False=không dùng được; (model, meta)=sẵn sàng
+
+
+def _load_taxonomy_model():
+    global _model_cache
+    if _model_cache is None:
+        try:
+            with _MODEL_PATH.open("rb") as fh:
+                model = _pickle.load(fh)
+            meta = _json.loads(_META_PATH.read_text(encoding="utf-8"))
+            _model_cache = (model, meta)
+        except Exception:
+            _model_cache = False  # sklearn thiếu / pickle lỗi / lệch phiên bản
+    return _model_cache
+
+
+def _fallback_tier(weight):
+    for cut, value in _LEARNED_CUTS:
+        if weight <= cut:
+            return value
+    return 3
 
 
 def classify_patient(patient):
-    """patient dict -> {tier, workload_weight, care_category, basis} hoặc need_info."""
+    """patient dict -> {tier, workload_weight, care_category, basis} hoặc need_info.
+
+    Tier do model KMeans đã huấn luyện quyết; không tải được model -> fallback về đúng
+    điểm cắt đã học (rule stdlib), hành vi không đổi. workload_weight là điểm tương đối
+    (acuity+adl+isolation), KHÔNG phải phút.
+    """
     acuity = patient.get("acuity_score")
     adl = patient.get("adl_dependency")
     if not (type(acuity) is int and type(adl) is int and acuity >= 1 and adl >= 1):
@@ -32,14 +67,21 @@ def classify_patient(patient):
                 "need_info": ["acuity_score", "adl_dependency"],
                 "basis": "Thiếu acuity/adl hợp lệ; không suy đoán bậc workload."}
     weight = acuity + adl + (1 if patient.get("isolation_precaution") else 0)
-    tier = 3
-    for cut, value in _TIER_CUTS:
-        if weight <= cut:
-            tier = value
-            break
-    return {"tier": tier, "workload_weight": weight,
+    loaded = _load_taxonomy_model()
+    if loaded:
+        model, meta = loaded
+        try:
+            cluster = int(model.predict([[weight]])[0])
+            tier = meta["cluster_to_tier"][str(cluster)]
+            return {"tier": tier, "workload_weight": weight,
+                    "care_category": patient.get("care_category"),
+                    "basis": "KMeans taxonomy v%s (workload_score) — trọng số tương đối, không phải phút."
+                             % meta.get("sklearn_version", "?")}
+        except Exception:
+            pass  # lỗi predict -> fallback
+    return {"tier": _fallback_tier(weight), "workload_weight": weight,
             "care_category": patient.get("care_category"),
-            "basis": "McGill ordinal (acuity+adl+isolation) — trọng số tương đối, không phải phút."}
+            "basis": "rule fallback (điểm cắt học ≤4/≤6, đồng bộ model) — không phải phút."}
 
 
 def _staggered_breaks(shift, nurses):
