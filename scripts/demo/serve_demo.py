@@ -77,6 +77,7 @@ class DemoServer(ThreadingHTTPServer):
     def __init__(self, address):
         super().__init__(address, Handler)
         self.sessions = {}
+        self.latest_draft = None  # bản nháp mới nhất, dùng chung cho mọi phiên (lead + điều dưỡng)
         # The existing trace collector is process-global.
         self.pipeline_lock = Lock()
 
@@ -109,6 +110,10 @@ class Handler(SimpleHTTPRequestHandler):
         elif path == "/api/session":
             user = self.server.sessions.get(self.session_id())
             self.send_json(200 if user else 401, {"user": user})
+        elif path == "/api/draft":
+            user = self.server.sessions.get(self.session_id())
+            self.send_json(200 if user else 401,
+                           {"draft": self.server.latest_draft if user else None})
         else:
             self.serve_asset(path, head_only=False)
 
@@ -179,6 +184,8 @@ class Handler(SimpleHTTPRequestHandler):
             try:
                 with self.server.pipeline_lock:
                     result = handle_message(message.strip())
+                    if result.get("draft"):
+                        self.server.latest_draft = result["draft"]
             except Exception as exc:
                 self.log_error("Chat failed: %s", type(exc).__name__)
                 self.send_json(502, {

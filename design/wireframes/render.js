@@ -34,11 +34,18 @@
     return data;
   }
 
-  function renderDraft(draft) {
+  // onlyNurseId: khi có, chỉ hiện ca của riêng điều dưỡng đó (màn hình điều dưỡng).
+  function renderDraft(draft, onlyNurseId) {
     var shiftLength = draft.shift.shift_length_min;
-    var lastEnd = Math.max.apply(null, draft.plan.assignments.concat(draft.plan.breaks)
-      .map(function (entry) { return entry.end; }));
-    var length = byId("full-shift").checked ? shiftLength :
+    var nurses = onlyNurseId
+      ? draft.nurses.filter(function (n) { return n.nurse_id === onlyNurseId; })
+      : draft.nurses;
+    var scopedAsg = draft.plan.assignments.filter(function (a) { return !onlyNurseId || a.nurse_id === onlyNurseId; });
+    var scopedBrk = draft.plan.breaks.filter(function (b) { return !onlyNurseId || b.nurse_id === onlyNurseId; });
+    var lastEnd = Math.max.apply(null, scopedAsg.concat(scopedBrk)
+      .map(function (entry) { return entry.end; }).concat([120]));
+    var fullShift = byId("full-shift");
+    var length = (fullShift && fullShift.checked) ? shiftLength :
       Math.min(shiftLength, Math.max(120, Math.ceil(lastEnd / 30) * 30));
     function clock(minute) {
       var time = draft.display_start_min + minute;
@@ -54,10 +61,10 @@
     }
     axis += '<span class="hh end">' + clock(length) + '</span>';
     byId("tl").style.setProperty("--grid-step", percent(step));
-    byId("full-shift").onchange = function () { renderDraft(draft); };
+    if (fullShift) fullShift.onchange = function () { renderDraft(draft, onlyNurseId); };
     var timeline = '<div class="r"><div class="lab">Điều dưỡng</div><div class="area axis">' + axis + '</div></div>';
     var rows = [];
-    draft.nurses.forEach(function (nurse) {
+    nurses.forEach(function (nurse) {
       var items = draft.plan.assignments.filter(function (task) { return task.nurse_id === nurse.nurse_id; })
         .map(function (assignment) {
           var task = tasks.get(assignment.task_id);
@@ -83,18 +90,37 @@
         '</div><div class="area track">' + bars + '</div></div>';
     });
     byId("tl").innerHTML = timeline;
-    byId("schedule-rows").innerHTML = rows.join("");
-    byId("ov").innerHTML = [
-      [draft.nurses.length, "Điều dưỡng trực"],
-      [draft.plan.assignments.length, "Công việc đã xếp"],
-      [draft.plan.metrics.utilization_cv.toFixed(3), "CV tải"],
-      ["Đạt", "Kiểm ràng buộc"]
-    ].map(function (cell) {
+    var scheduleRows = byId("schedule-rows");
+    if (scheduleRows) scheduleRows.innerHTML = rows.join("");
+    var cells;
+    if (onlyNurseId) {
+      var minutes = scopedAsg.reduce(function (s, a) { return s + (a.end - a.start); }, 0);
+      var patients = {};
+      scopedAsg.forEach(function (a) { var t = tasks.get(a.task_id); if (t) patients[t.patient_id] = 1; });
+      var myBreak = scopedBrk[0];
+      cells = [
+        [scopedAsg.length, "Việc được giao"],
+        [minutes + "′", "Tổng thời lượng"],
+        [Object.keys(patients).length, "Bệnh nhân"],
+        [myBreak ? clock(myBreak.start) : "—", "Giờ nghỉ"]
+      ];
+    } else {
+      cells = [
+        [draft.nurses.length, "Điều dưỡng trực"],
+        [draft.plan.assignments.length, "Công việc đã xếp"],
+        [draft.plan.metrics.utilization_cv.toFixed(3), "CV tải"],
+        ["Đạt", "Kiểm ràng buộc"]
+      ];
+    }
+    byId("ov").innerHTML = cells.map(function (cell) {
       return '<div class="cell"><div class="num">' + esc(cell[0]) +
         '</div><div class="lab">' + esc(cell[1]) + '</div></div>';
     }).join("");
-    byId("plan-status").textContent = "Bản nháp chờ trưởng ca duyệt";
+    var status = byId("plan-status");
+    if (status) status.textContent = "Bản nháp chờ trưởng ca duyệt";
     byId("draft").hidden = false;
+    var emptyNote = byId("empty");
+    if (emptyNote) emptyNote.hidden = true;
   }
 
   function appendMessage(kind, name, text) {
@@ -164,6 +190,11 @@
       });
       if (lead) setupChat();
       document.querySelector("main").hidden = false;
+      // Nạp bản nháp mới nhất do trưởng ca đã lập (dùng chung cho mọi phiên).
+      try {
+        var current = await api("/api/draft");
+        if (current && current.draft) renderDraft(current.draft, lead ? null : session.user.nurse_id);
+      } catch (draftError) { /* chưa có bản nháp */ }
     } catch (error) {
       console.warn(error.message);
     }

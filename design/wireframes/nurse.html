@@ -14,8 +14,30 @@
   </header>
 
   <main hidden>
-    <h1 class="page-h">Lịch ca của bạn</h1>
-    <p>Chưa có lịch được trưởng ca duyệt.</p>
+    <div class="page-head">
+      <h1 class="page-h">Lịch ca của bạn</h1>
+      <span class="role-tag" id="plan-status">Chưa có lịch</span>
+    </div>
+    <p class="note" id="empty">Chưa có lịch được trưởng ca duyệt. Khi trưởng ca lập bản nháp, lịch của bạn sẽ hiện ở đây.</p>
+    <section class="draft" id="draft" hidden aria-labelledby="schedule-title">
+      <div class="schedule-heading">
+        <h2 class="panel-h" id="schedule-title">Lịch của bạn</h2>
+        <label class="note"><input type="checkbox" id="full-shift"> Xem cả ca 07:00–15:00</label>
+      </div>
+      <div class="ov" id="ov"></div>
+      <p class="note timeline-hint">Vuốt ngang để xem các giờ còn lại.</p>
+      <div class="timeline-scroll" tabindex="0" aria-label="Lịch theo trục giờ">
+        <div class="htl" id="tl"></div>
+      </div>
+      <div class="legend-row"><span><i class="swatch"></i>Công việc</span><span><i class="swatch break"></i>Nghỉ được bảo vệ</span></div>
+      <details class="schedule-details">
+        <summary>Xem chi tiết giờ và công việc</summary>
+        <div class="scroll"><table>
+          <thead><tr><th>Điều dưỡng</th><th>Giờ</th><th>Công việc</th></tr></thead>
+          <tbody id="schedule-rows"></tbody>
+        </table></div>
+      </details>
+    </section>
   </main>
 
   <footer><div>NurseFlow — Cổng điều dưỡng</div></footer>
