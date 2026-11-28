@@ -218,6 +218,21 @@
   <div class="foot"><span>Không có dữ liệu gán nhãn workload cho bệnh nhân → chọn phương pháp trung thực (clustering + bảng tra), thay vì dựng một mô hình supervised không có nhãn.</span></div>
 </section>
 
+<!-- Data provenance -->
+<section class="slide">
+  <p class="eyebrow">Dữ liệu · Nguồn &amp; kiểm chứng</p>
+  <h2>Mọi con số đều truy được về nguồn</h2>
+  <table style="margin-top:1.5vh; font-size:2.15vh;">
+    <tr><th>Nguồn</th><th>Vai trò</th><th>Giấy phép · kiểm chứng</th></tr>
+    <tr><td><span class="k">Zenodo 20754938</span> — time-motion phòng mổ</td><td>Huấn luyện &amp; EDA L3</td><td>CC-BY-4.0 · MD5 78e04e… khớp, pipeline tái lập được</td></tr>
+    <tr><td><span class="k">Simmons 2025</span>, Table 3 (jgs.19507)</td><td>Bảng tra thời lượng nội trú</td><td>9 dòng đối chiếu nguyên văn bài báo</td></tr>
+    <tr><td><span class="k">McGill workload tool</span> (Borealis)</td><td>Phân bậc bệnh nhân L4</td><td>CC0 · MD5 52af91… · 113 item</td></tr>
+    <tr><td><span class="k">MatchRN v1.0.0</span> (Zenodo 15248072)</td><td>Bằng chứng áp lực ca</td><td>MD5 của CSV / codebook / readme đều khớp</td></tr>
+    <tr><td><span class="k">MIMIC-IV / eICU demo</span> (PhysioNet)</td><td>Bối cảnh lâm sàng</td><td>ODbL — chỉ giữ số thống kê, không chép dữ liệu thô</td></tr>
+  </table>
+  <div class="foot"><span>Giới hạn (<span class="b">not_verified</span>) của từng nguồn cũng ghi lại trong <span class="b">data/reference/preliminary_sources.json</span>.</span><span>không bịa số · không trộn nguồn</span></div>
+</section>
+
 <!-- 6 · Methodology -->
 <section class="slide">
   <p class="eyebrow">Cách huấn luyện &amp; kiểm thử</p>
@@ -258,6 +273,34 @@
     </ul>
     <p class="takeaway">Lịch phải bám cao điểm để bảo vệ giờ nghỉ; và <b>đánh giá phải tránh rò rỉ</b> giữa train và test.</p>
   </div>
+</section>
+
+<!-- EDA results (numbers) -->
+<section class="slide">
+  <p class="eyebrow">Dữ liệu · Kết quả EDA</p>
+  <h2>Làm sạch minh bạch, giữ nguyên độ biến thiên</h2>
+  <div style="display:flex; gap:3vw; margin-top:1.5vh; align-items:flex-start;">
+    <div style="flex:1;">
+      <div class="cards" style="grid-template-columns:1fr; gap:1.5vh;">
+        <div class="card"><h3 style="font-size:3.4vh; color:var(--ink);">11.074 → 2.380</h3><p>segment thô → episode làm việc (bỏ 1 dòng trùng, gộp hoạt động liên tục)</p></div>
+        <div class="card"><h3 style="font-size:3.4vh; color:var(--ink);">37 · 168</h3><p>nhân viên · ca-người (staff-shift) — 46 nhãn việc, 13 nhóm</p></div>
+        <div class="card"><h3 style="font-size:3.4vh; color:var(--ink);">09–10h</h3><p>khung cao điểm — 331 lượt bắt đầu việc trong tuần</p></div>
+      </div>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column;">
+      <h3 style="margin-bottom:1vh;">Trung vị thời lượng theo nhóm việc</h3>
+      <table style="font-size:2.1vh;">
+        <tr><th>Nhóm việc</th><th>Số lượt</th><th>Trung vị</th></tr>
+        <tr><td>procedure_care</td><td>430</td><td>78,5′</td></tr>
+        <tr><td>break (giờ nghỉ)</td><td>188</td><td>59′</td></tr>
+        <tr><td>prep_setup</td><td>480</td><td>20′</td></tr>
+        <tr><td>cleanup</td><td>354</td><td>19,5′</td></tr>
+        <tr><td>documentation</td><td>95</td><td>15′</td></tr>
+        <tr><td>handover (bàn giao)</td><td>211</td><td>9′</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>840 segment thiếu giờ kết thúc ca → giữ dạng unknown, không điền bừa.</span><span>Tái lập được: checksum + seed cố định.</span></div>
 </section>
 
 <!-- 9 · L3 distribution + model comparison -->
@@ -363,7 +406,7 @@
   <p class="eyebrow" style="margin:2.2vh 0 0; color:var(--muted);">→ Chuyển sang trình duyệt: design/wireframes/login.html</p>
 </section>
 
-<div class="counter">1 / 17</div>
+<div class="counter">1 / 19</div>
 <div class="hint">← → để chuyển slide · Cmd/Ctrl + P để xuất PDF</div>
 
 <script>
