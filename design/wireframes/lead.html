@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NurseFlow — Màn hình trưởng ca</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../../style/style.css">
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <a href="index.html">NurseFlow</a>
+      <span class="ctx">Khoa Nội · Ca sáng 07:00–15:00 · 25/11</span>
+    </div>
+    <div class="userbar">
+      <span class="name">ĐD. Trần Thị Lan</span>
+      <span class="sep">Trưởng ca</span>
+      <a href="#">Đăng xuất</a>
+    </div>
+  </header>
+
+  <main class="wide">
+    <div class="page-head">
+      <h1 class="page-h">Bảng điều phối ca</h1>
+      <span class="role-tag">Trưởng ca</span>
+    </div>
+
+    <!-- Overview strip -->
+    <div class="ov">
+      <div class="cell"><div class="num">3</div><div class="lab">Điều dưỡng trực</div></div>
+      <div class="cell"><div class="num">24</div><div class="lab">Tổng công việc</div></div>
+      <div class="cell"><div class="num">46%</div><div class="lab">Hoàn thành</div></div>
+      <div class="cell"><div class="num accent">2</div><div class="lab">Yêu cầu chờ duyệt</div></div>
+      <div class="cell"><div class="num">Đủ</div><div class="lab">Coverage</div></div>
+    </div>
+
+    <div class="board">
+      <!-- LEFT: whole-shift timeline (everyone) -->
+      <section>
+        <h2 class="panel-h">Lịch cả ca — toàn bộ điều dưỡng</h2>
+        <p class="panel-sub">Mỗi hàng là một điều dưỡng; khối là công việc theo giờ.</p>
+        <div class="gantt"><div class="grid">
+          <div class="head">
+            <span class="who">Điều dưỡng</span>
+            <div class="ticks">
+              <span style="left:0">07</span><span style="left:12.5%">08</span><span style="left:25%">09</span>
+              <span style="left:37.5%">10</span><span style="left:50%">11</span><span style="left:62.5%">12</span>
+              <span style="left:75%">13</span><span style="left:87.5%">14</span>
+            </div>
+          </div>
+          <div class="row">
+            <span class="who">N1 · An</span>
+            <div class="track">
+              <div class="bar" style="left:0;width:6.25%">Nhận ca</div>
+              <div class="bar" style="left:6.25%;width:18.75%">BN A</div>
+              <div class="bar break" style="left:37.5%;width:6.25%">Nghỉ</div>
+              <div class="bar" style="left:50%;width:12.5%">BN C</div>
+            </div>
+          </div>
+          <div class="row">
+            <span class="who">N2 · Bình</span>
+            <div class="track">
+              <div class="bar" style="left:6.25%;width:25%">BN D</div>
+              <div class="bar break" style="left:31.25%;width:6.25%">Nghỉ</div>
+              <div class="bar" style="left:43.75%;width:25%">BN E</div>
+            </div>
+          </div>
+          <div class="row">
+            <span class="who">N3 · Chi</span>
+            <div class="track">
+              <div class="bar" style="left:12.5%;width:25%">BN F</div>
+              <div class="bar break" style="left:43.75%;width:6.25%">Nghỉ</div>
+              <div class="bar" style="left:56.25%;width:25%">BN G</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="legend-row">
+          <span><i class="swatch"></i>Công việc</span>
+          <span><i class="swatch break"></i>Giờ nghỉ</span>
+          <span>Cuộn ngang để xem hết ca</span>
+        </div>
+      </section>
+
+      <!-- RIGHT: approvals + request to system -->
+      <section>
+        <h2 class="panel-h">Yêu cầu &amp; điều phối</h2>
+        <p class="panel-sub">Duyệt đề xuất của điều dưỡng, hoặc gửi yêu cầu tới hệ thống.</p>
+        <div class="chat">
+          <div class="log">
+            <div class="req">
+              <div class="who">Đề xuất · ĐD An</div>
+              <p>Xin dời giờ nghỉ 10:00 → 10:30.</p>
+              <div class="act"><button class="btn primary sm">Duyệt</button><button class="btn sm">Từ chối</button></div>
+            </div>
+            <div class="req">
+              <div class="who">Đề xuất · ĐD Bình</div>
+              <p>Xin chuyển BN E sang điều dưỡng khác — đang quá tải khung 10:30–12:30.</p>
+              <div class="act"><button class="btn primary sm">Duyệt</button><button class="btn sm">Từ chối</button></div>
+            </div>
+            <div class="msg me"><div class="who">Bạn</div><div class="bub">Thêm người cho khung 11:00–12:00, san bớt tải của Bình.</div></div>
+            <div class="msg ai"><div class="who">AI</div><div class="bub">Em đã chạy lại kế hoạch với ràng buộc mới. Bản nháp mới: coverage vẫn đủ, tải cân bằng hơn (CV 0.30 → 0.16). Chị xem khác biệt rồi duyệt nhé?</div></div>
+          </div>
+          <div class="composer">
+            <div class="row">
+              <input placeholder="Nhập yêu cầu tới hệ thống…" aria-label="Nhập yêu cầu">
+              <button class="btn primary">Gửi yêu cầu</button>
+            </div>
+            <p class="hint">Chỉ trưởng ca gửi yêu cầu tới hệ thống; mọi thay đổi đều tạo bản nháp chờ duyệt.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>NurseFlow — AI đề xuất, trưởng ca quyết định</div>
+    <div class="row"><a href="index.html">Màn hình</a><a href="nurse.html">Màn hình điều dưỡng</a></div>
+  </footer>
+</body>
+</html>

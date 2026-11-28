@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NurseFlow — Màn hình điều dưỡng</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../../style/style.css">
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <a href="index.html">NurseFlow</a>
+      <span class="ctx">Khoa Nội · Ca sáng 07:00–15:00 · 25/11</span>
+    </div>
+    <div class="userbar">
+      <span class="name">ĐD. Nguyễn Thị An</span>
+      <span class="sep">Điều dưỡng</span>
+      <a href="#">Đăng xuất</a>
+    </div>
+  </header>
+
+  <main class="wide">
+    <div class="page-head">
+      <h1 class="page-h">Ca của tôi</h1>
+      <span class="role-tag">Điều dưỡng</span>
+    </div>
+
+    <!-- Overview strip -->
+    <div class="ov">
+      <div class="cell"><div class="num">4<span style="font-size:1rem;color:var(--muted)">/9</span></div><div class="lab">Việc đã xong</div></div>
+      <div class="cell"><div class="num">5</div><div class="lab">Việc còn lại</div></div>
+      <div class="cell"><div class="num">08:15</div><div class="lab">Việc kế tiếp</div></div>
+      <div class="cell"><div class="num">4g20</div><div class="lab">Còn lại trong ca</div></div>
+      <div class="cell"><div class="num">10:00</div><div class="lab">Giờ nghỉ</div></div>
+    </div>
+
+    <div class="board">
+      <!-- LEFT: timeline + subtask order -->
+      <section>
+        <h2 class="panel-h">Lịch công việc trong ca</h2>
+        <p class="panel-sub">Kế hoạch do AI đề xuất, đã được trưởng ca duyệt. Việc chồng nhau = có thể làm song song.</p>
+        <div class="cal">
+          <div class="axis">
+            <span>07:00</span><span>08:00</span><span>09:00</span><span>10:00</span>
+            <span>11:00</span><span>12:00</span><span>13:00</span><span>14:00</span>
+          </div>
+          <div class="lanes">
+            <div class="ev" style="top:0;height:28px;left:1%;width:97%"><div class="nm">Nhận bàn giao ca</div></div>
+            <div class="ev" style="top:28px;height:28px;left:1%;width:47%"><div class="nm">1.1 Chuẩn bị · Việc 1</div><div class="t">BN A · 07:30</div></div>
+            <div class="ev" style="top:42px;height:28px;left:51%;width:47%"><div class="nm">2.1 Chuẩn bị · Việc 2</div><div class="t">BN B · 07:45</div></div>
+            <div class="ev" style="top:70px;height:42px;left:1%;width:97%"><div class="nm">1.2 Hoàn tất Việc 1</div><div class="t">BN A · 08:15–09:00</div></div>
+            <div class="ev" style="top:126px;height:42px;left:1%;width:97%"><div class="nm">2.2 Hoàn tất Việc 2</div><div class="t">BN B · 09:00–09:45</div></div>
+            <div class="ev break" style="top:196px;height:28px;left:1%;width:97%"><div class="nm">Nghỉ (được bảo vệ)</div><div class="t">10:00–10:30</div></div>
+            <div class="ev" style="top:280px;height:56px;left:1%;width:97%"><div class="nm">Thay băng · BN C</div><div class="t">11:00–12:00</div></div>
+          </div>
+        </div>
+        <div class="legend-row">
+          <span><i class="swatch"></i>Công việc</span>
+          <span><i class="swatch break"></i>Giờ nghỉ được bảo vệ</span>
+          <span>Khối cạnh nhau = làm song song</span>
+        </div>
+
+        <h3 class="side-label" style="margin-top:2rem">Thứ tự thao tác</h3>
+        <div class="flow">
+          <div class="grp concur">
+            <div class="eyebrow">Có thể làm song song</div>
+            <div class="step"><span class="idx">1.1</span>Chuẩn bị dụng cụ · BN A <span class="k">Việc 1</span></div>
+            <div class="step"><span class="idx">2.1</span>Chuẩn bị dụng cụ · BN B <span class="k">Việc 2</span></div>
+          </div>
+          <div class="arrow">↓ rồi</div>
+          <div class="grp">
+            <div class="step"><span class="idx">1.2</span>Hoàn tất Việc 1 · BN A <span class="k">Việc 1</span></div>
+          </div>
+          <div class="arrow">↓ rồi</div>
+          <div class="grp">
+            <div class="step"><span class="idx">2.2</span>Hoàn tất Việc 2 · BN B <span class="k">Việc 2</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: chat -->
+      <section>
+        <h2 class="panel-h">Hỏi &amp; đề xuất</h2>
+        <p class="panel-sub">Hỏi AI về cách sắp xếp, hoặc đề xuất thay đổi (gửi trưởng ca duyệt).</p>
+        <div class="chat">
+          <div class="log">
+            <div class="msg ai"><div class="who">AI</div><div class="bub">Chào chị An. Đây là kế hoạch ca sáng, đã được trưởng ca duyệt. Chị hỏi em bất cứ điều gì về thứ tự công việc nhé.</div></div>
+            <div class="msg me"><div class="who">Bạn</div><div class="bub">Vì sao chuẩn bị cho Việc 2 (BN B) lại làm trước khi hoàn tất Việc 1?</div></div>
+            <div class="msg ai"><div class="who">AI</div><div class="bub">Hai bước chuẩn bị (1.1 và 2.1) dùng chung khâu soạn dụng cụ, nên gộp làm song song để tiết kiệm thời gian. Sau đó mới hoàn tất từng việc — Việc 1 vẫn xong trước hạn 09:00.</div></div>
+            <div class="msg me"><div class="who">Bạn</div><div class="bub">Em muốn dời giờ nghỉ sang 10:30 được không?</div></div>
+            <div class="msg ai"><div class="who">AI</div><div class="bub">Em ghi nhận. Thay đổi cần trưởng ca duyệt — em gửi đề xuất này tới trưởng ca Lan nhé?</div></div>
+          </div>
+          <div class="composer">
+            <div class="row">
+              <input placeholder="Hỏi về kế hoạch ca…" aria-label="Nhập câu hỏi">
+              <button class="btn primary">Hỏi</button>
+              <button class="btn">Đề xuất đổi</button>
+            </div>
+            <p class="hint">Đề xuất thay đổi sẽ gửi trưởng ca duyệt — điều dưỡng không tự áp dụng.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>NurseFlow — bản nháp kế hoạch, luôn chờ/được trưởng ca duyệt</div>
+    <div class="row"><a href="index.html">Màn hình</a><a href="lead.html">Màn hình trưởng ca</a></div>
+  </footer>
+</body>
+</html>
