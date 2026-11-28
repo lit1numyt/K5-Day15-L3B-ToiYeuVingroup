@@ -30,9 +30,9 @@ l3_input = case["l3_input"]
 P01/P02 có ba nhân viên, P03 loại N3 do vắng. Coverage tối thiểu bằng một người được
 khai báo từ đầu ở cả ba ca. Các ca có sáu task, sáu patient, ba phòng, nghỉ 15 phút trong
 ca 120 phút. Checker kiểm đủ bộ P01–P03, source checksum, các trường giao diện, duration
-cho sẵn, cặp input L3 và tính khả thi bằng một
-lịch chứng minh từ heuristic hiện có qua validator. Chỉ số cân bằng của CP-SAT/L4 sẽ được
-tính khi các module đó chạy trên cùng instance.
+cho sẵn, cặp input L3 và tính khả thi bằng một lịch chứng minh từ heuristic qua validator.
+CP-SAT và hai baseline L4 đã chạy trên cùng instance, được chấm lại bằng validator.
+[Kết quả đối chứng và cách tái lập](../../eval/cp3-engine-report.md).
 
 ## Phạm vi kiểm
 
@@ -44,8 +44,8 @@ tính khi các module đó chạy trên cùng instance.
 | Yêu cầu vượt quyền, dữ liệu thiếu | F09–F15 và bộ benchmark hội thoại B01–B20. |
 
 P01–P03 dùng cùng tập kỹ năng, level 2 cho nurse và level 1 cho task để tập trung kiểm
-giao diện. Bộ này chưa kiểm đầy đủ phase, equipment, preparation hoặc precedence của
-thiết kế sản phẩm. Các tính năng đó được kiểm khi triển khai module CP3 theo contract.
+giao diện. Phase, equipment, preparation và precedence được kiểm thêm bằng
+[C01–C08](../cp3-engine-cases.json), không nhận ba ca shared là đủ kiểm mọi tính năng.
 
 ## Nguồn và giả định
 

@@ -1,5 +1,13 @@
 # Data card — NurseFlow
 
+## Ca demo
+
+Khoa sinh ca tổng hợp với seed 7, gồm 5 điều dưỡng, 12 bệnh nhân và 20 công việc
+tại `data/demo/shift_5n_20t.json`. Roster, kỹ năng, thời lượng `given`, acuity/ADL và
+coverage là giả định kỹ thuật được khai báo trong `scripts/demo/build_demo.py`.
+Ca này phục vụ kiểm tích hợp và hiển thị wireframe. Metadata của bản xuất ghi
+`data_kind=synthetic`, seed, phương pháp lập lịch và kết quả validator.
+
 ## Preliminary CP3
 
 Lam và Kiên phụ trách lựa chọn nguồn và chuẩn bị dữ liệu phục vụ L3 theo kiến trúc của Khoa.
@@ -48,6 +56,15 @@ mobility và footnote staffing trong Simmons. Các tình huống được nhóm 
 
 **Tái lập.** Cài dependency rồi chạy bốn script theo README.
 [Hướng dẫn chạy](../README.md#preliminary-cp3).
+
+## Ca kỹ thuật L2 CP3
+
+`cp3-engine-cases.json` có tám ca synthetic tạo xác định từ P01 bằng
+`scripts/data/build_cp3_engine_cases.py`, seed null, kèm checksum nguồn. Các giá trị
+duration, staffing, skill, windows, coverage và capacity thiết bị là giả định kỹ thuật.
+Các ca kiểm nghỉ song song có coverage, phase/precedence, thiết bị chia sẻ, skill tách,
+travel qua break và trường hợp vô nghiệm. Chúng không phải dữ liệu bệnh viện quan sát
+hoặc bằng chứng pain; tách khỏi benchmark hội thoại và output lịch sử.
 
 ## Hồ sơ CP2 được giữ nguyên
 

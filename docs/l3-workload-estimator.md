@@ -267,17 +267,20 @@ Các mức kiểm thử được tách riêng, không gộp làm một:
 
 **Luồng chuẩn:** Structural validation → **L3** `estimate_duration` → Full validation → **L2** `solve_allocation` → `validate_plan` → L1 giải thích.
 
-**Không bỏ qua structural validation để L3 chạy trước.** Vấn đề hiện tại là `planning.input_issues` gộp cả kiểm cấu trúc lẫn kiểm "đã có `est_duration_min`". Gọi nó trước L3 thì task thiếu phút bị chặn (đã kiểm với P02); bỏ nó đi thì mất kiểm cấu trúc.
-
-**Đề nghị bàn giao cho Lam/Kiên** (L3 không sửa `planning.py`):
-- Tách `input_issues` thành hai hàm, hoặc thêm tham số. Gợi ý: `structural_input_issues(instance)` gồm mọi kiểm hiện có **trừ** dòng `est_duration_min`, và `input_issues(instance)` giữ nguyên làm full validation.
+**Kiểm cấu trúc trước L3:** nhánh L2 đã bổ sung
+`planning.input_issues(instance, require_duration=False)`. Tham số này cho phép thiếu
+duration, vẫn bác duration sai đã được cung cấp và giữ các kiểm cấu trúc/ràng buộc khác.
+Sau L3 dùng `input_issues(instance)` mặc định để kiểm đủ duration. Không cần lọc thông
+báo lỗi theo câu chữ hoặc tạo hàm `structural_input_issues` riêng.
 
 Đoạn code mẫu cho `agent.answer()` (Kiên thực hiện; L3 không sửa `agent.py`):
 
 ```python
+from planning import input_issues, validate_plan
+from tools import solve_allocation
 from workload import estimate_duration, DurationNeedInfo, InvalidInstance, SourceTableError
 
-issues = structural_input_issues(instance)    # 1. cấu trúc (hàm mới do Lam/Kiên tách)
+issues = input_issues(instance, require_duration=False)  # 1. kiểm trước L3
 if issues:
     return need_info(issues)
 try:
@@ -291,16 +294,13 @@ issues = input_issues(instance)               # 3. full validation, giờ đã c
 if issues:
     return need_info(issues)
 plan = solve_allocation(instance)             # 4. L2
+if plan["status"] != "draft":
+    return plan                              # L1 ghép envelope theo status
 validation = validate_plan(instance, plan)    # 5. oracle
 ```
 
-Trong lúc chờ tách hàm, có thể tạm lọc đúng thông báo thiếu duration:
-
-```python
-pre = [i for i in input_issues(instance) if not i.endswith(".est_duration_min: cần duration được cung cấp/xác nhận")]
-```
-
-Cách này phụ thuộc vào câu chữ thông báo nên dễ vỡ. Chỉ nên dùng tạm thời.
+Đây là phần thân luồng tích hợp; `need_info` là helper trả envelope của L1. Khi có draft,
+L1 chỉ trả lịch nếu `validation["valid"]` là true và giữ `approval_required=true`.
 
 Nên bọc `estimate_duration` bằng `@tool` trong `tools.py` để trace ghi lại.
 
@@ -311,8 +311,8 @@ Nên bọc `estimate_duration` bằng `@tool` trong `tools.py` để trace ghi l
 - `mobility_scope` (`bed_to_chair` | `walking` | khác): bắt buộc hỏi với mobilization.
 - `setting` (`inpatient_ward` | …) và `complexity` (`standard` | …): tùy chọn, dùng khi trưởng ca cho biết task ngoài phạm vi thông thường.
 
-**Kiểm tra an toàn L2/validator cần bảo đảm** (Lam), không phụ thuộc L3:
-1. `validate_plan` bác task có `staff_required > 1` hoặc `synchronization` nếu plan chỉ giao một người. Hiện `input_issues` đã chặn `synchronization`, nhưng chưa biết `staff_required`.
+**Kiểm tra an toàn L2/validator đã bổ sung trên nhánh L2** (Lam), không phụ thuộc L3:
+1. `input_issues` và `validate_plan` bác `staff_required` khác số nguyên 1 khi được cung cấp, hoặc `synchronization` có giá trị. Không xác nhận một assignment đơn là đủ cho task nhiều nhân viên.
 2. `assignment.end − start == est_duration_min` (đã có).
 3. Không chấp nhận instance còn task thiếu `est_duration_min` (đã có trong `input_issues`).
 

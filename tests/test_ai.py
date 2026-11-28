@@ -40,6 +40,24 @@ class AiConnectorTests(unittest.TestCase):
         self.assertIn("xin chào", res["text"])
         self.assertEqual(summary["model_calls"], 1)
 
+    def test_api_base_supports_demo_configuration_and_specific_override(self):
+        payload = {"usage": {"prompt_tokens": 12, "completion_tokens": 5},
+                   "choices": [{"message": {"content": "Bản nháp"}}]}
+        with mock.patch.dict("os.environ", {"API_BASE": "https://example.test/v1/"}, clear=True):
+            with mock.patch.object(ai, "post_json", return_value=payload) as post:
+                ai.call_openai("system", "user", "demo-model")
+                self.assertEqual(post.call_args.args[0], "https://example.test/v1/chat/completions")
+            with mock.patch.dict("os.environ", {"OPENAI_BASE_URL": "https://specific.test/chat"}):
+                with mock.patch.object(ai, "post_json", return_value=payload) as post:
+                    ai.call_openai("system", "user", "demo-model")
+                    self.assertEqual(post.call_args.args[0], "https://specific.test/chat")
+        local = {"message": {"content": "Bản nháp"}, "prompt_eval_count": 7, "eval_count": 3}
+        with mock.patch.dict("os.environ", {"API_BASE": "http://localhost:11435/"}, clear=True):
+            with mock.patch.object(ai, "post_json", return_value=local) as post:
+                result = ai.call_ollama("system", "user", "demo-model")
+                self.assertEqual(post.call_args.args[0], "http://localhost:11435/api/chat")
+                self.assertEqual(result["tokens_in"], 7)
+
     def test_anthropic_and_claude_alias_parse_usage_and_headers(self):
         payload = {
             "content": [{"type": "text", "text": "Kế hoạch "}, {"type": "text", "text": "hợp lệ"}],

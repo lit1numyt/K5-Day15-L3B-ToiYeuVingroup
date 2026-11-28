@@ -1,0 +1,703 @@
+{
+ "shift": {
+  "shift_id": "S1",
+  "ward_id": "W1",
+  "shift_length_min": 480,
+  "room_switch_min": 2,
+  "break_policy": {
+   "duration_min": 30,
+   "window": [
+    120,
+    300
+   ]
+  },
+  "coverage_rules": [
+   {
+    "start": 0,
+    "end": 480,
+    "zone": "W1",
+    "required_skill": null,
+    "min_staff": 2
+   }
+  ],
+  "census": 20
+ },
+ "nurses": [
+  {
+   "nurse_id": "N1",
+   "name": "Nguyễn Thị An",
+   "skills": [
+    "med_admin",
+    "vitals",
+    "wound_care",
+    "lab_collection",
+    "iv_care",
+    "catheter_care",
+    "procedure_care",
+    "hygiene"
+   ],
+   "available_from": 0,
+   "available_to": 480,
+   "max_capacity_min": 420,
+   "home_zone": "W1",
+   "qualification_level": 3,
+   "experience_years": 1,
+   "specialization": "demo"
+  },
+  {
+   "nurse_id": "N2",
+   "name": "Trần Văn Bình",
+   "skills": [
+    "med_admin",
+    "vitals",
+    "wound_care",
+    "lab_collection",
+    "iv_care",
+    "catheter_care",
+    "procedure_care",
+    "hygiene"
+   ],
+   "available_from": 0,
+   "available_to": 480,
+   "max_capacity_min": 420,
+   "home_zone": "W1",
+   "qualification_level": 3,
+   "experience_years": 2,
+   "specialization": "demo"
+  },
+  {
+   "nurse_id": "N3",
+   "name": "Lê Thị Cúc",
+   "skills": [
+    "med_admin",
+    "vitals",
+    "wound_care",
+    "lab_collection",
+    "iv_care",
+    "catheter_care",
+    "procedure_care",
+    "hygiene"
+   ],
+   "available_from": 0,
+   "available_to": 480,
+   "max_capacity_min": 420,
+   "home_zone": "W1",
+   "qualification_level": 3,
+   "experience_years": 3,
+   "specialization": "demo"
+  },
+  {
+   "nurse_id": "N4",
+   "name": "Phạm Minh Dũng",
+   "skills": [
+    "med_admin",
+    "vitals",
+    "wound_care",
+    "lab_collection",
+    "iv_care",
+    "catheter_care",
+    "procedure_care",
+    "hygiene"
+   ],
+   "available_from": 0,
+   "available_to": 480,
+   "max_capacity_min": 420,
+   "home_zone": "W1",
+   "qualification_level": 3,
+   "experience_years": 4,
+   "specialization": "demo"
+  },
+  {
+   "nurse_id": "N5",
+   "name": "Hoàng Thị Hoa",
+   "skills": [
+    "med_admin",
+    "vitals",
+    "wound_care",
+    "lab_collection",
+    "iv_care",
+    "catheter_care",
+    "procedure_care",
+    "hygiene"
+   ],
+   "available_from": 0,
+   "available_to": 480,
+   "max_capacity_min": 420,
+   "home_zone": "W1",
+   "qualification_level": 3,
+   "experience_years": 5,
+   "specialization": "demo"
+  }
+ ],
+ "patients": [
+  {
+   "patient_id": "P1",
+   "room": "R1",
+   "zone": "W1",
+   "acuity_score": 3,
+   "adl_dependency": 2,
+   "care_category": "medical",
+   "isolation_precaution": true
+  },
+  {
+   "patient_id": "P2",
+   "room": "R2",
+   "zone": "W1",
+   "acuity_score": 4,
+   "adl_dependency": 1,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P3",
+   "room": "R3",
+   "zone": "W1",
+   "acuity_score": 1,
+   "adl_dependency": 1,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P4",
+   "room": "R4",
+   "zone": "W1",
+   "acuity_score": 3,
+   "adl_dependency": 1,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P5",
+   "room": "R1",
+   "zone": "W1",
+   "acuity_score": 5,
+   "adl_dependency": 2,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P6",
+   "room": "R2",
+   "zone": "W1",
+   "acuity_score": 1,
+   "adl_dependency": 1,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P7",
+   "room": "R3",
+   "zone": "W1",
+   "acuity_score": 4,
+   "adl_dependency": 4,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P8",
+   "room": "R4",
+   "zone": "W1",
+   "acuity_score": 1,
+   "adl_dependency": 2,
+   "care_category": "medical",
+   "isolation_precaution": true
+  },
+  {
+   "patient_id": "P9",
+   "room": "R1",
+   "zone": "W1",
+   "acuity_score": 1,
+   "adl_dependency": 4,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P10",
+   "room": "R2",
+   "zone": "W1",
+   "acuity_score": 1,
+   "adl_dependency": 1,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P11",
+   "room": "R3",
+   "zone": "W1",
+   "acuity_score": 2,
+   "adl_dependency": 1,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P12",
+   "room": "R4",
+   "zone": "W1",
+   "acuity_score": 5,
+   "adl_dependency": 4,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P13",
+   "room": "R1",
+   "zone": "W1",
+   "acuity_score": 1,
+   "adl_dependency": 2,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P14",
+   "room": "R2",
+   "zone": "W1",
+   "acuity_score": 1,
+   "adl_dependency": 2,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P15",
+   "room": "R3",
+   "zone": "W1",
+   "acuity_score": 3,
+   "adl_dependency": 4,
+   "care_category": "medical",
+   "isolation_precaution": true
+  },
+  {
+   "patient_id": "P16",
+   "room": "R4",
+   "zone": "W1",
+   "acuity_score": 2,
+   "adl_dependency": 1,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P17",
+   "room": "R1",
+   "zone": "W1",
+   "acuity_score": 5,
+   "adl_dependency": 3,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P18",
+   "room": "R2",
+   "zone": "W1",
+   "acuity_score": 5,
+   "adl_dependency": 2,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P19",
+   "room": "R3",
+   "zone": "W1",
+   "acuity_score": 1,
+   "adl_dependency": 2,
+   "care_category": "medical",
+   "isolation_precaution": false
+  },
+  {
+   "patient_id": "P20",
+   "room": "R4",
+   "zone": "W1",
+   "acuity_score": 3,
+   "adl_dependency": 1,
+   "care_category": "medical",
+   "isolation_precaution": false
+  }
+ ],
+ "tasks": [
+  {
+   "task_id": "T1",
+   "patient_id": "P1",
+   "task_type": "med_admin",
+   "required_skill": [
+    "med_admin"
+   ],
+   "est_duration_min": 8,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T2",
+   "patient_id": "P2",
+   "task_type": "vitals",
+   "required_skill": [
+    "vitals"
+   ],
+   "est_duration_min": 5,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T3",
+   "patient_id": "P3",
+   "task_type": "wound_care",
+   "required_skill": [
+    "wound_care"
+   ],
+   "est_duration_min": 12,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 1,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T4",
+   "patient_id": "P4",
+   "task_type": "lab_collection",
+   "required_skill": [
+    "lab_collection"
+   ],
+   "est_duration_min": 7,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T5",
+   "patient_id": "P5",
+   "task_type": "iv_care",
+   "required_skill": [
+    "iv_care"
+   ],
+   "est_duration_min": 10,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 1,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T6",
+   "patient_id": "P6",
+   "task_type": "catheter_care",
+   "required_skill": [
+    "catheter_care"
+   ],
+   "est_duration_min": 6,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T7",
+   "patient_id": "P7",
+   "task_type": "procedure_care",
+   "required_skill": [
+    "procedure_care"
+   ],
+   "est_duration_min": 20,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 1,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T8",
+   "patient_id": "P8",
+   "task_type": "hygiene",
+   "required_skill": [
+    "hygiene"
+   ],
+   "est_duration_min": 15,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 2,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T9",
+   "patient_id": "P9",
+   "task_type": "med_admin",
+   "required_skill": [
+    "med_admin"
+   ],
+   "est_duration_min": 8,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T10",
+   "patient_id": "P10",
+   "task_type": "vitals",
+   "required_skill": [
+    "vitals"
+   ],
+   "est_duration_min": 5,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T11",
+   "patient_id": "P11",
+   "task_type": "wound_care",
+   "required_skill": [
+    "wound_care"
+   ],
+   "est_duration_min": 12,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 2,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T12",
+   "patient_id": "P12",
+   "task_type": "lab_collection",
+   "required_skill": [
+    "lab_collection"
+   ],
+   "est_duration_min": 7,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 2,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T13",
+   "patient_id": "P13",
+   "task_type": "iv_care",
+   "required_skill": [
+    "iv_care"
+   ],
+   "est_duration_min": 10,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 2,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T14",
+   "patient_id": "P14",
+   "task_type": "catheter_care",
+   "required_skill": [
+    "catheter_care"
+   ],
+   "est_duration_min": 6,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T15",
+   "patient_id": "P15",
+   "task_type": "procedure_care",
+   "required_skill": [
+    "procedure_care"
+   ],
+   "est_duration_min": 20,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 2,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T16",
+   "patient_id": "P16",
+   "task_type": "hygiene",
+   "required_skill": [
+    "hygiene"
+   ],
+   "est_duration_min": 15,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 2,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T17",
+   "patient_id": "P17",
+   "task_type": "med_admin",
+   "required_skill": [
+    "med_admin"
+   ],
+   "est_duration_min": 8,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 2,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T18",
+   "patient_id": "P18",
+   "task_type": "vitals",
+   "required_skill": [
+    "vitals"
+   ],
+   "est_duration_min": 5,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 1,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T19",
+   "patient_id": "P19",
+   "task_type": "wound_care",
+   "required_skill": [
+    "wound_care"
+   ],
+   "est_duration_min": 12,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 1,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T20",
+   "patient_id": "P20",
+   "task_type": "lab_collection",
+   "required_skill": [
+    "lab_collection"
+   ],
+   "est_duration_min": 7,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T21",
+   "patient_id": "P1",
+   "task_type": "iv_care",
+   "required_skill": [
+    "iv_care"
+   ],
+   "est_duration_min": 10,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 1,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T22",
+   "patient_id": "P2",
+   "task_type": "catheter_care",
+   "required_skill": [
+    "catheter_care"
+   ],
+   "est_duration_min": 6,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 1,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T23",
+   "patient_id": "P3",
+   "task_type": "procedure_care",
+   "required_skill": [
+    "procedure_care"
+   ],
+   "est_duration_min": 20,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 3,
+   "frequency": "once"
+  },
+  {
+   "task_id": "T24",
+   "patient_id": "P4",
+   "task_type": "hygiene",
+   "required_skill": [
+    "hygiene"
+   ],
+   "est_duration_min": 15,
+   "duration_source": "given",
+   "earliest_start": 0,
+   "deadline": 480,
+   "mandatory": true,
+   "required_skill_level": 1,
+   "priority": 2,
+   "frequency": "once"
+  }
+ ],
+ "request": {
+  "action": "plan"
+ }
+}

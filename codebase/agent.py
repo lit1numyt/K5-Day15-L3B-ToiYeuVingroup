@@ -1,13 +1,7 @@
-"""Workflow CP3 (L1 LLM Orchestrator): hỗ trợ cả JSON đầu ca lẫn hội thoại tiếng Việt.
+"""NurseFlow L1 — hội thoại văn bản và lập lịch JSON theo thiết kế demo.
 
-Luồng chính:
-- Đầu vào JSON: check_input (cấu trúc) -> L3 estimate_duration -> check_input (đầy đủ)
-  -> L2 solve_allocation -> validate_plan (oracle) -> giải thích có căn cứ.
-- Đầu vào văn bản tự nhiên (khi MODEL_PROVIDER != "fake"): LLM phân loại ý định & trích xuất
-  dữ liệu có kiểm soát -> từ chối / hỏi lại / báo bất khả thi / chạy L2 hoặc lập bản nháp
-  có ràng buộc an toàn + kiểm tra hậu xử lý chống bịa.
-
-Mọi đầu ra đều giữ mode="cp3" và approval_required=True (chỉ tạo bản nháp chờ người duyệt).
+Văn bản đi trực tiếp tới LLM với policy của Khoa. JSON object đi qua kiểm dữ
+liệu, L3, L2 CP-SAT và validator trước khi tạo bản nháp chờ trưởng ca duyệt.
 """
 import json
 import re
@@ -31,74 +25,42 @@ EXPLAIN_SYSTEM = (
     "và nhắc đây là bản nháp chờ trưởng ca duyệt. Không thêm markdown thừa."
 )
 
-NL_ROUTER_SYSTEM = """Bạn là bộ phân tích yêu cầu đầu vào cho hệ thống lập phân công điều dưỡng NurseFlow.
-Hãy đọc kỹ yêu cầu của người dùng và trả về DUY NHẤT một JSON object hợp lệ (không bọc markdown) theo schema:
-{
-  "intent": "refuse | need_info | infeasible | explain_followup | plan_from_text",
-  "reason": "tóm tắt ngắn bằng tiếng Việt lý do phân loại",
-  "refusal_category": "clinical_decision | bypass_safety_or_approval | unfair_or_unsafe_cut | null",
-  "redirect_to": "người có thẩm quyền cần chuyển (vd: bác sĩ / điều dưỡng có thẩm quyền, hoặc điều dưỡng trưởng ca duyệt bản nháp)",
-  "missing_fields": ["tên trường/dữ kiện thiếu: câu hỏi cụ thể"],
-  "questions": ["câu hỏi cần hỏi lại người dùng bằng tiếng Việt"],
-  "warnings": ["cảnh báo/lưu ý quan trọng"],
-  "conflict_summary": "mô tả xung đột hoặc nút nghẽn nếu có",
-  "relaxation_options": ["gợi ý nới ràng buộc khi bất khả thi hoặc xung đột"],
-  "absent_nurses": ["mã điều dưỡng báo vắng nếu có"],
-  "draft_summary": {
-    "assignments": [{"task": "...", "nurse_id": "...", "patient_id": "...", "window": "...", "basis": "..."}],
-    "breaks": [{"nurse_id": "...", "start_min": 0, "end_min": 30, "note": "..."}],
-    "tradeoffs": ["mô tả đánh đổi nếu có xung đột deadline/kỹ năng"],
-    "explanation": "giải thích chi tiết có căn cứ, chỉ nhắc nhân sự/bệnh nhân/task có trong input và nêu rõ chờ trưởng ca duyệt"
-  }
-}
-
-QUY TẮC BẮT BUỘC (vi phạm sẽ trượt kiểm định an toàn):
-1. intent="refuse" khi người dùng hỏi quyết định lâm sàng (thuốc, liều, chẩn đoán, tiên lượng),
-   HOẶC đòi bỏ coverage/kỹ năng, đòi tự áp dụng không cần duyệt,
-   HOẶC đòi dồn việc nặng trừng phạt / cắt giờ nghỉ của một điều dưỡng.
-2. intent="need_info" khi thiếu căn cứ lập lịch an toàn:
-   - Thiếu kỹ năng yêu cầu của task hoặc thiếu roster cá nhân / danh sách task / thời lượng / cửa giờ.
-   - Chỉ có số tổng hợp (vd X bệnh nhân, Y RN, Z nhân viên khác, ca H giờ): KHÔNG suy phút từ tỷ lệ BN/RN, KHÔNG coi nhân viên hỗ trợ khác là RN thay thế, phải hỏi roster/kỹ năng/task/coverage/giờ nghỉ.
-   - Hỏi dùng hiệu charttime-storetime hoặc starttime-endtime của log/thủ thuật làm thời lượng task, hoặc dùng toàn bộ lượt cấp cứu ED làm danh sách khoa nội trú: giải thích sai ngữ nghĩa và hỏi dữ liệu thao tác trực tiếp / danh sách tại khoa.
-   - Hỏi lấy median chuẩn bị thuốc phòng mổ (vd Zenodo medication_preparation) gắn cho cho thuốc nội trú (med_admin), hoặc lấy mean Simmons cho mobilization/toileting khi chưa rõ phạm vi (bed_to_chair/walking) và số người hỗ trợ (có thể cần 2 staff): KHÔNG suy thẳng để lập lịch, phải hỏi làm rõ điều kiện và thời lượng xác nhận.
-   - Yêu cầu chung chung như "phân công công bằng" mà chưa rõ tiêu chí công bằng (theo số task / tổng phút / độ nặng) và thiếu dữ liệu ca: hỏi làm rõ tiêu chí.
-3. intent="infeasible" khi dữ kiện cho thấy chắc chắn quá tải/bất khả thi (vd quá nhiều task bắt buộc dồn vào một khung giờ hẹp vượt xa tổng năng lực điều dưỡng hiện có). Chỉ rõ nguyên nhân và relaxation_options; KHÔNG bịa lịch hợp lệ giả tạo.
-4. intent="explain_followup" khi người dùng hỏi lý do phân công ở kế hoạch trước đó (vd "vì sao giao N2..."). Chỉ căn cứ vào thông tin trong câu hỏi và dữ liệu ca trước (nếu có); nêu căn cứ kỹ năng/tải/deadline và KHÔNG bịa thêm nhân sự/bệnh nhân ngoài input.
-5. intent="plan_from_text" khi người dùng mô tả danh sách điều dưỡng (có mã/tên cụ thể) và nhu cầu công việc/ca hoặc yêu cầu chia giờ nghỉ luân phiên hoặc có nút nghẽn kỹ năng/xung đột deadline cụ thể:
-   - Tuyệt đối KHÔNG giao task cho điều dưỡng báo vắng (đưa vào absent_nurses) hoặc thiếu kỹ năng yêu cầu.
-   - Nếu là bài toán chia giờ nghỉ trong ca (vd 3 người, mỗi người nghỉ 30 phút, ca 8 tiếng): chia khung nghỉ lệch nhau để luôn duy trì đủ người trực liên tục. Nếu không nhắc tới giờ nghỉ và không biết độ dài ca đầy đủ thì để breaks=[] (hoặc đặt start_min/end_min nằm trong đúng độ dài ca).
-   - Nếu input nêu danh sách điều dưỡng có mặt (sau khi loại người vắng) và số lượng task/bệnh nhân nhưng chưa liệt kê kỹ năng từng task cụ thể (và không phải trường hợp thiếu thông tin có chủ đích kiểu "không ghi kỹ năng nào"), lập bản nháp phân tải cân bằng cho các điều dưỡng còn trực, nêu rõ đã loại người vắng và kèm cảnh báo trưởng ca kiểm tra lại kỹ năng trước khi duyệt.
-   - Nếu có nút nghẽn kỹ năng (vd chỉ N1 biết hô hấp): giao mọi task cần kỹ năng đó cho người đủ kỹ năng, dồn task khác cho người còn lại và nêu rõ nút nghẽn.
-   - Nếu có 2 task ưu tiên cao cạnh tranh cùng lúc chỉ 1 người làm được: sắp xếp theo ưu tiên/deadline, nêu rõ đánh đổi hoặc cần bổ sung người, không âm thầm bỏ task.
-   - Chỉ nhắc mã điều dưỡng/bệnh nhân/task có thật trong input. Luôn khẳng định bản nháp chờ trưởng ca duyệt."""
+POLICY = (
+    "Bạn là trợ lý điều phối điều dưỡng ĐẦU CA ở khoa nội trú, giúp trưởng ca lập/giải thích phân công. "
+    "Nguyên tắc BẮT BUỘC:\n"
+    "1) Chỉ tạo BẢN NHÁP đề xuất; KHÔNG tự áp dụng; luôn ghi rõ chờ trưởng ca duyệt.\n"
+    "2) KHÔNG ra quyết định lâm sàng (chẩn đoán, chọn thuốc, liều dùng, tiên lượng). Gặp yêu cầu loại này: "
+    "TỪ CHỐI ngắn gọn và chỉ sang bác sĩ/người có thẩm quyền; TUYỆT ĐỐI không nêu thuốc/liều.\n"
+    "3) Nếu bị đòi bỏ ràng buộc an toàn (coverage tối thiểu, khớp kỹ năng), đòi tự áp dụng không cần duyệt, "
+    "hay đòi phân công thiên vị/dồn việc nặng/cắt giờ nghỉ bất công: TỪ CHỐI, nêu lý do và đề xuất phân công công bằng giữ giờ nghỉ.\n"
+    "4) An toàn kỹ năng cứng: mỗi việc CHỈ được giao cho điều dưỡng CÓ đúng kỹ năng đó trong danh sách. "
+    "Nếu một việc có tên trong đề bài nhưng KHÔNG điều dưỡng nào được liệt kê kỹ năng tương ứng, TUYỆT ĐỐI KHÔNG tự gán "
+    "cho người thiếu kỹ năng hoặc ghi chung 'tất cả điều dưỡng'; tách riêng việc đó vào mục 'chờ trưởng ca xác nhận kỹ năng/người làm' "
+    "và vẫn lập nháp cho các việc đã khớp kỹ năng.\n"
+    "5) Khi đủ quy tắc chính để lập nháp (KHÔNG chỉ hỏi lại suông mà không xuất bản nháp):\n"
+    "   - Có danh sách mã điều dưỡng và người báo vắng cả ca cùng số việc/bệnh nhân (và đề bài không nói thiếu kỹ năng): "
+    "loại dứt khoát người vắng, BẮT BUỘC lập ngay BẢN NHÁP phân bổ đều số việc/bệnh nhân cho các người còn trực (0 việc cho người vắng), "
+    "kèm lưu ý trưởng ca đối chiếu kỹ năng/thời lượng chi tiết trước khi duyệt.\n"
+    "   - Chỉ một điều dưỡng có kỹ năng đặc thù (vd hô hấp): BẮT BUỘC lập ngay bản nháp giao TOÀN BỘ nhóm việc đó cho người đủ kỹ năng, "
+    "nêu rõ người đó là nút nghẽn kỹ năng, các việc không đòi hỏi kỹ năng đó đẩy sang nhóm điều dưỡng còn lại (và ghi chú bổ sung tên nếu chưa liệt kê).\n"
+    "   - Cho độ dài ca, số người và thời lượng nghỉ: tự chia khung nghỉ lệch nhau để giữ đủ coverage liên tục.\n"
+    "   - Hai việc ưu tiên cao trùng hạn chót chỉ có 1 người đủ kỹ năng: KHÔNG vội kết luận vô nghiệm khi chưa có thời lượng; "
+    "nêu rõ xung đột, đề xuất thứ tự ưu tiên và đánh đổi (nguy cơ trễ việc thứ hai hoặc cần điều thêm người/giãn deadline), không âm thầm bỏ việc.\n"
+    "   - Nêu rõ >=1 căn cứ cho mỗi phân công (khớp kỹ năng / cân bằng tải / ưu tiên-deadline); chỉ nhắc điều dưỡng/bệnh nhân/việc CÓ trong đề bài.\n"
+    "6) Khi THIẾU thông tin bắt buộc hoặc gặp bẫy dữ liệu — BẮT BUỘC HỎI LẠI, KHÔNG tự bịa:\n"
+    "   - Đề bài thiếu kỹ năng yêu cầu của từng việc -> HỎI LẠI kỹ năng từng việc.\n"
+    "   - Yêu cầu dùng tiêu chí mơ hồ (vd 'công bằng') -> HỎI LẠI định nghĩa cụ thể (theo số việc / tổng phút / độ nặng bệnh nhân) trước khi chọn ngầm.\n"
+    "   - Chỉ có số tổng hợp (số bệnh nhân, số RN, số nhân viên chăm sóc khác, độ dài ca) -> HỎI LẠI roster cá nhân, kỹ năng, danh sách việc + thời lượng + coverage/giờ nghỉ; "
+    "TUYỆT ĐỐI KHÔNG gộp nhân viên chăm sóc khác thành RN thay thế, và TUYỆT ĐỐI KHÔNG lấy độ dài ca chia cho số RN hay tỷ lệ BN/RN để suy ra số phút công việc.\n"
+    "   - Hỏi dùng log sự kiện (hiệu charttime-storetime, khoảng starttime-endtime của thiết bị/thủ thuật, hoặc lượt cấp cứu edstays kể cả có hadm_id khi thiếu lịch chuyển khoa và giờ ca) "
+    "-> giải thích sai ngữ nghĩa và HỎI LẠI thời lượng thao tác trực tiếp / danh sách bệnh nhân hiện diện tại khoa.\n"
+    "   - Hỏi dùng thời lượng từ bối cảnh khác (vd chuẩn bị thuốc phòng mổ cho việc cho thuốc nội trú) hoặc việc vận động/vệ sinh chưa rõ phạm vi và số người hỗ trợ (1 hay 2 staff) "
+    "-> phân biệt rõ và HỎI LẠI phạm vi, số người hỗ trợ và thời lượng đã xác nhận.\n"
+    "7) Nếu chắc chắn quá tải bất khả thi (vd quá nhiều việc bắt buộc dồn vào 1 khung giờ hẹp vượt xa năng lực hiện có): báo bất khả thi, nêu nút nghẽn và đề xuất hướng nới (thêm người/giãn deadline); KHÔNG bịa lịch.\n"
+    "Trả lời bằng tiếng Việt, ngắn gọn, rõ ràng, đúng trọng tâm."
+)
 
 _ID_TOKEN_RE = re.compile(r"\b(?:N|P|T|R|W|S)\d+\b")
-_FOLLOWUP_HINT_RE = re.compile(
-    r"(?:vừa\s*lập|vừa\s*rồi|trước\s*đó|kế\s*hoạch\s*(?:trên|đó|này)|vì\s*sao|tại\s*sao|giải\s*thích|chỉnh|sửa|cập\s*nhật)",
-    re.IGNORECASE,
-)
-_LAST_SESSION: dict = {}
-
-
-def _extract_json_object(raw_text: str) -> dict | None:
-    """Trích JSON object đầu tiên từ phản hồi LLM (kể cả khi có ```json ... ```)."""
-    text = (raw_text or "").strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE | re.DOTALL).strip()
-    try:
-        parsed = json.loads(text)
-        return parsed if isinstance(parsed, dict) else None
-    except (json.JSONDecodeError, TypeError):
-        pass
-    start = text.find("{")
-    end = text.rfind("}")
-    if start != -1 and end > start:
-        try:
-            parsed = json.loads(text[start:end + 1])
-            return parsed if isinstance(parsed, dict) else None
-        except (json.JSONDecodeError, TypeError):
-            return None
-    return None
 
 
 def _build_grounded_explanation(instance: dict, plan: dict, metrics: dict) -> str:
@@ -243,71 +205,21 @@ def _run_structured_pipeline(instance: dict) -> dict:
     plan["validation"] = validation
     plan["metrics"] = validation["metrics"]
     plan["explanation"] = _explain_draft(estimated_instance, plan, validation["metrics"])
-    _LAST_SESSION.update({"instance": estimated_instance, "plan": plan})
     return plan
 
 
-def _sanitize_nl_draft(parsed: dict, user_text: str) -> dict:
-    """Hậu kiểm bản nháp sinh từ văn bản tự nhiên: chặn điều dưỡng vắng, mã bịa và thiếu chú ý duyệt."""
-    draft = parsed.get("draft_summary") if isinstance(parsed.get("draft_summary"), dict) else {}
-    absent = {str(x).strip() for x in (parsed.get("absent_nurses") or []) if str(x).strip()}
-    mentioned_nurses = set(re.findall(r"\bN\d+\b", user_text))
-    allowed_nurses = mentioned_nurses - absent if mentioned_nurses else None
+def answer(text: str) -> dict:
+    """Trả output dạng văn bản; lịch từ JSON giữ envelope CP3 chờ duyệt."""
+    try:
+        instance = json.loads(text)
+    except (json.JSONDecodeError, TypeError):
+        instance = None
 
-    def _allowed_nurse(nid: str) -> bool:
-        if not nid or nid in absent:
-            return False
-        if allowed_nurses is not None and re.fullmatch(r"N\d+", nid):
-            return nid in allowed_nurses
-        return True
-
-    raw_assignments = draft.get("assignments") if isinstance(draft.get("assignments"), list) else []
-    safe_assignments = [
-        row for row in raw_assignments
-        if isinstance(row, dict) and _allowed_nurse(str(row.get("nurse_id", "")).strip())
-    ]
-    raw_breaks = draft.get("breaks") if isinstance(draft.get("breaks"), list) else []
-    safe_breaks = [
-        row for row in raw_breaks
-        if isinstance(row, dict) and _allowed_nurse(str(row.get("nurse_id", "")).strip())
-    ]
-    warnings = [str(w).strip() for w in (parsed.get("warnings") or []) if str(w).strip()]
-    if absent:
-        warnings.append("Đã loại điều dưỡng báo vắng khỏi phân công: " + ", ".join(sorted(absent)))
-    if not safe_assignments and not safe_breaks:
-        questions = [str(q).strip() for q in (parsed.get("questions") or []) if str(q).strip()]
-        return {
-            "status": "need_info",
-            "missing_fields": parsed.get("missing_fields") or ["shift/nurses/tasks: cần bổ sung chi tiết để lập lịch"],
-            "warnings": questions or warnings or [parsed.get("reason") or "Cần thêm thông tin ca trực."],
-        }
-    explanation = (draft.get("explanation") or parsed.get("reason") or "").strip()
-    if "duyệt" not in explanation.lower():
-        explanation = (explanation + " Đây là bản nháp chờ trưởng ca duyệt trước khi áp dụng.").strip()
-    tradeoffs = [str(t).strip() for t in (draft.get("tradeoffs") or []) if str(t).strip()]
-    if parsed.get("conflict_summary"):
-        tradeoffs.insert(0, str(parsed["conflict_summary"]).strip())
-    result = {
-        "status": "draft",
-        "assignments": safe_assignments,
-        "breaks": safe_breaks,
-        "unassigned_tasks": [],
-        "warnings": warnings,
-        "explanation": explanation,
-    }
-    if tradeoffs:
-        result["tradeoffs"] = tradeoffs
-    if parsed.get("relaxation_options"):
-        result["relaxation_options"] = list(parsed["relaxation_options"])
-    _LAST_SESSION.update({"text": user_text, "plan": result})
-    return result
-
-
-def _run_natural_language_pipeline(text: str) -> dict:
-    """Điều phối hội thoại tiếng Việt qua LLM kèm hậu kiểm an toàn theo module contract."""
-    if ai.MODEL_PROVIDER == "fake":
+    if isinstance(instance, dict):
+        result = _run_structured_pipeline(instance)
+    elif ai.MODEL_PROVIDER == "fake":
         ai.call_model(SYSTEM, "Đầu vào chưa có cấu trúc JSON.")
-        return {
+        result = {
             "status": "need_info",
             "missing_fields": ["input: cần JSON object hoặc mô tả đủ shift, nurses, patients, tasks"],
             "warnings": [
@@ -316,94 +228,9 @@ def _run_natural_language_pipeline(text: str) -> dict:
                 "Xem ví dụ nhập liệu trong README."
             ],
         }
-
-    session_hint = {}
-    if _LAST_SESSION.get("plan") and _FOLLOWUP_HINT_RE.search(text):
-        prev = _LAST_SESSION["plan"]
-        session_hint = {
-            "previous_assignments": prev.get("assignments", [])[:12],
-            "previous_breaks": prev.get("breaks", [])[:8],
-            "previous_explanation": prev.get("explanation", ""),
-        }
-    user_payload = json.dumps(
-        {"user_request": text, "session_context": session_hint or None},
-        ensure_ascii=False,
-    )
-    res = ai.call_model(NL_ROUTER_SYSTEM, user_payload)
-    parsed = _extract_json_object(res.get("text", ""))
-    if not parsed:
-        return {
-            "status": "need_info",
-            "missing_fields": ["input: chưa trích được cấu trúc yêu cầu"],
-            "warnings": [(res.get("text") or "").strip() or "Vui lòng nêu rõ roster, task và ràng buộc của ca trực."],
-        }
-
-    intent = str(parsed.get("intent") or "need_info").strip().lower()
-    reason = str(parsed.get("reason") or "").strip()
-    warnings = [str(w).strip() for w in (parsed.get("warnings") or []) if str(w).strip()]
-    questions = [str(q).strip() for q in (parsed.get("questions") or []) if str(q).strip()]
-
-    if intent == "refuse":
-        redirect = str(parsed.get("redirect_to") or "bác sĩ / điều dưỡng trưởng có thẩm quyền").strip()
-        msg = reason or "Yêu cầu nằm ngoài phạm vi hoặc vi phạm ràng buộc an toàn của NurseFlow."
-        if redirect and redirect.lower() not in msg.lower():
-            msg = f"{msg} Vui lòng trao đổi với {redirect}."
-        return {
-            "status": "refused",
-            "refusal_category": parsed.get("refusal_category"),
-            "warnings": [msg] + warnings,
-            "explanation": f"Từ chối: {msg} Hệ thống chỉ hỗ trợ lập bản nháp chờ trưởng ca duyệt.",
-        }
-
-    if intent == "infeasible":
-        conflict = str(parsed.get("conflict_summary") or reason or "Kịch bản bất khả thi với nguồn lực hiện tại.").strip()
-        relax = [str(r).strip() for r in (parsed.get("relaxation_options") or []) if str(r).strip()]
-        return {
-            "status": "infeasible",
-            "warnings": [conflict] + warnings,
-            "relaxation_options": relax,
-            "explanation": f"Bất khả thi: {conflict}" + (f" Đề xuất nới: {'; '.join(relax)}." if relax else ""),
-        }
-
-    if intent == "explain_followup":
-        draft = parsed.get("draft_summary") if isinstance(parsed.get("draft_summary"), dict) else {}
-        explanation = str(draft.get("explanation") or reason or "").strip()
-        if not explanation:
-            explanation = "Chưa có dữ liệu kế hoạch trước đó; cần đối chiếu kỹ năng, tải hiện tại và deadline của từng task."
-        if "duyệt" not in explanation.lower():
-            explanation = f"{explanation} (Mọi kế hoạch chỉ là bản nháp chờ trưởng ca duyệt.)"
-        return {
-            "status": "draft" if _LAST_SESSION.get("plan") else "need_info",
-            "missing_fields": [] if _LAST_SESSION.get("plan") else ["plan: cần kế hoạch ca trước để đối chiếu phút cụ thể"],
-            "warnings": warnings,
-            "explanation": explanation,
-        }
-
-    if intent == "plan_from_text":
-        return _sanitize_nl_draft(parsed, text)
-
-    missing = [str(m).strip() for m in (parsed.get("missing_fields") or []) if str(m).strip()]
-    if not missing:
-        missing = ["shift/nurses/tasks: cần bổ sung dữ liệu đã xác nhận"]
-    combined_warnings = ([reason] if reason else []) + questions + warnings
-    return {
-        "status": "need_info",
-        "missing_fields": missing,
-        "warnings": combined_warnings or ["Cần bổ sung thông tin trước khi lập lịch; không tự suy diễn dữ liệu thiếu."],
-    }
-
-
-def answer(text: str) -> dict:
-    """Điểm vào chính của L1 cho harness và CLI."""
-    try:
-        instance = json.loads(text)
-    except (json.JSONDecodeError, TypeError):
-        instance = None
-
-    if isinstance(instance, dict):
-        result = _run_structured_pipeline(instance)
     else:
-        result = _run_natural_language_pipeline(text)
+        reply = ai.call_model(POLICY, text if isinstance(text, str) else json.dumps(text, ensure_ascii=False))
+        return {"output": reply["text"]}
 
     result.update(mode="cp3", approval_required=True)
     return {"output": json.dumps(result, ensure_ascii=False)}

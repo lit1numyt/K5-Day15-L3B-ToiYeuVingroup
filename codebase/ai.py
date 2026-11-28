@@ -77,7 +77,10 @@ def post_json(url: str, headers: dict, body: dict, timeout: int = 60) -> dict:
 def call_openai(system: str, user: str, model: str = "") -> dict:
     """Gọi OpenAI Chat Completions API và trích usage token từ phản hồi."""
     target_model = (model or MODEL_NAME).strip()
-    url = (os.environ.get("OPENAI_BASE_URL") or URL_OPENAI).strip()
+    base = (os.environ.get("API_BASE") or "").strip().rstrip("/")
+    url = (os.environ.get("OPENAI_BASE_URL") or "").strip()
+    if not url:
+        url = base + "/chat/completions" if base else URL_OPENAI
     messages = ([{"role": "system", "content": system}] if system else []) + [
         {"role": "user", "content": user}
     ]
@@ -150,7 +153,10 @@ def call_gemini(system: str, user: str, model: str = "") -> dict:
 def call_ollama(system: str, user: str, model: str = "") -> dict:
     """Gọi Ollama chat API chạy local (không cần API_KEY)."""
     target_model = (model or MODEL_NAME).strip()
-    url = (os.environ.get("OLLAMA_BASE_URL") or URL_OLLAMA).strip()
+    base = (os.environ.get("API_BASE") or "").strip().rstrip("/")
+    url = (os.environ.get("OLLAMA_BASE_URL") or "").strip()
+    if not url:
+        url = base + "/api/chat" if base else URL_OLLAMA
     messages = ([{"role": "system", "content": system}] if system else []) + [
         {"role": "user", "content": user}
     ]
