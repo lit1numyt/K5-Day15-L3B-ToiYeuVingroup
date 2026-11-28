@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NurseFlow — Wireframes</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../../style/style.css">
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><a href="index.html">NurseFlow</a><span class="ctx">Wireframes</span></div>
+  </header>
+
+  <main>
+    <h1 class="page-h">Wireframe — cổng NurseFlow</h1>
+    <p class="page-sub">Hai màn hình mô phỏng (tĩnh), dựng bằng design kit ở <code>style/</code>. Chế độ sáng.
+      AI đề xuất kế hoạch; trưởng ca duyệt; điều dưỡng không tự áp dụng.</p>
+
+    <div class="blocks">
+      <div class="block-card">
+        <a class="bc-main" href="nurse.html">
+          <span class="bc-title">Màn hình điều dưỡng →</span>
+          <p>Tổng quan nhanh · lịch ca ngang (việc song song ở hai làn) + thứ tự thao tác · chat hỏi/đề xuất. Gói gọn trong một màn hình.</p>
+          <div class="bc-meta"><span>cá nhân</span><span>hỏi &amp; đề xuất</span></div>
+        </a>
+        <div class="pills2"><span class="pill">timeline</span><span class="pill">subtask order</span><span class="pill">chat</span></div>
+      </div>
+      <div class="block-card">
+        <a class="bc-main" href="lead.html">
+          <span class="bc-title">Màn hình trưởng ca →</span>
+          <p>Tổng quan nhanh · lịch cả ca cho toàn bộ điều dưỡng · duyệt yêu cầu và gửi yêu cầu tới hệ thống.</p>
+          <div class="bc-meta"><span>toàn ca</span><span>duyệt &amp; điều phối</span></div>
+        </a>
+        <div class="pills2"><span class="pill">gantt</span><span class="pill">duyệt</span><span class="pill">chat</span></div>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:2.5rem">Tĩnh, không JavaScript — chỉ mô tả bố cục &amp; kiểu cho bạn dựng UI thật.
+      Màu/khoảng cách/kiểu chữ lấy từ <code>style/style.css</code>; phần dashboard thêm ở <code>wireframe.css</code>.</p>
+  </main>
+
+  <footer>
+    <div>NurseFlow — Tôi Yêu Vingroup · L3B</div>
+    <div class="row"><a href="nurse.html">Điều dưỡng</a><a href="lead.html">Trưởng ca</a></div>
+  </footer>
+</body>
+</html>

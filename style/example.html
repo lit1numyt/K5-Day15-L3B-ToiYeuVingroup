@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Style Reference</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* page-only helper: label each specimen */
+    .spec { font: .75rem var(--font-mono); color: var(--muted); margin: 4rem 0 .5rem; }
+    .demo-pal { position: static; background: none; padding: 0; justify-content: flex-start; }
+  </style>
+</head>
+<body>
+  <!-- Header: text nav left, search right. No logo, no bar background. -->
+  <header class="top">
+    <nav aria-label="Primary">
+      <a href="#" aria-current="page">Overview</a><a href="#">Projects</a><a href="#">Reports</a><a href="#">About</a>
+    </nav>
+    <button class="search" aria-label="Open search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span class="kbd">⌘K</span>
+    </button>
+  </header>
+
+  <main class="wide">
+    <!-- List page opening: small heading, muted subtitle, optional legend -->
+    <div class="headrow">
+      <h1 class="page-h">Projects by lit1numyt</h1>
+      <p class="legend"><span><i class="dot recent"></i>last 30 days</span><span><i class="dot fresh"></i>last 90 days</span></p>
+    </div>
+    <p class="page-sub">A quiet subtitle in the muted colour. Hierarchy comes from size and colour, not boxes.</p>
+
+    <details class="about"><summary>About this collection</summary><p>Accordion: hairlines above and below, uppercase eyebrow, +/− on the right.</p></details>
+
+    <p class="spec">.sec-h + .recent (dated rows)</p>
+    <h2 class="sec-h">Recent</h2>
+    <ol class="recent">
+      <li><a href="#"><span>First item title</span><time>Nov 19, 2026</time></a></li>
+      <li><a href="#"><span>Second item, hover turns it sage</span><time>Nov 02, 2026</time></a></li>
+      <li><a href="#"><span>Third item</span><time>Oct 14, 2026</time></a></li>
+    </ol>
+
+    <p class="spec">.groups (two columns) + .sub + .plain</p>
+    <div class="groups">
+      <section><h2 class="sec-h">Group A</h2><h3 class="sub">Subgroup</h3>
+        <ul class="plain"><li><a href="#"><span>Plain link row</span><i class="dot recent"></i></a></li><li><a href="#"><span>Another row</span></a></li></ul></section>
+      <section><h2 class="sec-h">Group B</h2><h3 class="sub">Subgroup</h3>
+        <ul class="plain"><li><a href="#"><span>Plain link row</span><i class="dot fresh"></i></a></li><li><a href="#"><span>Another row</span></a></li></ul></section>
+    </div>
+
+    <p class="spec">.blocks / .block-card (accent left edge, no shadow)</p>
+    <div class="blocks">
+      <div class="block-card">
+        <a class="bc-main" href="#"><span class="bc-title">Card title</span><p>One or two lines of muted description text that explains the item.</p>
+          <div class="bc-meta"><span>9 profiles</span><span>Pwn</span><span>5 min read</span></div></a>
+        <div class="pills2"><a class="pill" href="#">linked pill</a><span class="pill">tag</span><span class="pill">another tag</span></div>
+      </div>
+      <div class="block-card">
+        <a class="bc-main" href="#"><span class="bc-title">Second card</span><p>Cards stack with 2rem gaps and split 1fr / 2fr on desktop.</p>
+          <div class="bc-meta"><span>Nov 2026</span><span>3 min read</span></div></a>
+        <div class="pills2"><span class="pill">python</span><span class="pill">docker</span></div>
+      </div>
+    </div>
+
+    <p class="spec">detail page: .back, .ahead, .cols (75/25), sticky .side</p>
+    <a class="back" href="#">← Back to projects</a>
+    <header class="ahead">
+      <p class="meta">Published November 19, 2026 • 6 min read • Category</p>
+      <h1>Detail page title</h1>
+      <p class="lede">The lede sits under the title in muted text.</p>
+      <ul class="pills"><li>tag-one</li><li>tag-two</li></ul>
+    </header>
+    <div class="cols">
+      <article>
+        <p>Long-form text is 1.125rem with 1.75 line-height. <a href="#">Links in prose are sage</a> and lighten on hover. <strong>Strong</strong> is 600, never bolder. Inline <code>code</code> sits on the card tint.</p>
+        <h2 id="s1">Section heading</h2>
+        <p>Article headings are weight 500, tight tracking, with big top margins.</p>
+        <pre><code>def solve():
+    return "flat, minimal, editorial"</code></pre>
+        <blockquote>Blockquotes: a 2px hairline on the left and muted text.</blockquote>
+        <h3 id="s2">Sub-section</h3>
+        <div class="scroll"><table><thead><tr><th>Name</th><th>Status</th><th>Updated</th></tr></thead>
+          <tbody><tr><td>Alpha</td><td>Active</td><td>Nov 19</td></tr><tr><td>Beta</td><td>Paused</td><td>Nov 02</td></tr></tbody></table></div>
+      </article>
+      <aside class="side"><div class="sticky">
+        <nav aria-label="On this page"><p class="side-label">On this page</p>
+          <div class="toc"><div class="track" aria-hidden="true"><div class="prog" style="height:0"></div><div class="ind" style="top:0;height:1.6rem"></div></div>
+            <ul><li><a class="on" href="#s1">Section heading</a></li><li style="padding-left:.75rem"><a href="#s2">Sub-section</a></li></ul></div></nav>
+        <section><p class="side-label">Key takeaways</p><ul><li>Sidebar text is .75rem and muted.</li><li>It hides below 64rem.</li></ul></section>
+      </div></aside>
+    </div>
+
+    <p class="spec">forms + buttons (outlined only, never filled)</p>
+    <form style="max-width:var(--width)" onsubmit="return false">
+      <div class="field"><label for="n">Project name</label><input id="n" placeholder="e.g. VinAI MVP"><p class="hint">Hints are .75rem muted.</p></div>
+      <div class="field"><label for="d">Description</label><textarea id="d" rows="3"></textarea></div>
+      <div class="field"><label><input type="checkbox" checked> Checkbox uses the accent</label></div>
+      <div style="display:flex;gap:.75rem;align-items:center">
+        <button class="btn primary">Save</button><button class="btn">Cancel</button><button class="btn link" type="button">Learn more</button>
+      </div>
+    </form>
+
+    <p class="spec">.pal (command palette, shown inline here)</p>
+    <div class="pal-back demo-pal"><div class="pal" role="dialog" aria-label="Search">
+      <input placeholder="Search or jump to…">
+      <ul role="listbox"><li role="option" aria-selected="true"><span>Selected result</span><small>projects</small></li>
+        <li role="option" aria-selected="false"><span>Another result</span><small>page</small></li></ul>
+    </div></div>
+  </main>
+
+  <footer><div>lit1numyt</div><div class="row"><a href="#">Contact</a><a href="#">GitHub</a><a href="#">RSS</a></div></footer>
+</body>
+</html>
