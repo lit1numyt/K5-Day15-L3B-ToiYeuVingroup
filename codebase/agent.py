@@ -137,8 +137,8 @@ def _explain_draft(instance: dict, plan: dict, metrics: dict) -> str:
     return candidate if _valid_llm_explanation(candidate, instance) else fallback
 
 
-def _run_structured_pipeline(instance: dict) -> dict:
-    """Luồng chuẩn cho JSON ca trực: check request -> check cấu trúc -> L3 -> check đủ -> L2 -> validate."""
+def plan_shift(instance: dict, *, explain: bool = True) -> dict:
+    """Kiểm dữ liệu, lập lịch qua L3/L2 và trả bản nháp đã kiểm ràng buộc."""
     request = instance.get("request", {})
     if not isinstance(request, dict) or request.get("action", "plan") != "plan":
         if ai.MODEL_PROVIDER == "fake":
@@ -204,7 +204,8 @@ def _run_structured_pipeline(instance: dict) -> dict:
 
     plan["validation"] = validation
     plan["metrics"] = validation["metrics"]
-    plan["explanation"] = _explain_draft(estimated_instance, plan, validation["metrics"])
+    if explain:
+        plan["explanation"] = _explain_draft(estimated_instance, plan, validation["metrics"])
     return plan
 
 
@@ -216,7 +217,7 @@ def answer(text: str) -> dict:
         instance = None
 
     if isinstance(instance, dict):
-        result = _run_structured_pipeline(instance)
+        result = plan_shift(instance)
     elif ai.MODEL_PROVIDER == "fake":
         ai.call_model(SYSTEM, "Đầu vào chưa có cấu trúc JSON.")
         result = {

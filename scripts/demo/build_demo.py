@@ -85,6 +85,19 @@ def build_instance():
             "request": {"action": "plan"}}
 
 
+def summarize_plan(plan):
+    """Tóm tắt từ số liệu của bản nháp đã được kiểm."""
+    minutes = plan["metrics"]["workload_minutes"].values()
+    return call_model(
+        "Tóm tắt cho trưởng ca bằng tiếng Việt trong tối đa hai câu. "
+        "Nêu số việc, số lượt nghỉ và khoảng thời lượng dự kiến mỗi điều dưỡng. "
+        "Chỉ dùng số liệu đã cho. Nhắc đây là bản nháp chờ trưởng ca duyệt.",
+        f"Đã xếp {len(plan['assignments'])} công việc và {len(plan['breaks'])} lượt nghỉ. "
+        f"Tổng phút công việc dự kiến của mỗi điều dưỡng nằm trong khoảng "
+        f"{min(minutes)}–{max(minutes)} phút. Bản nháp đã qua kiểm ràng buộc."
+    )
+
+
 def main():
     instance = build_instance()
 
@@ -99,18 +112,7 @@ def main():
     if not validation["valid"] or out.get("method") != "cp_sat":
         sys.exit(f"Cần lịch CP-SAT qua validator: {validation['violations']}")
 
-    # AI tóm tắt kế hoạch (một lời gọi model thật nữa, gắn với chính kế hoạch này)
-    names = {n["nurse_id"]: n.get("name", n["nurse_id"]) for n in instance["nurses"]}
-    per = {}
-    for a in out["assignments"]:
-        per.setdefault(a["nurse_id"], []).append(a["task_id"])
-    plan_desc = "; ".join(f"{names[n]}: {len(v)} việc" for n, v in sorted(per.items()))
-    ai = call_model(
-        "Bạn là trợ lý điều phối điều dưỡng. Chỉ tóm tắt kế hoạch cho điều dưỡng trưởng bằng tiếng Việt, "
-        "ngắn gọn, nêu căn cứ (cân bằng tải/kỹ năng), KHÔNG ra quyết định lâm sàng, KHÔNG tự áp dụng.",
-        f"Ca S1, {len(instance['nurses'])} điều dưỡng, {len(out['assignments'])} việc. Phân bổ: {plan_desc}. "
-        f"Chỉ số: CV={out['metrics']['utilization_cv']:.3f}, peak={out['metrics']['peak_utilization']:.3f}. "
-        "Tóm tắt 2-3 câu cho điều dưỡng trưởng.")
+    ai = summarize_plan(out)
 
     # L4 — taxonomy + baseline đối chứng
     taxonomy = {p["patient_id"]: classify_patient(p) for p in instance["patients"]}
