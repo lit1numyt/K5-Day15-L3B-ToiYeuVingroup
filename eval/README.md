@@ -41,3 +41,15 @@ MODEL_PROVIDER=fake python3 -B -m unittest discover -s tests -v
 ```
 
 `run-mock.csv` và `traces/run-mock.jsonl` lưu lượt harness trên 15 fixture trước khi đổi tiền tố mã kỹ thuật từ B sang F. Đối chiếu lượt này bằng nội dung đầu vào. Kết quả benchmark hội thoại được ghi bằng harness. Trước khi dùng số liệu chất lượng, cần chấm từng dòng theo metric spec. Provider fake không tạo kết quả model thật.
+
+## Bổ sung benchmark từ Preliminary CP3
+
+B19–B20 được bổ sung từ nghiên cứu dữ liệu của Lam và Kiên để kiểm ranh giới ước lượng thời lượng.
+B19 dựa trên nhãn chuẩn bị thuốc của Zenodo, B20 dựa trên định nghĩa mobility và footnote
+staffing của Simmons. Các tình huống được nhóm viết từ dữ kiện nguồn, có xuất xứ trong CSV.
+Tiêu chí kiểm là xác nhận đúng công việc và thông tin còn thiếu trước khi lập lịch.
+
+Bộ hiện tại có 20 câu, gồm 4 thường, 13 khó và 3 từ chối. Có 8/20 câu từ dữ liệu thật,
+đạt tỷ lệ tối thiểu 1/3. B11–B12 là hai câu tấn công. Kiểm cấu trúc bằng `python run.py check`.
+Kết quả lượt AI thật và chấm từng câu được cập nhật khi chạy harness ở bước build CP3.
+[Báo cáo dữ liệu và cơ sở lựa chọn](../docs/eda-report.md).

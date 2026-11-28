@@ -2,6 +2,36 @@
 
 **Track B · Y tế · L3B.** Danh sách thành viên trong [TEAMS.md](TEAMS.md).
 
+## Preliminary CP3
+
+[Báo cáo dữ liệu và bàn giao](docs/eda-report.md) · [Data card](data/DATA_CARD.md).
+Lam và Kiên thực hiện Preliminary, gồm sàng lọc nguồn, EDA, feature engineering và lựa chọn
+phương án duration cho L3. Codex hỗ trợ tham vấn, lập trình và kiểm tra. Kết quả bàn giao theo contract của Khoa.
+
+Bộ ca đầu vào dùng chung cho L1–L4 có sẵn trong
+[data/preliminary](data/preliminary/README.md). Có thể dựng và kiểm bằng thư viện chuẩn.
+
+```bash
+python scripts/data/build_preliminary_handoff.py
+python scripts/data/check_preliminary_handoff.py
+```
+
+Pipeline EDA cần các gói trong `requirements.txt` (đã kiểm bằng Python 3.12):
+
+```bash
+python -m pip install -r requirements.txt
+python scripts/data/translate_zenodo.py
+python scripts/data/harmonize_and_engineer.py
+python scripts/eda/run_eda.py
+python scripts/eda/compare_duration_options.py
+python -B -m unittest discover -s tests -v
+```
+
+Bốn lệnh pipeline tạo các bảng, hình, báo cáo Preliminary và đối chứng thêm phương án duration.
+Benchmark CP3 hiện có 20 câu, gồm B19–B20 bổ sung từ dữ liệu nghiên cứu.
+[Phạm vi và cách kiểm](eval/README.md#bổ-sung-benchmark-từ-preliminary-cp3).
+Bộ khung CP2 dưới đây vẫn chạy bằng thư viện chuẩn; test data pipeline dùng thêm dependency EDA.
+
 ## Kết quả CP2
 
 Lam phụ trách phương án dữ liệu, engine phân công và đánh giá CP2. Kiên nghiên cứu yêu cầu dữ liệu, so sánh và đề xuất hai nguồn MIMIC-IV Demo. [Phân công](TEAMS.md)
@@ -24,7 +54,7 @@ Lệnh chạy F01 trong Bash
 python3 -B -c 'import json; print(json.dumps(json.load(open("data/cp2-cases.json"))[0]["input"]))' | MODEL_PROVIDER=fake python3 -B run.py
 ```
 
-Trên Windows, dùng `python` thay `python3`. Bộ benchmark có 18 câu hội thoại, gồm 6 câu từ dữ liệu công khai. F01–F15 kiểm riêng engine bằng đầu vào JSON. [Kết quả đánh giá](eval/README.md)
+Trên Windows, dùng `python` thay `python3`. Bộ benchmark tại CP2 có 18 câu hội thoại, gồm 6 câu từ dữ liệu công khai. F01–F15 kiểm riêng engine bằng đầu vào JSON. [Kết quả đánh giá](eval/README.md)
 
 ## Chạy trong 3 phút
 

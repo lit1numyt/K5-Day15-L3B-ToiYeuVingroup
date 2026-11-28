@@ -26,7 +26,7 @@
 | `qualification_level` | ordinal | feat, cons | ★ | vd RN > LPN > aide |
 | `experience_years` | num | feat | ★ | |
 | `specialization` | cat | feat | ◇ | |
-| `available_from`,`available_to` | time | cons | ★ | trong ca; **vắng = khoảng rỗng** |
+| `available_from`,`available_to` | time | cons | ★ | trong ca; **vắng = loại khỏi nurses[] theo module contract** |
 | `max_capacity_min` | num | cons | ★ | phút làm việc tối đa trong ca |
 | `home_zone` | cat | feat, cons | ◇ | cho gom việc theo vị trí |
 
@@ -78,7 +78,7 @@
 | Cột | Kiểu | Vai trò | Ghi chú |
 |---|---|---|---|
 | `task_id`,`nurse_id`,`patient_id` | str | key | |
-| `timestamp_start`,`timestamp_end` | datetime | → target | hiệu = `actual_duration_min` |
+| `timestamp_start`,`timestamp_end` | datetime | → target | hiệu là duration khi hai mốc quan sát thao tác của đúng nurse/task |
 | `actual_duration_min` | num | **target** | mục tiêu hồi quy |
 | `workload_points` | num | target (phụ) | suy từ phương pháp McGill |
 | `time_of_day`,`shift_phase` | cat | feat | |
@@ -97,16 +97,16 @@
 
 **Nguyên tắc feature engineering:**
 - Chuẩn hoá (standardize) biến số nếu dùng DL; cây (gradient boosting) không cần.
-- Thiếu dữ liệu: impute `acuity` theo trung vị trong `care_category`, thêm cờ `*_was_missing`.
+- Với dữ liệu quan sát liên kết, có thể fit imputer acuity theo care_category trên train và thêm cờ thiếu. Preliminary hiện thiếu liên kết này nên giữ unknown.
 - Cardinality cao → target/frequency encoding thay OHE.
 
 **⚠️ Rò rỉ (leakage) — TUYỆT ĐỐI tránh:** không dùng kết quả phân công (ai được giao, tải cuối ca,
 thời điểm kết thúc) làm feature để dự đoán thời lượng — những cái đó chỉ biết **sau** khi đã lên lịch.
 `actual_duration_min` là target, không bao giờ là feature.
 
-**Fallback (nếu không có `actual_duration_min` lịch sử):** dùng `workload_points` (McGill) làm target
-proxy, hoặc bảng tra `task_type × acuity → duration`. Khi đó **L3 là lookup/rule-based, không phải mô
-hình học** — quyết định theo kết quả EDA.
+**Fallback sau EDA:** thời lượng đã cho hoặc lookup task phù hợp từ Simmons Table 3,
+đơn vị phút, nguồn ghi trong task. McGill hỗ trợ taxonomy/workload; dữ liệu đã kiểm chưa
+cung cấp phép đổi điểm thành phút. Điều kiện sử dụng ở [module contract §3.3](module-contract.md).
 
 ## 3. Cột nào nạp ràng buộc nào của solver L2 (tham chiếu nhanh)
 
@@ -119,18 +119,25 @@ hình học** — quyết định theo kết quả EDA.
 | Gom việc (mềm) ◇ | `compat_group_key` (zone+care_type+equipment) |
 | Giờ nghỉ (mềm/cứng) ◇ | `break_policy`, `phase_structure`, coverage khi nghỉ |
 
-## 4. Checklist EDA cho nhóm dữ liệu
+## 4. Kết quả checklist EDA
 
-- [ ] Phân phối & outlier của `actual_duration_min` theo `task_type`
-- [ ] Mất cân bằng lớp của `task_type` (loại nào hiếm?)
-- [ ] Tương quan `acuity`↔`duration`, `adl_dependency`↔`duration`
-- [ ] % missing từng cột; cardinality các categorical
-- [ ] Phân bố kỹ năng điều dưỡng (kỹ năng hiếm → rủi ro bất khả thi coverage)
-- [ ] Mật độ task theo giờ (phát hiện khung giờ cao điểm → thiết kế phase)
-- [ ] **Cổng quyết định:** dataset thực có timing cấp task không? (có → L3 học được; không → fallback)
+| Nội dung | Kết quả và bằng chứng |
+|---|---|
+| Phân phối/outlier và mất cân bằng nhóm | Bảng theo nhóm task, p95 và outlier trong báo cáo §4.1 và duration_by_type.csv. |
+| Acuity/ADL ↔ duration | Chưa ước tính được vì thiếu quan sát patient-task liên kết. |
+| Missing/cardinality | Báo cáo §3–4 và missingness.csv, mẫu số theo từng bước. |
+| Kỹ năng hiếm | Roster NRP có 1/27 người mang skill 175 ở Emergency. Coverage theo ca cần availability/level. |
+| Mật độ theo giờ | Phần giao segment–giờ và số lượt bắt đầu episode, báo cáo §4.1. |
+| Cổng lựa chọn L3 | Zenodo có timing activity OR; nội trú dùng given/lookup có điều kiện theo nguồn Simmons. |
 
-## 5. Quyết định còn mở (chốt sau EDA)
-- Target = `duration` / `workload_points` / cả hai?
-- L3 = mô hình học hay lookup rule-based? (cổng: có `actual_duration_min` lịch sử không)
-- Granularity huấn luyện: per-task (khuyến nghị) vs per-(patient, giờ)?
-- Trường ◇ nào sống sót nếu dữ liệu thực mỏng?
+## 5. Lựa chọn sau Preliminary
+
+- Target thực nghiệm là actual_duration_min của episode OR. Feature table có 2.192 dòng,
+  chọn task_name cho tra median; giữ hai nhóm để đối chứng. Staff ID dùng chia tập.
+- Lookup nội trú theo task là phương án CP3 hiện có căn cứ. Việc học acuity/ADL/experience
+  cần nguồn quan sát liên kết phù hợp với đơn vị task của bệnh nhân.
+- Bộ ca chung cung cấp nurse, patient, task, shift theo module contract với giả định kỹ thuật
+  được ghi riêng. Khoa có thể phát triển taxonomy/baseline, Tiệp kiểm L3, Lam kiểm L2,
+  Kiên kiểm workflow trên cùng input. [Bộ bàn giao](../data/preliminary/README.md).
+- Các trường ★/◇ ở §1 là schema đích. Trường cần cho solver lấy từ input được xác nhận hoặc
+  kịch bản có khai báo; tính sẵn có của dữ liệu train được ghi trong báo cáo Preliminary.

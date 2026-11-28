@@ -1,0 +1,625 @@
+{
+  "status": "exploratory_fixed_options_no_hyperparameter_search",
+  "target_kind": "observed_activity_episode",
+  "seed": 42,
+  "model_features": {
+    "activity_median": [
+      "task_name"
+    ],
+    "activity_mean": [
+      "task_name"
+    ],
+    "hierarchical_median": [
+      "task_name",
+      "nurseflow_task_type"
+    ],
+    "gradient_boosting": [
+      "nurseflow_task_type",
+      "task_name",
+      "task_category"
+    ],
+    "gb_absolute_name": [
+      "task_name"
+    ],
+    "gb_log_name": [
+      "task_name"
+    ]
+  },
+  "source_sha256": {
+    "l3_activity_features.csv": "f1be152ee1c3b603931d4eae5ac84a0c636d98b31b797d3a4018f607d3a4ca53",
+    "zenodo_task_episodes_en.csv": "1d15c396138995e7f47e9c5a6f4bf9543a362ef12d3bdcd16d540f57f4547df0"
+  },
+  "later_time_cutoff": "2024-07-13T00:00:00",
+  "crossing_boundary_episodes_excluded": 1,
+  "folds": [
+    {
+      "split": "held_out_staff",
+      "fold": 0,
+      "train_n": 1744,
+      "test_n": 448,
+      "train_staff": [
+        "OR_STAFF_02",
+        "OR_STAFF_03",
+        "OR_STAFF_04",
+        "OR_STAFF_06",
+        "OR_STAFF_07",
+        "OR_STAFF_08",
+        "OR_STAFF_09",
+        "OR_STAFF_11",
+        "OR_STAFF_12",
+        "OR_STAFF_13",
+        "OR_STAFF_14",
+        "OR_STAFF_15",
+        "OR_STAFF_17",
+        "OR_STAFF_20",
+        "OR_STAFF_21",
+        "OR_STAFF_22",
+        "OR_STAFF_23",
+        "OR_STAFF_24",
+        "OR_STAFF_25",
+        "OR_STAFF_26",
+        "OR_STAFF_27",
+        "OR_STAFF_29",
+        "OR_STAFF_30",
+        "OR_STAFF_31",
+        "OR_STAFF_32",
+        "OR_STAFF_34",
+        "OR_STAFF_35",
+        "OR_STAFF_36",
+        "OR_STAFF_38"
+      ],
+      "test_staff": [
+        "OR_STAFF_01",
+        "OR_STAFF_05",
+        "OR_STAFF_10",
+        "OR_STAFF_16",
+        "OR_STAFF_18",
+        "OR_STAFF_19",
+        "OR_STAFF_28",
+        "OR_STAFF_33"
+      ],
+      "staff_overlap_n": 0,
+      "unseen_activity_n": 5,
+      "models": {
+        "activity_median": {
+          "mae_min": 25.9107,
+          "rmse_min": 49.9289,
+          "r2": 0.2759
+        },
+        "activity_mean": {
+          "mae_min": 28.7443,
+          "rmse_min": 49.2508,
+          "r2": 0.2954
+        },
+        "hierarchical_median": {
+          "mae_min": 25.8906,
+          "rmse_min": 49.8386,
+          "r2": 0.2785
+        },
+        "gradient_boosting": {
+          "mae_min": 28.4374,
+          "rmse_min": 49.1122,
+          "r2": 0.2994
+        },
+        "gb_absolute_name": {
+          "mae_min": 26.0643,
+          "rmse_min": 51.7319,
+          "r2": 0.2226
+        },
+        "gb_log_name": {
+          "mae_min": 26.5268,
+          "rmse_min": 52.4806,
+          "r2": 0.2
+        }
+      }
+    },
+    {
+      "split": "held_out_staff",
+      "fold": 1,
+      "train_n": 1760,
+      "test_n": 432,
+      "train_staff": [
+        "OR_STAFF_01",
+        "OR_STAFF_02",
+        "OR_STAFF_04",
+        "OR_STAFF_05",
+        "OR_STAFF_06",
+        "OR_STAFF_07",
+        "OR_STAFF_08",
+        "OR_STAFF_09",
+        "OR_STAFF_10",
+        "OR_STAFF_13",
+        "OR_STAFF_14",
+        "OR_STAFF_15",
+        "OR_STAFF_16",
+        "OR_STAFF_17",
+        "OR_STAFF_18",
+        "OR_STAFF_19",
+        "OR_STAFF_20",
+        "OR_STAFF_21",
+        "OR_STAFF_23",
+        "OR_STAFF_25",
+        "OR_STAFF_26",
+        "OR_STAFF_27",
+        "OR_STAFF_28",
+        "OR_STAFF_29",
+        "OR_STAFF_30",
+        "OR_STAFF_31",
+        "OR_STAFF_32",
+        "OR_STAFF_33",
+        "OR_STAFF_35",
+        "OR_STAFF_38"
+      ],
+      "test_staff": [
+        "OR_STAFF_03",
+        "OR_STAFF_11",
+        "OR_STAFF_12",
+        "OR_STAFF_22",
+        "OR_STAFF_24",
+        "OR_STAFF_34",
+        "OR_STAFF_36"
+      ],
+      "staff_overlap_n": 0,
+      "unseen_activity_n": 0,
+      "models": {
+        "activity_median": {
+          "mae_min": 22.4688,
+          "rmse_min": 43.77,
+          "r2": 0.2682
+        },
+        "activity_mean": {
+          "mae_min": 24.0472,
+          "rmse_min": 42.7107,
+          "r2": 0.3032
+        },
+        "hierarchical_median": {
+          "mae_min": 22.4688,
+          "rmse_min": 43.77,
+          "r2": 0.2682
+        },
+        "gradient_boosting": {
+          "mae_min": 24.1957,
+          "rmse_min": 42.8143,
+          "r2": 0.2998
+        },
+        "gb_absolute_name": {
+          "mae_min": 23.2643,
+          "rmse_min": 45.3338,
+          "r2": 0.2149
+        },
+        "gb_log_name": {
+          "mae_min": 22.938,
+          "rmse_min": 45.1776,
+          "r2": 0.2203
+        }
+      }
+    },
+    {
+      "split": "held_out_staff",
+      "fold": 2,
+      "train_n": 1761,
+      "test_n": 431,
+      "train_staff": [
+        "OR_STAFF_01",
+        "OR_STAFF_02",
+        "OR_STAFF_03",
+        "OR_STAFF_04",
+        "OR_STAFF_05",
+        "OR_STAFF_07",
+        "OR_STAFF_08",
+        "OR_STAFF_10",
+        "OR_STAFF_11",
+        "OR_STAFF_12",
+        "OR_STAFF_13",
+        "OR_STAFF_14",
+        "OR_STAFF_15",
+        "OR_STAFF_16",
+        "OR_STAFF_17",
+        "OR_STAFF_18",
+        "OR_STAFF_19",
+        "OR_STAFF_21",
+        "OR_STAFF_22",
+        "OR_STAFF_23",
+        "OR_STAFF_24",
+        "OR_STAFF_26",
+        "OR_STAFF_27",
+        "OR_STAFF_28",
+        "OR_STAFF_29",
+        "OR_STAFF_31",
+        "OR_STAFF_33",
+        "OR_STAFF_34",
+        "OR_STAFF_35",
+        "OR_STAFF_36"
+      ],
+      "test_staff": [
+        "OR_STAFF_06",
+        "OR_STAFF_09",
+        "OR_STAFF_20",
+        "OR_STAFF_25",
+        "OR_STAFF_30",
+        "OR_STAFF_32",
+        "OR_STAFF_38"
+      ],
+      "staff_overlap_n": 0,
+      "unseen_activity_n": 1,
+      "models": {
+        "activity_median": {
+          "mae_min": 21.0452,
+          "rmse_min": 40.9147,
+          "r2": 0.3394
+        },
+        "activity_mean": {
+          "mae_min": 22.7421,
+          "rmse_min": 40.157,
+          "r2": 0.3636
+        },
+        "hierarchical_median": {
+          "mae_min": 21.0499,
+          "rmse_min": 40.9168,
+          "r2": 0.3393
+        },
+        "gradient_boosting": {
+          "mae_min": 22.5766,
+          "rmse_min": 40.0333,
+          "r2": 0.3676
+        },
+        "gb_absolute_name": {
+          "mae_min": 20.8233,
+          "rmse_min": 42.5733,
+          "r2": 0.2848
+        },
+        "gb_log_name": {
+          "mae_min": 21.2239,
+          "rmse_min": 43.9585,
+          "r2": 0.2375
+        }
+      }
+    },
+    {
+      "split": "held_out_staff",
+      "fold": 3,
+      "train_n": 1763,
+      "test_n": 429,
+      "train_staff": [
+        "OR_STAFF_01",
+        "OR_STAFF_03",
+        "OR_STAFF_05",
+        "OR_STAFF_06",
+        "OR_STAFF_08",
+        "OR_STAFF_09",
+        "OR_STAFF_10",
+        "OR_STAFF_11",
+        "OR_STAFF_12",
+        "OR_STAFF_13",
+        "OR_STAFF_14",
+        "OR_STAFF_15",
+        "OR_STAFF_16",
+        "OR_STAFF_17",
+        "OR_STAFF_18",
+        "OR_STAFF_19",
+        "OR_STAFF_20",
+        "OR_STAFF_22",
+        "OR_STAFF_23",
+        "OR_STAFF_24",
+        "OR_STAFF_25",
+        "OR_STAFF_27",
+        "OR_STAFF_28",
+        "OR_STAFF_30",
+        "OR_STAFF_31",
+        "OR_STAFF_32",
+        "OR_STAFF_33",
+        "OR_STAFF_34",
+        "OR_STAFF_36",
+        "OR_STAFF_38"
+      ],
+      "test_staff": [
+        "OR_STAFF_02",
+        "OR_STAFF_04",
+        "OR_STAFF_07",
+        "OR_STAFF_21",
+        "OR_STAFF_26",
+        "OR_STAFF_29",
+        "OR_STAFF_35"
+      ],
+      "staff_overlap_n": 0,
+      "unseen_activity_n": 0,
+      "models": {
+        "activity_median": {
+          "mae_min": 24.7517,
+          "rmse_min": 48.5272,
+          "r2": 0.2953
+        },
+        "activity_mean": {
+          "mae_min": 25.7117,
+          "rmse_min": 46.0495,
+          "r2": 0.3654
+        },
+        "hierarchical_median": {
+          "mae_min": 24.7517,
+          "rmse_min": 48.5272,
+          "r2": 0.2953
+        },
+        "gradient_boosting": {
+          "mae_min": 25.5625,
+          "rmse_min": 45.9698,
+          "r2": 0.3676
+        },
+        "gb_absolute_name": {
+          "mae_min": 24.9105,
+          "rmse_min": 49.7977,
+          "r2": 0.2579
+        },
+        "gb_log_name": {
+          "mae_min": 25.5367,
+          "rmse_min": 51.455,
+          "r2": 0.2077
+        }
+      }
+    },
+    {
+      "split": "held_out_staff",
+      "fold": 4,
+      "train_n": 1740,
+      "test_n": 452,
+      "train_staff": [
+        "OR_STAFF_01",
+        "OR_STAFF_02",
+        "OR_STAFF_03",
+        "OR_STAFF_04",
+        "OR_STAFF_05",
+        "OR_STAFF_06",
+        "OR_STAFF_07",
+        "OR_STAFF_09",
+        "OR_STAFF_10",
+        "OR_STAFF_11",
+        "OR_STAFF_12",
+        "OR_STAFF_16",
+        "OR_STAFF_18",
+        "OR_STAFF_19",
+        "OR_STAFF_20",
+        "OR_STAFF_21",
+        "OR_STAFF_22",
+        "OR_STAFF_24",
+        "OR_STAFF_25",
+        "OR_STAFF_26",
+        "OR_STAFF_28",
+        "OR_STAFF_29",
+        "OR_STAFF_30",
+        "OR_STAFF_32",
+        "OR_STAFF_33",
+        "OR_STAFF_34",
+        "OR_STAFF_35",
+        "OR_STAFF_36",
+        "OR_STAFF_38"
+      ],
+      "test_staff": [
+        "OR_STAFF_08",
+        "OR_STAFF_13",
+        "OR_STAFF_14",
+        "OR_STAFF_15",
+        "OR_STAFF_17",
+        "OR_STAFF_23",
+        "OR_STAFF_27",
+        "OR_STAFF_31"
+      ],
+      "staff_overlap_n": 0,
+      "unseen_activity_n": 0,
+      "models": {
+        "activity_median": {
+          "mae_min": 22.6029,
+          "rmse_min": 42.0862,
+          "r2": 0.3166
+        },
+        "activity_mean": {
+          "mae_min": 23.3221,
+          "rmse_min": 41.2934,
+          "r2": 0.3421
+        },
+        "hierarchical_median": {
+          "mae_min": 22.6029,
+          "rmse_min": 42.0862,
+          "r2": 0.3166
+        },
+        "gradient_boosting": {
+          "mae_min": 23.3385,
+          "rmse_min": 41.225,
+          "r2": 0.3443
+        },
+        "gb_absolute_name": {
+          "mae_min": 22.5155,
+          "rmse_min": 42.9629,
+          "r2": 0.2878
+        },
+        "gb_log_name": {
+          "mae_min": 22.9166,
+          "rmse_min": 44.5257,
+          "r2": 0.2351
+        }
+      }
+    },
+    {
+      "split": "later_time",
+      "fold": 0,
+      "train_n": 2110,
+      "test_n": 81,
+      "train_staff": [
+        "OR_STAFF_01",
+        "OR_STAFF_02",
+        "OR_STAFF_03",
+        "OR_STAFF_04",
+        "OR_STAFF_05",
+        "OR_STAFF_06",
+        "OR_STAFF_07",
+        "OR_STAFF_08",
+        "OR_STAFF_09",
+        "OR_STAFF_10",
+        "OR_STAFF_11",
+        "OR_STAFF_12",
+        "OR_STAFF_13",
+        "OR_STAFF_14",
+        "OR_STAFF_15",
+        "OR_STAFF_16",
+        "OR_STAFF_17",
+        "OR_STAFF_18",
+        "OR_STAFF_19",
+        "OR_STAFF_20",
+        "OR_STAFF_21",
+        "OR_STAFF_22",
+        "OR_STAFF_23",
+        "OR_STAFF_24",
+        "OR_STAFF_25",
+        "OR_STAFF_26",
+        "OR_STAFF_27",
+        "OR_STAFF_28",
+        "OR_STAFF_29",
+        "OR_STAFF_30",
+        "OR_STAFF_31",
+        "OR_STAFF_32",
+        "OR_STAFF_33",
+        "OR_STAFF_34",
+        "OR_STAFF_35",
+        "OR_STAFF_36",
+        "OR_STAFF_38"
+      ],
+      "test_staff": [
+        "OR_STAFF_05",
+        "OR_STAFF_07",
+        "OR_STAFF_13",
+        "OR_STAFF_16",
+        "OR_STAFF_20"
+      ],
+      "staff_overlap_n": 5,
+      "unseen_activity_n": 0,
+      "models": {
+        "activity_median": {
+          "mae_min": 26.8457,
+          "rmse_min": 42.7941,
+          "r2": 0.1564
+        },
+        "activity_mean": {
+          "mae_min": 26.9358,
+          "rmse_min": 41.6517,
+          "r2": 0.2009
+        },
+        "hierarchical_median": {
+          "mae_min": 26.8457,
+          "rmse_min": 42.7941,
+          "r2": 0.1564
+        },
+        "gradient_boosting": {
+          "mae_min": 25.1858,
+          "rmse_min": 40.7042,
+          "r2": 0.2368
+        },
+        "gb_absolute_name": {
+          "mae_min": 25.4972,
+          "rmse_min": 45.3161,
+          "r2": 0.0541
+        },
+        "gb_log_name": {
+          "mae_min": 26.9855,
+          "rmse_min": 46.3153,
+          "r2": 0.0119
+        }
+      }
+    }
+  ],
+  "scores": [
+    {
+      "split": "held_out_staff",
+      "model": "activity_median",
+      "n": 2192,
+      "mae_min": 23.3668,
+      "rmse_min": 45.1922,
+      "r2": 0.298
+    },
+    {
+      "split": "held_out_staff",
+      "model": "activity_mean",
+      "n": 2192,
+      "mae_min": 24.9268,
+      "rmse_min": 44.0337,
+      "r2": 0.3336
+    },
+    {
+      "split": "held_out_staff",
+      "model": "hierarchical_median",
+      "n": 2192,
+      "mae_min": 23.3636,
+      "rmse_min": 45.1722,
+      "r2": 0.2986
+    },
+    {
+      "split": "held_out_staff",
+      "model": "gradient_boosting",
+      "n": 2192,
+      "mae_min": 24.835,
+      "rmse_min": 43.9702,
+      "r2": 0.3355
+    },
+    {
+      "split": "held_out_staff",
+      "model": "gb_absolute_name",
+      "n": 2192,
+      "mae_min": 23.5244,
+      "rmse_min": 46.6295,
+      "r2": 0.2527
+    },
+    {
+      "split": "held_out_staff",
+      "model": "gb_log_name",
+      "n": 2192,
+      "mae_min": 23.8386,
+      "rmse_min": 47.6663,
+      "r2": 0.2191
+    },
+    {
+      "split": "later_time",
+      "model": "activity_median",
+      "n": 81,
+      "mae_min": 26.8457,
+      "rmse_min": 42.7941,
+      "r2": 0.1564
+    },
+    {
+      "split": "later_time",
+      "model": "activity_mean",
+      "n": 81,
+      "mae_min": 26.9358,
+      "rmse_min": 41.6517,
+      "r2": 0.2009
+    },
+    {
+      "split": "later_time",
+      "model": "hierarchical_median",
+      "n": 81,
+      "mae_min": 26.8457,
+      "rmse_min": 42.7941,
+      "r2": 0.1564
+    },
+    {
+      "split": "later_time",
+      "model": "gradient_boosting",
+      "n": 81,
+      "mae_min": 25.1858,
+      "rmse_min": 40.7042,
+      "r2": 0.2368
+    },
+    {
+      "split": "later_time",
+      "model": "gb_absolute_name",
+      "n": 81,
+      "mae_min": 25.4972,
+      "rmse_min": 45.3161,
+      "r2": 0.0541
+    },
+    {
+      "split": "later_time",
+      "model": "gb_log_name",
+      "n": 81,
+      "mae_min": 26.9855,
+      "rmse_min": 46.3153,
+      "r2": 0.0119
+    }
+  ]
+}
