@@ -83,8 +83,8 @@
         rows.push("<tr><td>" + esc(nurse.name) + "</td><td>" + interval + "</td><td>" +
           esc(item.detail) + "</td></tr>");
         return '<div class="bar' + (item.isBreak ? ' break' : '') + '" style="left:' +
-          percent(item.start) + ';width:' + percent(item.end - item.start) +
-          '" title="' + esc(item.detail + " · " + interval) + '">' + esc(item.label) + '</div>';
+          percent(item.start) + ';width:calc(' + percent(item.end - item.start) +
+          ' - 2px)" title="' + esc(item.detail + " · " + interval) + '">' + esc(item.label) + '</div>';
       }).join("");
       timeline += '<div class="r"><div class="lab">' + esc(nurse.name) +
         '</div><div class="area track">' + bars + '</div></div>';

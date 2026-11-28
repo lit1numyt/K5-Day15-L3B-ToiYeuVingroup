@@ -50,8 +50,8 @@
 .htl .axis .hh.end { right: .3rem; }
 .htl .track { height: 2.4rem;
   background: repeating-linear-gradient(to right, var(--border) 0 1px, transparent 1px calc(100% / 8)); }
-.htl .bar { position: absolute; top: .4rem; height: 1.6rem; display: flex; align-items: center;
-  border: 1px solid var(--border); border-left: 2px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+.htl .bar { position: absolute; top: .4rem; height: 1.6rem; box-sizing: border-box; display: flex; align-items: center;
+  border: 1px solid var(--border); border-left: 2px solid var(--accent); border-radius: var(--radius-sm);
   background: var(--background); font-size: .68rem; line-height: 1.1; padding: 0 .35rem; overflow: hidden;
   white-space: nowrap; color: var(--foreground); }
 .htl .bar.break { border-left-color: var(--muted); border-style: dashed; background: var(--card); }

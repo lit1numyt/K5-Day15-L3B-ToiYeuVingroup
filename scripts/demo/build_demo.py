@@ -1,4 +1,4 @@
-"""Sinh ca tổng hợp (5 điều dưỡng, 20 việc), chạy pipeline và xuất dữ liệu
+"""Sinh ca tổng hợp (5 điều dưỡng, 20 bệnh nhân, 48 việc), chạy pipeline và xuất dữ liệu
 cho frontend (design/wireframes/demo-data.js).
 
 Model gọi trong luồng:
@@ -33,7 +33,7 @@ NURSE_NAMES = ["Nguyễn Thị An", "Trần Văn Bình", "Lê Thị Cúc", "Ph�
 MANAGER_NAME = "Đông Hữu Nguyễn Khoa"
 PASSWORD = "vinai_hackathon"
 N_PATIENTS = 20
-N_TASKS = 24
+N_TASKS = 48
 OUT_JS = ROOT / "design/wireframes/demo-data.js"
 OUT_ACCOUNTS = ROOT / "design/wireframes/accounts.js"
 OUT_JSON = ROOT / "data/demo/shift_5n_20t.json"
@@ -71,12 +71,17 @@ def build_instance():
                  "acuity_score": rng.choice([1, 2, 3, 4, 5]), "adl_dependency": rng.choice([1, 2, 3, 4]),
                  "care_category": "medical", "isolation_precaution": (i % 7 == 0)} for i in range(N_PATIENTS)]
     types = list(DUR)
-    tasks = [{"task_id": f"T{i+1}", "patient_id": patients[i % N_PATIENTS]["patient_id"],
-              "task_type": types[i % len(types)], "required_skill": [types[i % len(types)]],
-              "est_duration_min": DUR[types[i % len(types)]], "duration_source": "given",
-              "earliest_start": 0, "deadline": 480, "mandatory": True,
-              "required_skill_level": 1, "priority": rng.choice([1, 2, 3]), "frequency": "once"}
-             for i in range(N_TASKS)]
+    band = 60                     # chia ca 480' thành 8 khung 60' để việc trải đều toàn ca
+    n_bands = 480 // band
+    tasks = []
+    for i in range(N_TASKS):
+        task_type = types[i % len(types)]
+        start = (i % n_bands) * band   # xoay vòng khung giờ → việc rải khắp ca, không dồn đầu ca
+        tasks.append({"task_id": f"T{i+1}", "patient_id": patients[i % N_PATIENTS]["patient_id"],
+                      "task_type": task_type, "required_skill": [task_type],
+                      "est_duration_min": DUR[task_type], "duration_source": "given",
+                      "earliest_start": start, "deadline": start + band, "mandatory": True,
+                      "required_skill_level": 1, "priority": rng.choice([1, 2, 3]), "frequency": "once"})
     shift = {"shift_id": "S1", "ward_id": "W1", "shift_length_min": 480, "room_switch_min": 2,
              "break_policy": {"duration_min": 30, "window": [120, 300]},
              "coverage_rules": [{"start": 0, "end": 480, "zone": "W1", "required_skill": None, "min_staff": 2}],
