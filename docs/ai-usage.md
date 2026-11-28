@@ -17,3 +17,9 @@ Codex hỗ trợ tham vấn, lập trình, đối chiếu tài liệu nguồn, c
 Kết quả được lưu cùng mã tái lập và tham chiếu nguồn trong hồ sơ Preliminary. Nhóm chịu
 trách nhiệm về lựa chọn phương pháp, nội dung báo cáo và việc tích hợp vào project.
 [Báo cáo Preliminary](eda-report.md) · [Data card](../data/DATA_CARD.md).
+
+## CP3 · Tích hợp L1 LLM Orchestrator
+
+| Phần CP3 | Công cụ hỗ trợ | Công việc và cách kiểm | Phụ trách |
+|---|---|---|---|
+| Nối API model & luồng L1 | Antigravity / Gemini | Hỗ trợ viết nhánh gọi API (`anthropic`/`openai`/`gemini`/`ollama`) trong `codebase/ai.py`, tích hợp L3 `estimate_duration` vào `codebase/tools.py` & `codebase/agent.py`, thêm bộ điều phối hội thoại và hậu kiểm an toàn. Đã kiểm bằng 146 unit test (`tests/`), 15 fixture CP2, `run.py check` và lượt eval thật `eval/run-1.csv` (17/20 = 85%). | Kiên |
