@@ -36,11 +36,15 @@ Phép kiểm xác định giới hạn của giao diện JSON tại CP2. Lượt
 
 ```bash
 python3 -B run.py check
-MODEL_PROVIDER=fake python3 -B eval/check_cp2.py
 MODEL_PROVIDER=fake python3 -B -m unittest discover -s tests -v
 ```
 
 `run-mock.csv` và `traces/run-mock.jsonl` lưu lượt harness trên 15 fixture trước khi đổi tiền tố mã kỹ thuật từ B sang F. Đối chiếu lượt này bằng nội dung đầu vào. Kết quả benchmark hội thoại được ghi bằng harness. Trước khi dùng số liệu chất lượng, cần chấm từng dòng theo metric spec. Provider fake không tạo kết quả model thật.
+
+Hồ sơ CP2 ở `cp2-review.json` được giữ nguyên. Trên nhánh L2, tái kiểm bằng unittest
+và `python scripts/benchmark/compare_baseline.py`, ghi `l2-comparison-N.*` mới;
+script chấm CP2 cũ ghi đè hồ sơ tại chỗ nên chỉ thuộc phiên bản lịch sử CP2.
+[Báo cáo L2 CP3](cp3-engine-report.md).
 
 ## Bổ sung benchmark từ Preliminary CP3
 

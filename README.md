@@ -2,6 +2,35 @@
 
 **Track B · Y tế · L3B.** Danh sách thành viên trong [TEAMS.md](TEAMS.md).
 
+## L2 CP-SAT cho CP3
+
+`codebase/cp_sat_engine.py` nhận instance đã có duration, lập bản nháp bằng OR-Tools và
+chỉ trả `draft` sau khi validator độc lập kiểm lại. Hỗ trợ skill/level, zone cố định,
+windows/availability/capacity, travel, một block nghỉ có coverage, precedence và thiết bị
+có capacity được khai báo. Phase dùng các task/windows/precedence đã cho và nghỉ riêng
+từng nurse; không tự sinh phút chuẩn bị hoặc đổi workload score thành duration.
+
+```bash
+python -m pip install -r requirements.txt
+python scripts/data/build_cp3_engine_cases.py
+python -B -m unittest discover -s tests -v
+python run.py check
+python scripts/benchmark/compare_baseline.py
+```
+
+API vẫn là `tools.solve_allocation(instance)` và `planning.validate_plan(instance, plan)`.
+`planning.input_issues(instance, require_duration=False)` kiểm cấu trúc trước L3, giữ kiểm
+duration sai nếu đã được cung cấp. Khi thiếu duration, L1 gọi `workload.estimate_duration`
+trước solver và dùng instance đã điền để validate; `DurationNeedInfo` trả về bước hỏi lại.
+[API và điều kiện tra duration L3](docs/l3-workload-estimator.md).
+Backend solver cần OR-Tools. L1 của Kiên gọi CP-SAT từ luồng JSON của `python run.py`,
+trả `method="cp_sat"` và thông tin solver. Cấu hình model theo `.env.example`. Lượt
+[đánh giá AI trước khi nối CP-SAT](eval/report.md) được lưu riêng với phép đo kỹ thuật L2.
+Script đối chứng chạy hai baseline L4 của Khoa (count và acuity-weighted), CP-SAT và
+heuristic trên cùng 11 ca kỹ thuật, luôn tính lại metrics qua oracle; mỗi lần sinh `eval/l2-comparison-N.json` và CSV mới.
+L4 giữ chính sách một nurse/patient; đó không phải hard constraint của CP-SAT.
+[Kết quả và giới hạn](eval/cp3-engine-report.md).
+
 ## Preliminary CP3
 
 [Báo cáo dữ liệu và bàn giao](docs/eda-report.md) · [Data card](data/DATA_CARD.md).
@@ -30,7 +59,7 @@ python -B -m unittest discover -s tests -v
 Bốn lệnh pipeline tạo các bảng, hình, báo cáo Preliminary và đối chứng thêm phương án duration.
 Benchmark CP3 hiện có 20 câu, gồm B19–B20 bổ sung từ dữ liệu nghiên cứu.
 [Phạm vi và cách kiểm](eval/README.md#bổ-sung-benchmark-từ-preliminary-cp3).
-Bộ khung CP2 dưới đây vẫn chạy bằng thư viện chuẩn; test data pipeline dùng thêm dependency EDA.
+Bộ khung kiểm cấu trúc dùng thư viện chuẩn; backend L2 hiện tại cần OR-Tools và test data cần dependency EDA.
 
 ## Kết quả CP2
 
@@ -42,9 +71,11 @@ Hồ sơ nộp gồm [canvas](canvas.md), [sơ đồ và chuẩn đạt](spec.md
 
 **Xác nhận khung chạy hết luồng.** Đã chạy `run.py` từ terminal bằng Python 3. F01 đi qua kiểm dữ liệu → lập lịch → kiểm ràng buộc → trả bản nháp đủ 3 task, 3 khung nghỉ, yêu cầu trưởng ca duyệt. F07 thiếu thời lượng T1 và trả `need_info` đúng trường. Cả hai lệnh thoát mã 0. Provider CP2 là `fake`, token vào/ra đều bằng 0. [Contract đầu ca](docs/cp2-contract.md)
 
+[Kết quả CP2 đã lưu](eval/cp2-review.json). Các lệnh dưới kiểm nhánh hiện tại sau khi cài
+requirements; kết quả đối chứng L2 được ghi thành lượt mới bằng script ở đầu README.
+
 ```bash
 python3 -B run.py check
-MODEL_PROVIDER=fake python3 -B eval/check_cp2.py
 python3 -B -m unittest discover -s tests -v
 ```
 
@@ -58,7 +89,7 @@ Trên Windows, dùng `python` thay `python3`. Bộ benchmark tại CP2 có 18 c�
 
 ## Chạy trong 3 phút
 
-Dùng Python 3.10 trở lên và thư viện chuẩn. Mở terminal ở thư mục chứa `run.py`. Trên Windows, chạy `python run.py` rồi dán JSON của trường `input` trong [bộ fixture](data/cp2-cases.json) trên một dòng. Nhấn Enter để xem kết quả.
+Dùng Python 3.10 trở lên, cài `python -m pip install -r requirements.txt` cho backend L2 hiện tại. Mở terminal ở thư mục chứa `run.py`. Trên Windows, chạy `python run.py` rồi dán JSON của trường `input` trong [bộ fixture](data/cp2-cases.json) trên một dòng. Nhấn Enter để xem kết quả.
 
 ## Lệnh
 
@@ -66,17 +97,17 @@ Dùng Python 3.10 trở lên và thư viện chuẩn. Mở terminal ở thư m�
 |---|---|
 | `python run.py` | Nhập dữ liệu một ca và nhận bản nháp hoặc yêu cầu bổ sung |
 | `python run.py check` | Kiểm cấu trúc benchmark, metric và danh sách thành viên |
-| `python eval/check_cp2.py` | Chấm 15 fixture và ghi kết quả vào `eval/cp2-review.json` |
+| `python scripts/benchmark/compare_baseline.py` | Chạy đối chứng kỹ thuật L2/L4 và lưu JSON/CSV mới theo số lượt |
 | `python run.py eval` | Chạy benchmark qua harness. Từ CP3, lượt dùng model thật được ghi vào `eval/run-N.csv` |
 | `python run.py score eval/run-N.csv` | Tổng hợp điểm của lượt đã chấm |
 | `python run.py simulate` | Chạy mô phỏng chi phí cho giai đoạn đo sản phẩm |
 
-## Phần nào thật, phần nào giả
+## Trạng thái bản chạy thử
 
-| Thành phần | Trạng thái tại CP2 |
+| Thành phần | Trạng thái |
 |---|---|
-| Lập lịch và kiểm ràng buộc | Chạy trên JSON đầu ca, trả bản nháp để trưởng ca duyệt |
-| Lời gọi model | Dùng provider `fake` theo khung CP2. Phần hội thoại qua API thuộc CP3 |
+| Lập lịch JSON | L3 điền phút khi đủ căn cứ, L2 CP-SAT lập lịch và validator kiểm lại trước khi trưởng ca duyệt |
+| Lời gọi model | L1 hỗ trợ API thật qua `.env`, mặc định `fake` để kiểm luồng cục bộ |
 
 ## Dùng AI vào việc gì
 

@@ -1,0 +1,50 @@
+{
+  "scope": "L3 -> real L2 CP-SAT -> independent validator; no L1/LLM run",
+  "integrated_revision": "d8559f7d044b87767b2fb7366ce54633c4f50bca",
+  "develop_revision": "d6b1b9c9176e880321c0bc46a67e3a79a86a7c34",
+  "l3_source_revision": "cd8e95a",
+  "l4_source_revision": "f93a719",
+  "python": "3.12.3",
+  "cases": [
+    {
+      "case_id": "P01",
+      "input_unchanged": true,
+      "duration_output_matches_shared_case": true,
+      "method": "cp_sat",
+      "solver_status": "OPTIMAL",
+      "valid": true
+    },
+    {
+      "case_id": "P02",
+      "input_unchanged": true,
+      "duration_output_matches_shared_case": true,
+      "method": "cp_sat",
+      "solver_status": "OPTIMAL",
+      "valid": true
+    },
+    {
+      "case_id": "P03",
+      "input_unchanged": true,
+      "duration_output_matches_shared_case": true,
+      "method": "cp_sat",
+      "solver_status": "OPTIMAL",
+      "valid": true
+    }
+  ],
+  "missing_staffing_probe": {
+    "status": "need_info",
+    "reason": [
+      "tasks.T2.staff_required: Incontinence Care/Toileting Assistance có thể cần hai nhân viên (Simmons Table 3); cần xác nhận số người hỗ trợ trước khi tra"
+    ],
+    "no_filled_instance": true
+  },
+  "source_sha256": {
+    "codebase/workload/estimator.py": "1f6694d1262a31e09935cd0a81a8e934ef3a0543d4a6f3beafd633ec190c02fb",
+    "codebase/tools.py": "51eb01df6d859ad9d49e21710d31a71756039249ff70df254726863f4dae1690",
+    "codebase/cp_sat_engine.py": "39ea90291af6ebd7b0c2dfe8b2c99627e543eb55b9a6e4d66e7c391f002a312f",
+    "codebase/planning.py": "1ee17c1dd3ca061cd76264141adae49cc284eaa4630067a3f29883d87366e1f2",
+    "data/preliminary/instances.json": "32411f12709c5322494e98e4ac1180d36bc32208d4d26516953c980f41cd8085",
+    "data/reference/ward_task_duration.csv": "1c25593c0d0e26bf57a8438741be1826e4b9541921aac1b0453c9b6cd799d87a"
+  },
+  "reproduction": "python -B -m unittest discover -s tests -p test_workload_integration.py -v"
+}

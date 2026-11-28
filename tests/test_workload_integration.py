@@ -1,7 +1,7 @@
 """Integration L3 với các module đang có trên develop, không sửa code của module khác.
 
 Mức kiểm: L3 → kiểm đủ (planning.input_issues) → solve_allocation → validate_plan.
-solve_allocation trên develop hiện là HEURISTIC CP2 (planning.draft_schedule), CHƯA phải CP-SAT.
+solve_allocation gọi L2 CP-SAT; mọi draft được validator độc lập kiểm lại.
 Đây KHÔNG phải test end-to-end NurseFlow: chưa đi qua answer()/LLM của L1.
 """
 import copy
@@ -33,13 +33,18 @@ def load_l4():
 
 
 class L3ToSolverIntegrationTests(unittest.TestCase):
-    def test_l3_output_passes_full_check_heuristic_and_validator(self):
+    def test_l3_output_passes_full_check_cp_sat_and_validator(self):
         for case in BUNDLE["cases"]:
             with self.subTest(case=case["id"]):
-                instance = estimate_duration(copy.deepcopy(case["l3_input"]))
+                original = copy.deepcopy(case["l3_input"])
+                self.assertEqual(input_issues(original, require_duration=False), [])
+                instance = estimate_duration(original)
+                self.assertEqual(original, case["l3_input"])
+                self.assertEqual(instance, case["instance"])
                 self.assertEqual(input_issues(instance), [])
                 plan = solve_allocation(instance)
                 self.assertEqual(plan["status"], "draft", plan.get("warnings"))
+                self.assertEqual(plan["method"], "cp_sat")
                 result = validate_plan(instance, plan)
                 self.assertTrue(result["valid"], result["violations"])
                 durations = {t["task_id"]: t["est_duration_min"] for t in instance["tasks"]}
