@@ -2,6 +2,28 @@
 
 **Track B · Y tế · L3B.** Danh sách thành viên trong [TEAMS.md](TEAMS.md).
 
+## L2 CP-SAT cho CP3
+
+`codebase/cp_sat_engine.py` nhận instance đã có duration, lập bản nháp bằng OR-Tools và
+chỉ trả `draft` sau khi validator độc lập kiểm lại. Hỗ trợ skill/level, zone cố định,
+windows/availability/capacity, travel, một block nghỉ có coverage, precedence và thiết bị
+có capacity được khai báo. Phase dùng các task/windows/precedence đã cho và nghỉ riêng
+từng nurse; không tự sinh phút chuẩn bị hoặc đổi workload score thành duration.
+
+```bash
+python -m pip install -r requirements.txt
+python scripts/data/build_cp3_engine_cases.py
+python -B -m unittest discover -s tests -v
+python run.py check
+```
+
+API vẫn là `tools.solve_allocation(instance)` và `planning.validate_plan(instance, plan)`.
+`planning.input_issues(instance, require_duration=False)` kiểm cấu trúc trước L3, giữ kiểm
+duration sai nếu đã được cung cấp. Backend solver cần OR-Tools; các lệnh kiểm cấu trúc
+vẫn dùng thư viện chuẩn. CLI `run.py` hiện giữ điều phối/model fake của CP2 trong khi
+L1 được tích hợp; kết quả L2 có `method="cp_sat"` và diagnostic solver. Kiểm này không thay
+cho lượt đánh giá hội thoại gọi AI thật của CP3.
+
 ## Preliminary CP3
 
 [Báo cáo dữ liệu và bàn giao](docs/eda-report.md) · [Data card](data/DATA_CARD.md).

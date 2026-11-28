@@ -78,6 +78,9 @@ flowchart LR
   model dùng nhánh fake có sẵn của khung, token 0. Chưa nối LLM API, chưa có
   CP-SAT thật. Đây là bản khung CP2 theo guide, không nhận kết quả là AI CP3.
   Phần hội thoại, re-solve giữa ca và CP-SAT do Khoa tích hợp giai đoạn build.
+- **L2 CP3 trên nhánh triển khai:** Lam thay backend tool phân công bằng CP-SAT, kiểm lại
+  qua validator dùng chung; hỗ trợ chạy lại bản nháp với input mới. L1/API/model thật
+  do Kiên tích hợp riêng. Chưa đồng nhất engine CP-SAT chạy được với toàn luồng AI CP3.
 - Contract runtime, đơn vị, feature có/thiếu: `docs/cp2-contract.md`. Coverage
   đếm nhân viên có mặt, đúng skill/zone, không nghỉ; không đếm người rảnh và
   chưa là chuẩn coverage lâm sàng của khoa mục tiêu.

@@ -367,19 +367,36 @@
           {
             "task_id": "T3",
             "patient_id": "P1",
-            "task_type": "handover",
+            "task_type": "care",
             "required_skill": [
               "A"
             ],
             "est_duration_min": 5,
             "duration_source": "given",
             "earliest_start": 105,
-            "deadline": 120,
+            "deadline": 110,
             "mandatory": true,
             "required_skill_level": 1,
             "priority": 1,
             "frequency": "once",
             "precedence_task_id": "T2"
+          },
+          {
+            "task_id": "T4",
+            "patient_id": "P1",
+            "task_type": "handover",
+            "required_skill": [
+              "A"
+            ],
+            "est_duration_min": 5,
+            "duration_source": "given",
+            "earliest_start": 110,
+            "deadline": 120,
+            "mandatory": true,
+            "required_skill_level": 1,
+            "priority": 1,
+            "frequency": "once",
+            "precedence_task_id": "T3"
           }
         ],
         "request": {

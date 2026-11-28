@@ -23,12 +23,12 @@ def build_cases(root, output):
 
     data = copy.deepcopy(base)
     data["patients"] = data["patients"][:1]
-    data["tasks"] = data["tasks"][:3]
+    data["tasks"] = data["tasks"][:4]
     for nurse in data["nurses"]:
         nurse["skills"] = ["A"]
     for task, kind, start, end, duration, predecessor in zip(
-        data["tasks"], ["preparation", "care", "handover"],
-        [0, 15, 105], [15, 60, 120], [5, 20, 5], [None, "T1", "T2"],
+        data["tasks"], ["preparation", "care", "care", "handover"],
+        [0, 15, 105, 110], [15, 60, 110, 120], [5, 20, 5, 5], [None, "T1", "T2", "T3"],
     ):
         task.update(patient_id="P1", task_type=kind, required_skill=["A"],
                     earliest_start=start, deadline=end, est_duration_min=duration,

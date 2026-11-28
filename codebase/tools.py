@@ -1,5 +1,5 @@
-"""Công cụ CP2; chỉ xử lý dữ liệu, không áp dụng/gửi kế hoạch."""
-from planning import draft_schedule, input_issues, validate_plan as check_plan
+"""Planning tools; only return drafts and data, never apply/send a schedule."""
+from planning import input_issues, validate_plan as check_plan
 from tracing import tool
 
 
@@ -14,8 +14,9 @@ def estimate_workload(instance):
 
 @tool
 def solve_allocation(instance):
-    """solve_allocation · input ca hợp lệ · output lịch heuristic CP2 · không side effect."""
-    return draft_schedule(instance)
+    """solve_allocation · input ca có duration · output CP-SAT plan · không side effect."""
+    from cp_sat_engine import solve_allocation as solve
+    return solve(instance)
 
 
 @tool

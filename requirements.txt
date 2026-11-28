@@ -8,3 +8,6 @@ pandas>=2.2
 numpy>=1.26
 scikit-learn>=1.5
 matplotlib>=3.8
+
+# L2 one-shift constraint solver (tested build)
+ortools==9.15.6755
