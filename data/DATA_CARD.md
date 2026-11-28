@@ -1,60 +1,62 @@
-# Data card — dữ liệu bản chạy thử dùng
+# Data card — NurseFlow
 
-> Điền ở guide bước 2.4 (bản đầu ở CP2, đủ ở CP3). Ôn lại: ngày 6 · lab ngày 6. Chấm ở rubric R4.
-> Một trang. Mỗi dataset một mục. Dữ liệu chạy thử (bài mẫu, thông báo mẫu, đoạn transcript…) để trong thư mục `data/` này.
-> Không commit nguyên tài liệu khoá, dữ liệu cá nhân thật hay nguyên file data BTC cấp — chỉ đoạn trích ngắn, bản viết lại, hoặc số đã tổng hợp.
+## Preliminary CP3
 
-> **Stub cho nhóm EDA (Lam, Kiên):** mỗi nguồn dưới đây là một mục cần điền trong lúc tìm/kiểm dữ liệu.
-> Xem trường cần lấy ở [`docs/solution-design.md`](../docs/solution-design.md) §5. Điền `__`, sửa nếu nguồn không dùng được.
+Lam và Kiên phụ trách lựa chọn nguồn và chuẩn bị dữ liệu phục vụ L3 theo kiến trúc của Khoa.
+Phiên bản nguồn, checksum, ngày kiểm và mức truy cập được ghi trong catalogue.
+[Catalogue nguồn](reference/preliminary_sources.json).
 
-## Dataset 1 · Nurse Rostering Benchmarks (schedulingbenchmarks.org) + KU Leuven
+| Dataset | Nguồn, xử lý và số lượng | Mục đích và giới hạn |
+|---|---|---|
+| Zenodo 20754938 v1, Hara, quan sát tháng 7/2024 | XLSX MD5 `78e04eb6c4ffcf2b599afd3080f97c21`. Dịch nhãn, bỏ một dòng trùng, xử lý qua 0h và gộp cùng hoạt động liên tục. 11.074 dòng raw → 11.073 segment → 2.380 episode của 37 staff/168 staff-shift. | EDA và kiểm duration hoạt động OR. Thiếu liên kết patient, acuity/ADL và experience. |
+| Feature từ Zenodo | 2.192 episode làm việc × 10 cột. Target là actual_duration_min. Chọn task_name cho tra median, task_category và nurseflow_task_type phục vụ tổng hợp/đối chứng. Chia 5 folds theo staff, fit encoder và thống kê trên train. | ID/ngày/dòng Excel phục vụ truy nguồn và chia tập. Mỗi tên xác định một category và một nhóm task trong nguồn. |
+| Simmons et al., DOI 10.1111/jgs.19507, Table 3 | Chín dòng mean/SD/min/max phút mỗi patient episode tại khoa ACE. Giữ số thập phân gốc và metadata trong reference/ward_task_duration.csv. | Tham chiếu lookup L3 nội trú. Bốn tên khớp các ví dụ task ở feature-spec. Cần đối chiếu mô tả việc và staffing. Toileting/mobility có trường hợp cần hai staff. Chưa có hệ số acuity hoặc kiểm định tại khoa đích. |
+| eICU Demo, NRP, McGill và các nguồn bổ sung | Sàng lọc và kiểm ngữ nghĩa trường theo vai trò. NRP hỗ trợ cấu trúc staffing/skill/coverage. McGill có bảng trích 113 item/22 section trong reference/mcgill_workload_items.csv, giữ ID/dòng nguồn và điểm gốc. | Bảng ghép và hệ số duration tự đặt còn thiếu căn cứ quan sát. Mức xác minh của từng nguồn ở catalogue. |
 
-| | |
-|---|---|
-| Dùng để làm gì | luật coverage, ràng buộc staffing, cấu trúc ca/instance cho engine L2 |
-| Từ đâu | công khai: schedulingbenchmarks.org/nrp · gent.cs.kuleuven.be/nurserostering.html |
-| Xử lý những bước gì | lọc __ · làm sạch __ · ánh xạ sang schema NurseFlow __ (script: `…`) |
-| Số dòng / số đoạn | __ |
-| Phiên bản / ngày lấy | __ |
-| Nhãn | thật |
-| Giới hạn | **không có task cấp điều dưỡng kèm thời lượng/deadline** — cần synthetic lấp |
+**Bộ ca tích hợp.** `preliminary/instances.json` có ba ca synthetic tạo xác định từ fixture F03,
+khai báo roster, skill/level, acuity/ADL, cửa giờ, nghỉ và coverage trong metadata. Seed bằng
+null vì quy trình không lấy mẫu ngẫu nhiên. Duration cho sẵn giữ giá trị kỹ thuật; duration
+lookup lấy mean Simmons và làm tròn lên. Cả ba ca đã kiểm tự động qua input check và validator.
+Các ca là dữ liệu kiểm giao diện, tách khỏi dữ liệu quan sát và pain evidence.
+[Hướng dẫn sử dụng](preliminary/README.md).
 
-## Dataset 2 · McGill Nursing Workload Tool
+**Population synthetic cho taxonomy L4 (Khoa).** `synthetic/patient_population.csv` (3.000 bệnh nhân,
+seed=42, cột `data_kind=synthetic`) sinh xác định bằng `scripts/l4/make_patient_population.py` từ thang
+ordinal của fixture: `acuity_score∈1..5`, `adl_dependency∈1..4`, `isolation_precaution∈{0,1}`, trọng số
+lấy mẫu nghiêng về mức thấp (ghi trong script). **Đây KHÔNG phải bệnh nhân thật và KHÔNG phải pain
+evidence** — chỉ là đầu vào để *suy ra* ranh giới tier của taxonomy (không có nguồn patient–workload
+liên kết: McGill `no_observed_patient_samples`). `scripts/l4/train_taxonomy.py` chạy **KMeans 1D** trên
+`workload_score=acuity+adl+isolation` (k=3, low/med/high) để tìm điểm cắt tier tự nhiên — đơn điệu theo
+cấu trúc; artifact ship ở `codebase/L4/taxonomy_model.pkl` + `taxonomy_meta.json` (ghi phiên bản sklearn,
+seed, checksum). `workload_weight` là điểm **tương đối, không phải phút**. Runtime `classify_patient` nạp
+model; thiếu sklearn/pickle thì fallback về đúng điểm cắt đã học (stdlib). [Hình](../docs/figures/l4_patient_clusters.png).
 
-| | |
-|---|---|
-| Dùng để làm gì | phương pháp tính workload/acuity → nạp L3 estimator (hoặc rule-based) |
-| Từ đâu | công khai: borealisdata.ca (doi:10.5683/SP4/L1ZBLT) |
-| Xử lý những bước gì | trích thang điểm workload __ · ánh xạ acuity→thời lượng __ |
-| Số dòng / số đoạn | __ |
-| Phiên bản / ngày lấy | __ |
-| Nhãn | thật |
-| Giới hạn | là phương pháp tính, không phải lịch cá nhân từng điều dưỡng |
+**Nguồn và quyền sử dụng.** Zenodo CC BY 4.0, ghi attribution Hara và các bước dịch/làm sạch
+của nhóm. Bảng Simmons trích số liệu tổng hợp có nguồn, bài báo CC BY-NC-ND 4.0,
+giấy phép dataset raw riêng chưa được xác minh. [Zenodo](https://zenodo.org/records/20754938) · [Simmons, Table 3](https://pmc.ncbi.nlm.nih.gov/articles/PMC12303744/) · [Giấy phép bản xuất bản](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jgs.19507).
 
-## Dataset 3 · MatchRN (University of Basel)
+**Chất lượng dữ liệu.** Giữ số dòng Excel vật lý, mã ca gốc, missing giờ kết thúc ca và
+trạng thái overtime Unspecified. Episode/nhóm task là biến dẫn xuất có quy tắc.
+Số quan sát, missingness, split, sai số từng nhóm và prediction được lưu trong processed/.
+Hướng L3 bàn giao là duration đã cho hoặc lookup đúng công việc, số phút nạp solver được
+làm tròn lên theo quy tắc kỹ thuật. Phạm vi áp dụng và các trường còn thiếu được trình bày
+trong báo cáo. [Báo cáo EDA và feature](../docs/eda-report.md).
 
-| | |
-|---|---|
-| Dùng để làm gì | mẫu ca trực thực, staffing, perceived workload → kiểm tính thực tế + feature cho L3 |
-| Từ đâu | công khai: zenodo.org/records/15248072 |
-| Xử lý những bước gì | lọc __ · ẩn danh __ · tổng hợp __ |
-| Số dòng / số đoạn | __ |
-| Phiên bản / ngày lấy | __ |
-| Nhãn | thật |
-| Giới hạn | __ (cần kiểm có task cấp giờ không) |
+**Câu thử từ dữ liệu.** B19 dùng nhãn chuẩn bị thuốc và median từ Zenodo, B20 dùng số phút
+mobility và footnote staffing trong Simmons. Các tình huống được nhóm viết để kiểm xác nhận
+đúng loại việc và điều kiện áp dụng. [Bộ câu thử](../eval/benchmark.csv).
 
-## Dataset 4 · Kịch bản khoa `synthetic` (nhóm tự sinh)
+**Tái lập.** Cài dependency rồi chạy bốn script theo README.
+[Hướng dẫn chạy](../README.md#preliminary-cp3).
 
-| | |
-|---|---|
-| Dùng để làm gì | instance đầy đủ (nurse·patient·task·ward) cho engine + bộ câu thử |
-| Từ đâu | sinh có seed, tham số hoá theo phân phối thực từ Dataset 1–3 |
-| Xử lý những bước gì | sinh __ · kiểm tay __ dòng (người kiểm: __) |
-| Số dòng / số đoạn | __ |
-| Phiên bản / ngày lấy | __ |
-| Nhãn | `synthetic` |
-| Giới hạn | **không phải bằng chứng pain**; phải khớp phân phối thực để đáng tin |
+## Hồ sơ CP2 được giữ nguyên
 
-**Data `synthetic` (nhóm tự sinh):** ghi cách sinh (prompt / script), seed, người kiểm, số dòng đã kiểm tay. Data tự dựng **không phải bằng chứng pain**.
+| Nguồn | Đơn vị và xử lý | Sử dụng trong CP2 |
+|---|---|---|
+| [MatchRN v1.0.0](https://zenodo.org/records/15248072), dữ liệu 2018 | 1.962 bản ghi khảo sát, 62 cột. Đối chiếu MD5 của CSV, codebook và readme. Đếm overtime trên các giá trị hợp lệ. Trích 5 bộ staffing khác nhau đầu tiên, bỏ ID, tuổi và thời điểm. | Bằng chứng áp lực trong ca. B13–B15 dùng các dòng dữ liệu 1, 2, 3. F11–F15 dùng 5 trích để kiểm đầu vào thiếu roster và task. |
+| [MIMIC-IV Clinical Demo 2.2](https://physionet.org/content/mimic-iv-demo/2.2/) và [ED Demo 2.2](https://physionet.org/content/mimic-iv-ed-demo/2.2/), Johnson và cộng sự | Đọc header, đếm dòng và đối chiếu khóa trên dữ liệu PhysioNet theo nghiên cứu của Kiên. Chỉ giữ số tổng hợp. | B16–B18 kiểm giới hạn của thời điểm ghi thuốc, khoảng thủ thuật và lượt ED khi lập kế hoạch đầu ca. |
+| Fixture kỹ thuật của Lam | F01–F10 sinh xác định bằng `data/build_cp2.py`, không dùng số ngẫu nhiên. Mã kỹ năng A/B/Z, ca 120 phút, capacity 105, nghỉ 15 và đổi phòng 2 phút là giả định kỹ thuật. | Kiểm lập lịch, validator, cân bằng tải, đổi phòng, nghỉ và từ chối yêu cầu vượt quyền. |
 
-*(Tuỳ chọn · CMS Payroll-Based Journal: số liệu staffing bối cảnh — thêm mục nếu dùng.)*
+**Quyền sử dụng.** MatchRN do Martins, Musy và Simon công bố. Metadata ghi CC BY 4.0, readme ghi CC BY-NC 4.0. Nhóm ghi nguồn và sử dụng trong phạm vi học tập phi thương mại. Hai bản MIMIC Demo do PhysioNet công bố theo ODbL 1.0. Repo chỉ lưu thống kê, tham chiếu nguồn và fixture.
+
+**Quyết định tại CP2 theo schema của Khoa.** L2 nhận thời lượng task đã cung cấp. Với L3, các nguồn đã kiểm ở CP2 chưa cho phép gán số phút điều dưỡng trực tiếp làm từng task một cách đáng tin cậy. CP2 yêu cầu bổ sung khi thiếu thời lượng. CP2 chưa có tập train/test hoặc kết quả huấn luyện. McGill cung cấp thang điểm workload, UHHC cung cấp ví dụ về cấu trúc lịch chăm sóc tại nhà. Các nguồn này chỉ dùng để đối chiếu. [Phân tích dữ liệu](../evidence/data-mining.md) · [Contract](../docs/cp2-contract.md)

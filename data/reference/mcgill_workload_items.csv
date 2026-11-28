@@ -1,0 +1,114 @@
+source_excel_row,item_id,section,item_description,workload_score
+3,1,Section 1 - Assessment & monitoring,Frequency: every 2 h (Routine nursing assessments at the specified frequency),3
+4,2,Section 1 - Assessment & monitoring,Frequency: every 4 h (Routine nursing assessments at the specified frequency),2
+5,3,Section 1 - Assessment & monitoring,"Frequency: Close monitoring (ex.: every 1 h, every 30 min x 2) (Increased surveillance (e.g., every 1h, every 30 min ×2), requiring frequent reassessment and documentation)",3
+6,4,Section 1 - Assessment & monitoring,"Orthostatic vital signs (once a day) (Supine, sitting, and standing vital signs once per 24 hours)",1
+7,5,Section 1 - Assessment & monitoring,Low (systolic blood pressure less than 90mmHg) or high blood pressure (systolic blood pressure greater than 200mmHg) and NON-SYMPTOMATIC ,2
+8,6,Section 1 - Assessment & monitoring,"Low (systolic blood pressure less than 90mmHg) or high blood pressure (systolic blood pressure greater than 200mmHg) and SYMPTOMATIC (e.g., dizziness, chest pain, altered level of consciousness)",3
+9,7,Section 1 - Assessment & monitoring,"Temperature higher than 38,1 °C and fever requiring investigation, treatment, and follow‑up.",3
+10,8,Section 2 - Cardiac,Replacements (Electrolytes/boluses/KCL): Administration and monitoring of IV (intravenous)/PO (by mouth) replacements.,2
+11,9,Section 2 - Cardiac,"Telemetry, cardiac monitoring, electrocardiogram (ECG) more than once: Continuous or repeated cardiac monitoring beyond a single ECG",2
+12,10,Section 3 - Respiratory,Nasal prongs: Supplemental oxygen (O₂) via low‑flow delivery.,1
+13,11,Section 3 - Respiratory,Tracheostomy: Presence of a tracheostomy requiring airway management,3
+14,12,Section 3 - Respiratory,Frequent desaturation or inner cannula changes: Recurrent oxygen (O₂) saturation drops (any patient) or repeated inner cannula maintenance (for tracheostomy patient).,3
+15,13,Section 3 - Respiratory,Non-rebreather mask: High‑flow oxygen delivery.,3
+16,14,Section 3 - Respiratory,"Suctioning frequency (# times per 8h shift): 1-2 times in a 24-hour period (Frequency over 24 hours, including equipment prep and monitoring)",2
+17,15,Section 3 - Respiratory,"Suctioning frequency (# times per 8h shift): More than 2 times in a 24-hour period (Frequency over 24 hours, including equipment prep and monitoring)",3
+18,16,Section 4 - Cognition & Psychosocial,Confused x1 or 2 spheres/non-verbal (Cognitive impairment affecting communication and care),2
+19,17,Section 4 - Cognition & Psychosocial,Disruptive behavior (Restless/agitation/aggression/combative/impulsive) requiring de‑escalation,3
+20,18,Section 4 - Cognition & Psychosocial,Active Depression: Symptoms affecting function or safety,2
+21,19,Section 4 - Cognition & Psychosocial,Highly anxious: Persistent anxiety requiring reassurance and additional support,2
+22,20,Section 4 - Cognition & Psychosocial,Substance use disorder: Active or recent substance‑related issues impacting care.,3
+23,21,Section 4 - Cognition & Psychosocial,End of life care: Active or recent substance‑related issues impacting care.,2
+24,22,Section 4 - Cognition & Psychosocial,"Complex family demands/dynamics: High family demand, conflict, or decision complexity",3
+25,23,Section 4 - Cognition & Psychosocial,High psychological needs: High emotional distress requiring frequent nurse presence,3
+26,24,Section 5 – Intravenous (IV) or Subcutaneous (SC) access,Central line assessment + care,1
+27,25,Section 5 – Intravenous (IV) or Subcutaneous (SC) access,Peripheral line assessment + care,1
+28,26,Section 5 – Intravenous (IV) or Subcutaneous (SC) access,Butterfly subcutaneous (SC) assessment + care,1
+29,27,Section 5 – Intravenous (IV) or Subcutaneous (SC) access,Tubing changes due ,1
+30,28,Section 5 – Intravenous (IV) or Subcutaneous (SC) access,IV or butterfly S/C: dressing changes due ,2
+31,29,Section 6 – Intraveous (IV) drips,"1–2 drips (Pre-prepared bag (ex. D51/2NS+20KCL) or pharmacy-prepared): Administration and monitoring of one to two non-titrated continuous infusions using pre‑prepared or pharmacy‑prepared bags, including pump management",1
+32,30,Section 6 – Intraveous (IV) drips,"1–2 drips (bag prepared by nurse): Administration and monitoring of one to two non‑titrated continuous infusions prepared by the nurse, including preparation time, pump management",1
+33,31,Section 6 – Intraveous (IV) drips,More than 2 drips (Pre-prepared bag (ex. D51/2NS+20KCL) or pharmacy-prepared) ,2
+34,32,Section 6 – Intraveous (IV) drips,More than 2 drips (bag prepared by nurse) ,2
+35,33,Section 6 – Intraveous (IV) drips,"Drips needing titration (ex: heparin, insulin): Continuous infusions requiring rate adjustments, close monitoring, and correlation with laboratory values (e.g., heparin, insulin)",3
+36,34,Section 7- Medications given (includes as needed (PRNs) UNLESS specified otherwise),Frequency: every 3 h – every 6 h ,1
+37,35,Section 7- Medications given (includes as needed (PRNs) UNLESS specified otherwise),Frequency: every 2 h or less ,3
+38,36,Section 7- Medications given (includes as needed (PRNs) UNLESS specified otherwise),"ONLY PO/PR/SC/eye drops: All medications are administered via oral (PO), rectal (PR), subcutaneous (SC), or ophthalmic routes",1
+39,37,Section 7- Medications given (includes as needed (PRNs) UNLESS specified otherwise),Route: PT/IM (one or more medication are administered via per tube (PT) or intramuscular injection (IM)),2
+40,38,Section 7- Medications given (includes as needed (PRNs) UNLESS specified otherwise),Route: IV (excludes continuous infusions) (one or more medication administered via intermittent IV medication),2
+41,39,Section 7- Medications given (includes as needed (PRNs) UNLESS specified otherwise),Number of medications prescribed: more than 10 medications (excluding as needed (PRNs)),2
+42,40,Section 8 - Blood sugars,TID or QID: Routine capillary blood glucose monitoring performed three (TID) or four times (QID) per day,2
+43,41,Section 8 - Blood sugars,"Hypoglycemic event: A blood glucose level requiring active intervention (e.g., treatment, reassessment, documentation, and monitoring).",3
+44,42,Section 9 - Pain management,PO/PT/PR/IM/SC : Routine pain treatment,1
+45,43,Section 9 - Pain management,"Patient-controlled analgesia (PCA)/epidural/nerve block: Advanced pain modalities, requiring monitoring",2
+46,44,Section 9 - Pain management,Uncontrolled / pain crisis: Persistent pain despite interventions,3
+47,45,Section 10 - Blood products (adminstration and care),"1 per 8h shift: Administration and monitoring of one blood product during a single shift, including vital signs, documentation, and patient assessment",2
+48,46,Section 10 - Blood products (adminstration and care),"More than 1 per 8h shift: Administration and monitoring of more than one blood product within a single shift, including vital signs, documentation, and patient assessment",3
+49,47,Section 11 - Blood work (by unit nursing staff within a 24hr period),"Daily: Blood samples are drawn by nursing staff once or twice per day, requiring appropriate preparation and collection",1
+50,48,Section 11 - Blood work (by unit nursing staff within a 24hr period),"2x per day: Blood samples are drawn by nursing staff once or twice per day, requiring appropriate preparation and collection",2
+51,49,Section 11 - Blood work (by unit nursing staff within a 24hr period),"More than 2x per day: Blood samples are drawn by nursing staff more than twice per day, requiring appropriate preparation and collection",3
+52,50,Section 11 - Blood work (by unit nursing staff within a 24hr period),Difficult lab draw (more than 2 attempts) ,3
+53,51,Section 12 - Wound care,Removal of sutures/clips by nursing staff: Include wound assessment and documentation,1
+54,52,Section 12 - Wound care,Culture: Collection of wound specimens using appropriate technique for diagnostic testing,1
+55,53,Section 12 - Wound care,Dressing change: Every day or every 2–3 days ,1
+56,54,Section 12 - Wound care,Dressing change: Every shift ,2
+57,55,Section 12 - Wound care,Dressing change: More than once per shift ,3
+58,56,Section 12 - Wound care,"Dressing change complexity (total time): Wound care requiring more than 15 minutes of focused nursing time, often involving sterile technique and complex supplies",3
+59,57,Section 12 - Wound care,Dressing/wound assessment for 1 -2 wounds,2
+60,58,Section 12 - Wound care,Dressing/wound assessment for 3 or more wounds,3
+61,59,Section 13 - Procedures,Hemodialysis ,1
+62,60,Section 13 - Procedures,"Interventional procedure (off-unit, not requiring unit nursing staff)",1
+63,61,Section 13 - Procedures,CT (Computed tomography) Scan,1
+64,62,Section 13 - Procedures,X-Ray ,1
+65,63,Section 13 - Procedures,Magnetic resonance imaging (MRI) ,1
+66,64,Section 13 - Procedures,Modified Barium Swallow (MBS)  ,1
+67,65,Section 13 - Procedures,Positron Emission Tomography (PET) Scan,1
+68,66,Section 13 - Procedures,Echocardiogram and general ultrasound,1
+69,67,Section 13 - Procedures,Bedside procedure (ex.: electroencephalogram (EEG)) - nursing staff NOT required at bedside,1
+70,68,Section 13 - Procedures,Bedside procedure  - nursing staff REQUIRED at bedside,2
+71,69,Section 14 - Devices,Nephrostomy/urostomy ,2
+72,70,Section 14 - Devices,"Vaccum-Assisted Closure (VAC) machine: Any negative pressure wound therapy device (including Veraflo) requiring dressing integrity checks, and device troubleshooting",3
+73,71,Section 14 - Devices,Drainage system: Jackson-Pratt (JP)/Hemovac / JP drain/Hemovac/Biliary drain/percutaneous transhepatic cholangiogram (PTC)/abcess drain  ,1
+74,72,Section 14 - Devices,Dobhoff / nasogatric tube (NGT) / percutaneous endoscopic gastrostomy (PEG) / J-tube  ,2
+75,73,Section 14 - Devices,Cervical collar/Cervical spine precaution/Traction: Immobilization devices or precautions requiring strict alignment,2
+76,74,Section 14 - Devices,"Support or immobilization devices (Zimmer/Sling/Splints/Cast/SCDs/Ted hose /TSLO/Fixation device) : Support or immobilization devices requiring application, skin checks, and patient assistance",1
+77,75,Section 14 - Devices,Indwelling urinary catheter (Foley/Suprapubic),1
+78,76,Section 14 - Devices,Stool management device/Rectal tube ,2
+79,77,Section 14 - Devices,Pleural drain: Chest drainage system requiring respiratory assessment,2
+80,78,Section 14 - Devices,Colostomy/ileostomy/wound ostomy: Ostomy systems requiring appliance care and skin assessment,2
+81,79,Section 14 - Devices,"Analysis or culture: Collection of specimens from a device or site requiring appropriate technique, labeling, and follow‑up",1
+82,80,Section 15 - Nutrition,"Enteral tube feeding: Delivery of nutrition via an enteral feeding tube, requiring setup, monitoring of tolerance, and documentation over a 24‑hour period",2
+83,81,Section 15 - Nutrition,1 on 1 feeding the patient: Dedicated assistance by staff to safely feed a patient for meals,2
+84,82,Section 15 - Nutrition,Strict In/Out count per shift: Measurement and documentation of all intake and output each shift ,1
+85,83,Section 15 - Nutrition,Calorie count: Tracking and documentation of all food and fluid intake over 24 hours for nutritional assessment,1
+86,84,Section 16 - Hygiene,Requires partial assistance by staff,1
+87,85,Section 16 - Hygiene,Requires 1:1 assistance by staff,3
+88,86,Section 17 - Toileting,Bedpan/urinal with assistance by staff,1
+89,87,Section 17 - Toileting,"Incontinent of stool/urine: Requires staff assistance for urinary and/or fecal incontinence, including cleansing, skin care, and linen changes",3
+90,88,Section 17 - Toileting,Intermittent catheterization ,2
+91,89,Section 17 - Toileting,"Bladder scanning: Use of bedside ultrasound to assess bladder volume, requiring equipment use, interpretation, and follow‑up",1
+92,90,Section 17 - Toileting,Neurogenic bowel/bladder care: Structured bowel and/or bladder management program requiring scheduled nursing interventions,2
+93,91,Section 17 - Toileting,"Continuous Bladder Irrigation (CBI): Ongoing bladder irrigation requiring frequent monitoring, intake/output calculations, bag changes, and catheter patency assessment",2
+94,92,Section 18 - Mobilization,1x assist: Requires assistance from one staff member to mobilize safely due to functional or safety limitations,1
+95,93,Section 18 - Mobilization,2x assist: Requires assistance from two staff members to mobilize safely due to functional or safety limitations,2
+96,94,Section 18 - Mobilization,3 person or more assist or lift required: Requires assistance from three or more staff members (or use of a mechanical lift) to mobilize safely due to functional or safety limitations,3
+97,95,Section 18 - Mobilization,"Every 2h turn + positioning: Requires scheduled repositioning at least every two hours to maintain skin integrity, comfort, or safety",3
+98,96,Section 19 - Safety,"Absent without leave risk/anti-wandering bracelet: At risk of leaving the unit unsafely, requiring increased surveillance or preventive measures",2
+99,97,Section 19 - Safety,Fall risk: Patient has identified factors increasing the likelihood of falling and requires safety interventions,2
+100,99,Section 19 - Safety,"Oxygen (O₂) ticket to ride: Patient requires supplemental oxygen during transport, necessitating coordination and equipment",1
+101,99,Section 19 - Safety,"Sensory deficits (e.g., Hard of Hearing, blind): Patient has hearing and/or visual impairments that require additional time, communication strategies, or assistance to ensure safe care",2
+102,100,Section 19 - Safety,Suicidal low level: Patient has an identified low suicide risk requiring corresponding monitoring and safety precautions,1
+103,101,Section 19 - Safety,Suicidal moderate & high level : Patient has an identified moderate or high suicide risk requiring corresponding monitoring and safety precautions,3
+104,102,Section 19 - Safety,Requires continuous monitoring by patient care attendant ,1
+105,103,Section 19 - Safety,"Non-compliant with care: Patient is unwilling or unable to cooperate with the prescribed plan of care, increasing time, safety, and coordination demands",3
+106,104,Section 19 - Safety,"Restraints (excludes side rails and mitts): Patient requires physical restraints involving appropriate assessment, documentation, and monitoring",3
+107,105,Section 20 - Education needs,"New Diagnosis: Patient and/or family requires education related to a newly identified medical condition, including implications and care expectations",1
+108,106,Section 20 - Education needs,"New medication and/or medical device: Patient and/or family requires teaching related to the safe use, purpose, and monitoring of a newly prescribed medication or medical device",2
+109,107,Section 20 - Education needs,"Goals of care/Quality of Life: Nursing involvement in conversations regarding goals of care, treatment preferences, or quality‑of‑life decisions, requiring time, coordination, and documentation",2
+110,108,Section 21 - Inpatient status,"Discharge : Preparation, education, coordination, documentation",2
+111,109,Section 21 - Inpatient status,"New admission: Initial assessment, documentation, care planning, coordination, patient/family orientation",3
+112,110,Section 21 - Inpatient status,"Transfer intra or interhospital: Coordination, preparation, communication, documentation",2
+113,111,Section 22 - Miscellaneous,Daily weight ,1
+114,112,Section 22 - Miscellaneous,"Isolation protocol (e.g., contact precautions, droplet precautions, airborne precautions, etc.)",2
+115,113,Section 22 - Miscellaneous,"Language barrier with patient or family (no translator easily accessible): Patient or family has limited shared language with staff and no readily available interpreter, increasing time and communication effort required for safe care",2

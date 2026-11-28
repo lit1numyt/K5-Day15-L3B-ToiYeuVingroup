@@ -1,0 +1,10 @@
+task_type,source_task,mean_duration_min,sd_min,min_min,max_min,unit,statistic,source_table,source_doi,context,data_kind,staffing_note
+med_admin,Medication Administration,6.28,4.73,0.3,22.8,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,skills_and_roster_must_be_given
+wound_care,Wound Care,6.79,7.81,0.4,31.3,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,skills_and_roster_must_be_given
+iv_care,IV Care,3.15,4.50,0.2,22.6,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,skills_and_roster_must_be_given
+procedure_care,Treatments/Procedures,4.13,5.28,0.3,17.2,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,skills_and_roster_must_be_given
+vitals,Vitals Assessments,3.65,2.51,0.1,16.9,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,skills_and_roster_must_be_given
+lab_collection,Lab Specimen Collection,5.15,5.70,0.1,25.3,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,skills_and_roster_must_be_given
+catheter_care,Catheter Care,2.54,2.14,0.2,8.3,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,skills_and_roster_must_be_given
+toileting,Incontinence Care/Toileting Assistance,5.31,4.31,0.2,20.6,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,may_require_two_staff_do_not_auto_assign_single_nurse
+mobilization,Mobility Assistance,2.97,3.95,0.1,28.6,minutes_per_patient_episode,observed_mean,3,10.1111/jgs.19507,US_ACE_older_acute_inpatients,published_aggregate,bed_to_chair_or_walking_only_may_require_two_staff

@@ -1,11 +1,13 @@
-# Giả thuyết — viết TRƯỚC khi tìm bằng chứng (5 phút, commit ngay)
+# Giả thuyết — phần kiểm dữ liệu của Lam
 
-> Điền ở guide bước 1.1. Ôn lại: ngày 2 · lab ngày 2.
-> Viết **trước** khi đọc dòng data đầu tiên hay hỏi người đầu tiên, để không sửa cho khớp kết quả. Kết quả ngược giả thuyết vẫn đủ điểm nếu số là thật.
-
-- Ngày giờ viết: __
-- Người dùng chính (một vai cụ thể): __
-- **Mình nghĩ:** [ai] gặp khó khi [việc] vì [lý do], hậu quả là [mất gì].
-- **Có thể còn cách giải thích khác:** __
-- **Mình đúng nếu thấy:** [một con số nhóm tự chọn] — vd "≥2/3 người kể được một lần như thế trong 1 tháng qua" hoặc "≥x/N học viên bỏ ở bước này" *(ví dụ)*
-- **Nguồn sẽ dùng** (≥1 nguồn đạt ngưỡng, guide 1.2): [ ] đào data · [ ] phỏng vấn ≥3 · [ ] khảo sát ≥20 — nguồn chính: __ · nguồn để kiểm lại: __
+- Ngày: 27/11/2026, trước khi chạy script đếm CP2; đã đọc codebook MatchRN.
+- Người dùng mục tiêu: điều dưỡng trưởng ca khoa nội trú; dữ liệu tham chiếu là
+  khảo sát điều dưỡng tại các bệnh viện Thụy Sĩ, không phải khoa mục tiêu ở Việt Nam.
+- Mình nghĩ: áp lực thời gian trong ca có thể quan sát qua việc làm thêm giờ.
+- Mình đúng theo phép kiểm này nếu ≥1/3 bản ghi có câu trả lời hợp lệ ở `C2.6`
+  tự báo làm thêm ít nhất 30 phút trong ca gần nhất.
+- Cách giải thích khác: thiếu nhân lực, mức độ nặng bệnh, quy trình ghi chép và
+  các yếu tố tổ chức; dữ liệu không chứng minh phân công kém là nguyên nhân.
+- Nguồn: MatchRN Zenodo 15248072 v1.0.0; `C2.6` đơn vị phút theo codebook.
+- Mẫu số: tất cả bản ghi `C2.6` hữu hạn và ≥0; không đổi missing thành 0.
+- Đây là giả thuyết phân tích bổ sung tại CP2, không hồi tố thành giả thuyết CP1.

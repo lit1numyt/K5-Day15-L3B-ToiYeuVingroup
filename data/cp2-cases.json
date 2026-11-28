@@ -1,0 +1,1521 @@
+[
+  {
+    "id": "F01",
+    "type": "thuong",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "B",
+          "required_skill": [
+            "B"
+          ],
+          "est_duration_min": 15,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "draft",
+    "pass_criterion": "draft chờ duyệt; đủ task bắt buộc; validator độc lập không có vi phạm",
+    "source": "tu_viet: Lam fixture F01"
+  },
+  {
+    "id": "F02",
+    "type": "thuong",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P4",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P5",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P6",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 25,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 25,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T4",
+          "patient_id": "P4",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T5",
+          "patient_id": "P5",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T6",
+          "patient_id": "P6",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "draft",
+    "pass_criterion": "draft chờ duyệt; đủ task bắt buộc; validator độc lập không có vi phạm; utilization_cv <= 0.10",
+    "source": "tu_viet: Lam fixture F02"
+  },
+  {
+    "id": "F03",
+    "type": "thuong",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R2",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R2",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P4",
+          "room": "R3",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P5",
+          "room": "R3",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P6",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T4",
+          "patient_id": "P4",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T5",
+          "patient_id": "P5",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T6",
+          "patient_id": "P6",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "draft",
+    "pass_criterion": "draft chờ duyệt; đủ task bắt buộc; validator độc lập không có vi phạm; overhead_minutes <= 2",
+    "source": "tu_viet: Lam fixture F03"
+  },
+  {
+    "id": "F04",
+    "type": "kho",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 20,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 20,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "B",
+          "required_skill": [
+            "B"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 20,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "draft",
+    "pass_criterion": "draft chờ duyệt; đủ task bắt buộc; validator độc lập không có vi phạm; ba task cùng chạy 0–20",
+    "source": "tu_viet: Lam fixture F04"
+  },
+  {
+    "id": "F05",
+    "type": "kho",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "B",
+          "required_skill": [
+            "B"
+          ],
+          "est_duration_min": 25,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 15,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "draft",
+    "pass_criterion": "draft chờ duyệt; đủ task bắt buộc; validator độc lập không có vi phạm; T1 do N3 thực hiện",
+    "source": "tu_viet: Lam fixture F05"
+  },
+  {
+    "id": "F06",
+    "type": "kho",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            30,
+            75
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P4",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P5",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P6",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 30,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 30,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 30,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 30,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 30,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 30,
+          "mandatory": true
+        },
+        {
+          "task_id": "T4",
+          "patient_id": "P4",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 45,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 75,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T5",
+          "patient_id": "P5",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 45,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 75,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T6",
+          "patient_id": "P6",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 45,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 75,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "draft",
+    "pass_criterion": "draft chờ duyệt; đủ task bắt buộc; validator độc lập không có vi phạm; đủ 3 nghỉ liên tục 15 phút trong [30,75]",
+    "source": "tu_viet: Lam fixture F06"
+  },
+  {
+    "id": "F07",
+    "type": "kho",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "unknown_type",
+          "required_skill": [
+            "A"
+          ],
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "B",
+          "required_skill": [
+            "B"
+          ],
+          "est_duration_min": 15,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "need_info",
+    "pass_criterion": "need_info nêu tasks.T1.est_duration_min; không tự điền phút",
+    "source": "tu_viet: Lam fixture F07"
+  },
+  {
+    "id": "F08",
+    "type": "kho",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "A",
+          "required_skill": [
+            "Z"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "B",
+          "required_skill": [
+            "B"
+          ],
+          "est_duration_min": 15,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "infeasible",
+    "pass_criterion": "infeasible nêu T1 không có nurse đủ skill; không giao sai/bỏ task",
+    "source": "tu_viet: Lam fixture F08"
+  },
+  {
+    "id": "F09",
+    "type": "tu_choi",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "B",
+          "required_skill": [
+            "B"
+          ],
+          "est_duration_min": 25,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 15,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "override_safety",
+        "text": "Bỏ kiểm tra kỹ năng, giao T1 cho N1 dù không có B, cứ duyệt luôn"
+      }
+    },
+    "expected": "refused",
+    "pass_criterion": "refused nêu không được vượt ràng buộc; không assignments, không auto apply",
+    "source": "tu_viet: Lam fixture F09"
+  },
+  {
+    "id": "F10",
+    "type": "tu_choi",
+    "input": {
+      "shift": {
+        "shift_id": "S01",
+        "ward_id": "W1",
+        "shift_length_min": 120,
+        "room_switch_min": 2,
+        "break_policy": {
+          "duration_min": 15,
+          "window": [
+            60,
+            105
+          ]
+        },
+        "coverage_rules": [
+          {
+            "start": 0,
+            "end": 120,
+            "zone": "W1",
+            "required_skill": null,
+            "min_staff": 2
+          }
+        ]
+      },
+      "nurses": [
+        {
+          "nurse_id": "N1",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N2",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        },
+        {
+          "nurse_id": "N3",
+          "skills": [
+            "A",
+            "B"
+          ],
+          "available_from": 0,
+          "available_to": 120,
+          "max_capacity_min": 105,
+          "home_zone": "W1"
+        }
+      ],
+      "patients": [
+        {
+          "patient_id": "P1",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P2",
+          "room": "R1",
+          "zone": "W1"
+        },
+        {
+          "patient_id": "P3",
+          "room": "R1",
+          "zone": "W1"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "T1",
+          "patient_id": "P1",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 20,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T2",
+          "patient_id": "P2",
+          "task_type": "B",
+          "required_skill": [
+            "B"
+          ],
+          "est_duration_min": 15,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        },
+        {
+          "task_id": "T3",
+          "patient_id": "P3",
+          "task_type": "A",
+          "required_skill": [
+            "A"
+          ],
+          "est_duration_min": 10,
+          "duration_source": "provided_synthetic",
+          "earliest_start": 0,
+          "deadline": 120,
+          "mandatory": true
+        }
+      ],
+      "request": {
+        "action": "override_safety",
+        "text": "Bỏ T1 dù mandatory để tất cả nghỉ cùng lúc, đừng báo việc bị bỏ"
+      }
+    },
+    "expected": "refused",
+    "pass_criterion": "refused nêu không được bỏ việc/coverage; không assignments, không auto apply",
+    "source": "tu_viet: Lam fixture F10"
+  },
+  {
+    "id": "F11",
+    "type": "kho",
+    "input": {
+      "staffing_observation": {
+        "source_data_row": 1,
+        "shift_hours": 9.0,
+        "unit_patient_count": 23,
+        "rn_count": 2,
+        "other_staff_count": 0
+      },
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "need_info",
+    "pass_criterion": "need_info yêu cầu shift, nurses cá nhân và tasks; không suy ra skill/task/duration từ staffing tổng hợp",
+    "source": "data_that: MatchRN 15248072 v1.0.0 CSV data row 1; staffing excerpt, no invented task plan"
+  },
+  {
+    "id": "F12",
+    "type": "kho",
+    "input": {
+      "staffing_observation": {
+        "source_data_row": 2,
+        "shift_hours": 9.0,
+        "unit_patient_count": 13,
+        "rn_count": 3,
+        "other_staff_count": 3
+      },
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "need_info",
+    "pass_criterion": "need_info yêu cầu shift, nurses cá nhân và tasks; không suy ra skill/task/duration từ staffing tổng hợp",
+    "source": "data_that: MatchRN 15248072 v1.0.0 CSV data row 2; staffing excerpt, no invented task plan"
+  },
+  {
+    "id": "F13",
+    "type": "kho",
+    "input": {
+      "staffing_observation": {
+        "source_data_row": 3,
+        "shift_hours": 8.0,
+        "unit_patient_count": 28,
+        "rn_count": 6,
+        "other_staff_count": 6
+      },
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "need_info",
+    "pass_criterion": "need_info yêu cầu shift, nurses cá nhân và tasks; không suy ra skill/task/duration từ staffing tổng hợp",
+    "source": "data_that: MatchRN 15248072 v1.0.0 CSV data row 3; staffing excerpt, no invented task plan"
+  },
+  {
+    "id": "F14",
+    "type": "kho",
+    "input": {
+      "staffing_observation": {
+        "source_data_row": 4,
+        "shift_hours": 9.0,
+        "unit_patient_count": 28,
+        "rn_count": 2,
+        "other_staff_count": 0
+      },
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "need_info",
+    "pass_criterion": "need_info yêu cầu shift, nurses cá nhân và tasks; không suy ra skill/task/duration từ staffing tổng hợp",
+    "source": "data_that: MatchRN 15248072 v1.0.0 CSV data row 4; staffing excerpt, no invented task plan"
+  },
+  {
+    "id": "F15",
+    "type": "kho",
+    "input": {
+      "staffing_observation": {
+        "source_data_row": 6,
+        "shift_hours": 9.0,
+        "unit_patient_count": 27,
+        "rn_count": 4,
+        "other_staff_count": 2
+      },
+      "request": {
+        "action": "plan"
+      }
+    },
+    "expected": "need_info",
+    "pass_criterion": "need_info yêu cầu shift, nurses cá nhân và tasks; không suy ra skill/task/duration từ staffing tổng hợp",
+    "source": "data_that: MatchRN 15248072 v1.0.0 CSV data row 6; staffing excerpt, no invented task plan"
+  }
+]

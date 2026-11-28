@@ -1,0 +1,46 @@
+nurseflow_task_type,task_name,task_category,episodes,median_duration_min,target_kind,source_dataset
+assessment,Postoperative Visit,Surgery-Related Work (Nursing),8,24.5,observed_activity_episode,zenodo:20754938
+assessment,Preoperative Outpatient Clinic,Surgery-Related Work (Nursing),7,26.0,observed_activity_episode,zenodo:20754938
+assessment,Preoperative Visit,Surgery-Related Work (Nursing),11,71.0,observed_activity_episode,zenodo:20754938
+cleanup_sterilization,Cleaning & Room Tidying,Cleanup & Tidying,157,20.0,observed_activity_episode,zenodo:20754938
+cleanup_sterilization,"Instrument Cleaning, Assembly & Sterilization",Cleaning & Sterilization,18,18.0,observed_activity_episode,zenodo:20754938
+cleanup_sterilization,Post-Use Surgical Equipment Cleanup,Cleanup & Tidying,134,20.0,observed_activity_episode,zenodo:20754938
+cleanup_sterilization,Surgical Gown & Waste Collection / Restocking,Cleanup & Tidying,8,30.0,observed_activity_episode,zenodo:20754938
+cleanup_sterilization,Unused Supplies Cleanup (Materials & Instruments),Cleanup & Tidying,30,7.5,observed_activity_episode,zenodo:20754938
+cleanup_sterilization,Unused Supplies Cleanup (Other),Cleanup & Tidying,7,14.0,observed_activity_episode,zenodo:20754938
+coordination,Committee Duties,Other,10,34.0,observed_activity_episode,zenodo:20754938
+coordination,Committee Meeting,Other,8,83.0,observed_activity_episode,zenodo:20754938
+coordination,Department Committee / Role Duties,Other,8,20.0,observed_activity_episode,zenodo:20754938
+coordination,Department Conference,Other,85,10.0,observed_activity_episode,zenodo:20754938
+coordination,Manager / Supervisor Duties,Administrative & Management,15,41.0,observed_activity_episode,zenodo:20754938
+coordination,Shift Leader Duties,Administrative & Management,41,29.0,observed_activity_episode,zenodo:20754938
+documentation,Reporting Duties,Other,5,20.0,observed_activity_episode,zenodo:20754938
+documentation,Slip & Form Processing,Documentation,90,14.0,observed_activity_episode,zenodo:20754938
+education,In-Hospital Training,Other,5,30.0,observed_activity_episode,zenodo:20754938
+education,Staff Mentoring (Preceptor),Education & Training,24,32.0,observed_activity_episode,zenodo:20754938
+education,Staff Training (Trainee),Education & Training,16,35.5,observed_activity_episode,zenodo:20754938
+education,Study Session / Briefing,Education & Training,22,8.0,observed_activity_episode,zenodo:20754938
+education,Surgical Assistance Observation / Support,Education & Training,18,53.5,observed_activity_episode,zenodo:20754938
+handover,OR Nurse Handover,Surgery-Related Work (Nursing),93,9.0,observed_activity_episode,zenodo:20754938
+handover,Pre/Post-OR Entry/Exit Handover,Surgery-Related Work (Nursing),118,10.0,observed_activity_episode,zenodo:20754938
+information_gathering,Assigned Patient Information Gathering,Preparation (Nursing),87,12.0,observed_activity_episode,zenodo:20754938
+information_gathering,Preoperative Information Gathering,Surgery-Related Work (Nursing),38,21.0,observed_activity_episode,zenodo:20754938
+medication_preparation,Medication Preparation,Preparation (Non-Nursing),15,6.0,observed_activity_episode,zenodo:20754938
+other,Unlisted / Miscellaneous Tasks,Other,25,10.0,observed_activity_episode,zenodo:20754938
+patient_transport,Patient Transport (Circulating Nursing),Surgery-Related Work (Nursing),62,8.0,observed_activity_episode,zenodo:20754938
+patient_transport,Patient Transport (Support),Surgery-Related Work (Non-Nursing),41,8.0,observed_activity_episode,zenodo:20754938
+prep_setup,Gathering Materials & Instruments,Preparation (Non-Nursing),73,16.0,observed_activity_episode,zenodo:20754938
+prep_setup,OR Room Setup (Next-Day),Preparation (Non-Nursing),26,17.0,observed_activity_episode,zenodo:20754938
+prep_setup,OR Room Setup (Same-Day),Preparation (Non-Nursing),229,20.0,observed_activity_episode,zenodo:20754938
+prep_setup,Operating Table Setup,Preparation (Non-Nursing),29,13.0,observed_activity_episode,zenodo:20754938
+prep_setup,Sterile Table Draping & Setup,Preparation (Non-Nursing),123,20.0,observed_activity_episode,zenodo:20754938
+procedure_care,Circulating Nursing,Surgery-Related Work (Nursing),241,76.0,observed_activity_episode,zenodo:20754938
+procedure_care,Scrub Nursing,Surgery-Related Work (Nursing),189,83.0,observed_activity_episode,zenodo:20754938
+safety_prep,Hand Hygiene / Scrub Check,Other,6,41.0,observed_activity_episode,zenodo:20754938
+supply_management,In-OR Supplies Management,Supply & Inventory Management,19,10.0,observed_activity_episode,zenodo:20754938
+supply_management,Medical Supplies Inventory Management,Supply & Inventory Management,1,1.0,observed_activity_episode,zenodo:20754938
+supply_management,Other Supplies Management,Supply & Inventory Management,22,20.5,observed_activity_episode,zenodo:20754938
+supply_management,Surgical Instrument Inventory Management,Supply & Inventory Management,7,36.0,observed_activity_episode,zenodo:20754938
+support,Messenger / Courier Duties,Other,4,5.0,observed_activity_episode,zenodo:20754938
+support,Other Department Support,Interdepartmental Support,6,70.5,observed_activity_episode,zenodo:20754938
+support,Vendor / Manufacturer Coordination,Other,11,7.0,observed_activity_episode,zenodo:20754938

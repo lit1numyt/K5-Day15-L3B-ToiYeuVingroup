@@ -1,0 +1,192 @@
+{
+  "label": "MINH HỌA — A tất định; B synthetic từ episode OR (không phải ca nội trú quan sát)",
+  "shift_min": 480,
+  "seed": 42,
+  "source_predictions_sha256": "f30c4946dc54d6c63eb05ffb99341e634ba9ed7cb00429ae77bf75ede36e0470",
+  "assumptions": [
+    "free time = 480 − workload thực tế; free time KHÔNG đồng nghĩa nghỉ thực tế",
+    "episode được lấy ngẫu nhiên có hoàn lại, độc lập, tới khi tổng DỰ ĐOÁN ≥ mức kế hoạch",
+    "không có việc phát sinh, không có overhead di chuyển"
+  ],
+  "deterministic": [
+    {
+      "planned_min": 390,
+      "underestimate_pct": 0,
+      "actual_min": 390,
+      "free_time_min": 90
+    },
+    {
+      "planned_min": 390,
+      "underestimate_pct": 5,
+      "actual_min": 409.5,
+      "free_time_min": 70.5
+    },
+    {
+      "planned_min": 390,
+      "underestimate_pct": 10,
+      "actual_min": 429.0,
+      "free_time_min": 51.0
+    },
+    {
+      "planned_min": 390,
+      "underestimate_pct": 15,
+      "actual_min": 448.5,
+      "free_time_min": 31.5
+    },
+    {
+      "planned_min": 390,
+      "underestimate_pct": 20,
+      "actual_min": 468.0,
+      "free_time_min": 12.0
+    },
+    {
+      "planned_min": 420,
+      "underestimate_pct": 0,
+      "actual_min": 420,
+      "free_time_min": 60
+    },
+    {
+      "planned_min": 420,
+      "underestimate_pct": 5,
+      "actual_min": 441.0,
+      "free_time_min": 39.0
+    },
+    {
+      "planned_min": 420,
+      "underestimate_pct": 10,
+      "actual_min": 462.0,
+      "free_time_min": 18.0
+    },
+    {
+      "planned_min": 420,
+      "underestimate_pct": 15,
+      "actual_min": 483.0,
+      "free_time_min": -3.0
+    },
+    {
+      "planned_min": 420,
+      "underestimate_pct": 20,
+      "actual_min": 504.0,
+      "free_time_min": -24.0
+    },
+    {
+      "planned_min": 450,
+      "underestimate_pct": 0,
+      "actual_min": 450,
+      "free_time_min": 30
+    },
+    {
+      "planned_min": 450,
+      "underestimate_pct": 5,
+      "actual_min": 472.5,
+      "free_time_min": 7.5
+    },
+    {
+      "planned_min": 450,
+      "underestimate_pct": 10,
+      "actual_min": 495.0,
+      "free_time_min": -15.0
+    },
+    {
+      "planned_min": 450,
+      "underestimate_pct": 15,
+      "actual_min": 517.5,
+      "free_time_min": -37.5
+    },
+    {
+      "planned_min": 450,
+      "underestimate_pct": 20,
+      "actual_min": 540.0,
+      "free_time_min": -60.0
+    }
+  ],
+  "synthetic_or": {
+    "activity_median": {
+      "390 (Hybrid + buffer 30)": {
+        "simulations": 5000,
+        "mean_planned_min": 416.0542,
+        "free_time_median": -24.0,
+        "free_time_p10": -261.0,
+        "p_free_lt_30": 0.6362,
+        "p_free_lt_60": 0.7114,
+        "p_overrun_shift": 0.562
+      },
+      "420 (Hybrid 60)": {
+        "simulations": 5000,
+        "mean_planned_min": 445.7864,
+        "free_time_median": -63.0,
+        "free_time_p10": -316.0,
+        "p_free_lt_30": 0.7206,
+        "p_free_lt_60": 0.7812,
+        "p_overrun_shift": 0.6454
+      },
+      "450 (nghỉ 30)": {
+        "simulations": 5000,
+        "mean_planned_min": 476.5942,
+        "free_time_median": -99.0,
+        "free_time_p10": -360.0,
+        "p_free_lt_30": 0.7888,
+        "p_free_lt_60": 0.8436,
+        "p_overrun_shift": 0.7228
+      }
+    },
+    "ridge": {
+      "390 (Hybrid + buffer 30)": {
+        "simulations": 5000,
+        "mean_planned_min": 422.3571543947816,
+        "free_time_median": 79.0,
+        "free_time_p10": -144.09999999999997,
+        "p_free_lt_30": 0.3654,
+        "p_free_lt_60": 0.4474,
+        "p_overrun_shift": 0.3002
+      },
+      "420 (Hybrid 60)": {
+        "simulations": 5000,
+        "mean_planned_min": 451.6544178846444,
+        "free_time_median": 52.0,
+        "free_time_p10": -179.09999999999997,
+        "p_free_lt_30": 0.4442,
+        "p_free_lt_60": 0.5222,
+        "p_overrun_shift": 0.3732
+      },
+      "450 (nghỉ 30)": {
+        "simulations": 5000,
+        "mean_planned_min": 482.08631625750104,
+        "free_time_median": 16.0,
+        "free_time_p10": -211.09999999999997,
+        "p_free_lt_30": 0.5334,
+        "p_free_lt_60": 0.6062,
+        "p_overrun_shift": 0.4556
+      }
+    },
+    "gradient_boosting": {
+      "390 (Hybrid + buffer 30)": {
+        "simulations": 5000,
+        "mean_planned_min": 422.77842046590627,
+        "free_time_median": 83.0,
+        "free_time_p10": -141.0,
+        "p_free_lt_30": 0.3752,
+        "p_free_lt_60": 0.4404,
+        "p_overrun_shift": 0.2996
+      },
+      "420 (Hybrid 60)": {
+        "simulations": 5000,
+        "mean_planned_min": 452.72212904851204,
+        "free_time_median": 49.0,
+        "free_time_p10": -177.0,
+        "p_free_lt_30": 0.4492,
+        "p_free_lt_60": 0.5294,
+        "p_overrun_shift": 0.3784
+      },
+      "450 (nghỉ 30)": {
+        "simulations": 5000,
+        "mean_planned_min": 481.9634259145082,
+        "free_time_median": 25.0,
+        "free_time_p10": -217.09999999999997,
+        "p_free_lt_30": 0.5124,
+        "p_free_lt_60": 0.5988,
+        "p_overrun_shift": 0.4352
+      }
+    }
+  }
+}

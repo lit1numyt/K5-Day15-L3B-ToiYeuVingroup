@@ -1,0 +1,137 @@
+{
+  "checked_on": "2026-11-28",
+  "architecture_ref": "bdb65706320881196f64b619b972baeefe249ca7",
+  "kien_eda_ref": "153d463d3a9fa23c8b646d231c788dfa008b6f4b",
+  "scope": "preliminary_only",
+  "sources": [
+    {
+      "id": "zenodo:20754938",
+      "role": "selected_empirical_activity_duration_experiment",
+      "url": "https://zenodo.org/records/20754938",
+      "download_url": "https://zenodo.org/records/20754938/files/Data.xlsx?download=1",
+      "local_file": "data/zenodo_20754938/Data.xlsx",
+      "version": "v1; observations July 2024; metadata corrected November 2026",
+      "md5": "78e04eb6c4ffcf2b599afd3080f97c21",
+      "license": "CC-BY-4.0",
+      "attribution": "Kentaro Hara, Task-Level Time-and-Motion Records of Operating Room Nursing Activity, doi:10.5281/zenodo.20754938",
+      "verification": "raw_workbook_read_checksum_matched_pipeline_reproduced",
+      "target_kind": "observed_activity_episode",
+      "domain": "Japanese_operating_room",
+      "not_verified": ["patient_task_equivalence", "ward_duration_transfer", "acuity_effect", "experience_linkage"]
+    },
+    {
+      "id": "doi:10.1111/jgs.19507",
+      "role": "selected_ward_duration_lookup_reference",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12303744/",
+      "local_file": "data/reference/ward_task_duration.csv",
+      "attribution": "Simmons et al., An Objective Method to Determine Nurse Staffing for an Acute Care for Elders Hospital Unit: Discrete Event Simulation, Table 3",
+      "verification": "nine_published_aggregate_rows_checked_against_full_text_table3",
+      "unit": "minutes_per_patient_episode",
+      "data_kind": "published_aggregate",
+      "article_license": "CC-BY-NC-ND-4.0",
+      "article_license_source": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jgs.19507",
+      "dataset_license": "not_separately_verified; numeric_facts_only_no_full_article_redistribution",
+      "not_verified": ["raw_train_records", "Supplement_2_contents", "Vietnam_ward_calibration"]
+    },
+    {
+      "id": "doi:10.1097/JHQ.0000000000000483",
+      "role": "ward_duration_semantic_cross_check",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12767747/",
+      "verification": "full_text_and_table3_read; aggregate_median_IQR_not_raw_train_rows"
+    },
+    {
+      "id": "eicu-crd-demo:2.0.1",
+      "role": "screened_clinical_context_not_duration_training",
+      "url": "https://physionet.org/content/eicu-crd-demo/2.0.1/",
+      "license": "ODbL-1.0",
+      "verification": "twelve_public_tables_SHA256_checked_and_Kien_extractor_outputs_reproduced_during_audit",
+      "raw_committed": false,
+      "limitations": ["medication_orders_not_confirmed_administration", "event_rows_not_task_duration", "Kien_ADL_acuity_rule_derived", "whole_stay_flags_not_as_of_shift_start"]
+    },
+    {
+      "id": "psmet1/nrp",
+      "role": "schema_reference_not_patient_task_timing",
+      "url": "https://github.com/psmet1/nrp/tree/269a7a302b1c5f59f4938d7e2a26d1421a159a39",
+      "version": "269a7a302b1c5f59f4938d7e2a26d1421a159a39",
+      "license": "not_declared_in_repository_at_checked_revision",
+      "raw_committed": false,
+      "verification": "four_clinical_ward_XMLs_scenarios_and_extractor_CSVs_checked_during_audit",
+      "limitations": ["multi_day_rostering", "Absence_scenario_requires_Schedule_and_ScheduleLocks", "DS1_DS2_clock_offset_60min", "skill_level_is_per_skill_not_years"]
+    },
+    {
+      "id": "matchrn:15248072",
+      "role": "preserved_CP2_pain_evidence",
+      "url": "https://zenodo.org/records/15248072",
+      "verification": "CSV_codebook_readme_MD5_checked_CP2_counts_reproduced",
+      "limitations": ["survey_perceived_workload_not_patient_task_minutes", "license_metadata_readme_disagree_see_DATA_CARD"]
+    },
+    {
+      "id": "mimic-demo:2.2",
+      "role": "preserved_CP2_data_semantics_evidence",
+      "url": "https://physionet.org/content/mimic-iv-demo/2.2/",
+      "ed_url": "https://physionet.org/content/mimic-iv-ed-demo/2.2/",
+      "license": "ODbL-1.0",
+      "verification": "tables_schema_counts_and_keys_checked_for_CP2",
+      "limitations": ["event_interval_not_nurse_labor_time", "caregiver_is_documenter"]
+    },
+    {
+      "id": "doi:10.5683/SP4/L1ZBLT",
+      "local_file": "data/reference/mcgill_workload_items.csv",
+      "role": "taxonomy_instrument_reference_not_minutes_lookup",
+      "url": "https://doi.org/10.5683/SP4/L1ZBLT",
+      "file_url": "https://borealisdata.ca/api/access/datafile/1247255?format=original",
+      "md5": "52af91255278e3b2dbd5849ae449ae5d",
+      "license": "CC0-1.0",
+      "verification": "original_XLSX_read_113_items_patient_marks_empty_score_sum218_footer219",
+      "limitations": ["no_observed_patient_samples", "no_validated_points_to_minutes"],
+      "recheck": "original file downloaded again; same MD5; one sheet, 113 item rows; wound-care text >15min is an item condition, not a score-to-minutes calibration"
+    },
+    {
+      "id": "doi:10.17632/dnpgfytnyf.1",
+      "role": "not_selected_unverified_file_contents",
+      "url": "https://data.mendeley.com/datasets/dnpgfytnyf/1",
+      "verification": "metadata_and_associated_review_only; public_file_API_403",
+      "raw_contents_verified": false
+    },
+    {
+      "id": "doi:10.5258/SOTON/D2876",
+      "role": "additional_ward_candidate_not_selected_due_unavailable_raw",
+      "url": "https://eprints.soton.ac.uk/497719/",
+      "metadata_url": "https://eprints.soton.ac.uk/cgi/export/eprint/497719/JSON/soton-eprint-497719.js",
+      "workbook_file_url": "https://eprints.soton.ac.uk/id/file/22869138",
+      "expected_workbook_md5_from_metadata": "07ccea0ba451705ecf6c4b8ea7c3726b",
+      "license_from_metadata": "CC-BY-4.0",
+      "verification": "official_metadata_read; workbook_and_README_returned_HTTP401_from_listed_downloads",
+      "raw_contents_verified": false
+    },
+    {
+      "id": "doi:10.2196/87930",
+      "role": "additional_general_medicine_candidate_request_only",
+      "url": "https://nursing.jmir.org/2026/1/e87930",
+      "verification": "full_text_Data_Availability_says_reasonable_request",
+      "raw_contents_verified": false
+    },
+    {
+      "id": "sonar:7882067",
+      "role": "additional_candidate_not_selected_for_hackathon_scope",
+      "url": "https://zenodo.org/records/7882067",
+      "paper_url": "https://www.nature.com/articles/s41597-023-02620-2",
+      "verification": "paper_and_record_screened; nursing_home_sensor_HAR_6.1GB_archive",
+      "raw_contents_verified": false
+    },
+    {
+      "id": "doi:10.3390/nursrep16100372",
+      "role": "additional_medical_surgical_ward_candidate",
+      "url": "https://www.mdpi.com/2039-4403/16/10/372",
+      "verification": "publication_and_data_availability_checked; individual_observations_by_request",
+      "raw_contents_verified": false
+    },
+    {
+      "id": "uhasselt:1942/48082",
+      "role": "ward_EHR_semantic_cross_check",
+      "url": "https://documentserver.uhasselt.be/handle/1942/48082",
+      "verification": "methods_describe_intervention_and_registration_timestamps; their_difference_is_charting_delay",
+      "raw_contents_verified": false
+    }
+  ]
+}

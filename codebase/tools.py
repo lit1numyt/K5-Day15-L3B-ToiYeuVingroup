@@ -1,18 +1,33 @@
-"""Công cụ của bài toán — NHÓM VIẾT. Điền ở guide bước 2.2 (thiết kế) và 3.2 (code).
+"""Công cụ điều phối NurseFlow; chỉ xử lý dữ liệu và tạo bản nháp, không side effect ra ngoài."""
+from planning import draft_schedule, input_issues, validate_plan as check_plan
+from tracing import tool
+from workload import estimate_duration as l3_estimate_duration
 
-Mỗi công cụ là một hàm Python có @tool. Docstring ghi đúng 4 ý như sơ đồ ở spec.md §4:
-    tên · input · output · có tác động ra ngoài không (gửi tin, sửa dữ liệu, chấm điểm…)
-Khung tự ghi mỗi lần gọi công cụ vào trace (tên, input, output rút gọn, thời gian, lỗi).
-
-Số công cụ, kiểu công cụ do thiết kế của nhóm quyết định — có bài chỉ cần một công cụ tra cứu.
-Công cụ có tác động ra ngoài: KHÔNG tự làm. Trả về bản nháp chờ người duyệt (guide bước 2.2, "chỗ người duyệt").
-Dữ liệu công cụ đọc (bài mẫu, thông báo mẫu, lịch…): để trong data/ và mô tả ở data/DATA_CARD.md.
-"""
-from tracing import tool, TOOLS  # noqa: F401  (TOOLS: danh sách công cụ đã đăng ký, dùng khi viết vòng lặp agent)
+_DURATION_MISSING_SUFFIX = ".est_duration_min: cần duration được cung cấp/xác nhận"
 
 
 @tool
-def search_example(query: str) -> list:
-    """(ví dụ — thay bằng công cụ của nhóm) Tra dữ liệu mẫu theo câu hỏi.
-    Input: câu hỏi (str). Output: danh sách đoạn {"code", "text"}. Không tác động ra ngoài."""
-    return [{"code": "VD-1", "text": "(ví dụ) đoạn dữ liệu giả — thay bằng dữ liệu thật của bài toán"}]
+def check_input(instance, require_duration: bool = True):
+    """check_input · input (instance dict, require_duration bool) · output list[str] lỗi thiếu trường · không side effect."""
+    issues = input_issues(instance)
+    if require_duration:
+        return issues
+    return [issue for issue in issues if not issue.endswith(_DURATION_MISSING_SUFFIX)]
+
+
+@tool
+def estimate_duration(instance):
+    """estimate_duration · input instance dict · output bản sao instance đủ est_duration_min + duration_source · không side effect."""
+    return l3_estimate_duration(instance)
+
+
+@tool
+def solve_allocation(instance):
+    """solve_allocation · input instance hợp lệ · output lịch dự thảo L2 · không side effect."""
+    return draft_schedule(instance)
+
+
+@tool
+def validate_plan(instance, plan):
+    """validate_plan · input (instance, plan) · output {valid, violations, metrics} · không side effect."""
+    return check_plan(instance, plan)
