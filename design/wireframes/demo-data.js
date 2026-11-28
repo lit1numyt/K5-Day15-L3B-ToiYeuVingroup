@@ -1,10 +1,10 @@
 window.NURSEFLOW_DEMO = {
- "generated_at": "2026-11-28T09:52:42",
+ "generated_at": "2026-11-28T09:59:30",
  "model": {
   "provider": "openai",
   "name": "gpt-4o-mini",
   "tokens_in": 150,
-  "tokens_out": 109
+  "tokens_out": 88
  },
  "shift": {
   "shift_id": "S1",
@@ -723,7 +723,7 @@ window.NURSEFLOW_DEMO = {
    "basis": "rule fallback (điểm cắt học ≤4/≤6, đồng bộ model) — không phải phút."
   }
  },
- "ai_text": "Kế hoạch phân công cho ca S1 gồm 5 điều dưỡng với tổng cộng 20 việc được phân bổ như sau: An 4 việc, Bình 6 việc, Chi 5 việc, Dũng 2 việc, và Em 3 việc. Chỉ số cân bằng tải (CV) là 0.283, cho thấy sự phân bổ công việc khá đồng đều, trong khi chỉ số peak là 0.145. Việc phân bổ dựa trên kỹ năng và khả năng làm việc của từng điều dưỡng.",
+ "ai_text": "Kế hoạch phân bổ công việc cho ca S1 gồm 5 điều dưỡng với tổng số 20 việc đã được thực hiện. Cụ thể: An 4 việc, Bình 6 việc, Chi 5 việc, Dũng 2 việc, và Em 3 việc. Chỉ số CV là 0.283 và peak là 0.145, cho thấy mức độ cân bằng tải trong phân công công việc.",
  "baselines": {
   "count": {
    "workload_minutes": {
