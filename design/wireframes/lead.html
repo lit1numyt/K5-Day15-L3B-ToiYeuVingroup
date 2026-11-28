@@ -3,124 +3,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NurseFlow — Màn hình trưởng ca</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <title>NurseFlow — Trưởng ca</title>
   <link rel="stylesheet" href="../../style/style.css">
   <link rel="stylesheet" href="wireframe.css">
 </head>
 <body data-view="lead">
   <header class="top">
-    <div class="brand">
-      <a href="index.html">NurseFlow</a>
-      <span class="ctx">Khoa Nội · Ca sáng 07:00–15:00 · 25/11</span>
-    </div>
-    <div class="userbar">
-      <span class="name">ĐD. Trần Thị Lan</span>
-      <span class="sep">Trưởng ca</span>
-      <a href="#" id="logout">Đăng xuất</a>
-    </div>
+    <div class="brand"><a href="lead.html">NurseFlow</a><span class="ctx">Ca tổng hợp · 07:00–15:00</span></div>
+    <div class="userbar"><span class="name"></span><span class="sep">Trưởng ca</span><a href="login.html" id="logout">Đăng xuất</a></div>
   </header>
 
-  <main class="wide">
+  <main class="wide live-board" hidden>
     <div class="page-head">
       <h1 class="page-h">Bảng điều phối ca</h1>
-      <span class="role-tag">Trưởng ca</span>
+      <span class="role-tag" id="plan-status" role="status">Chưa lập lịch</span>
     </div>
-
-    <!-- Overview strip -->
-    <div class="ov" id="ov">
-      <div class="cell"><div class="num">3</div><div class="lab">Điều dưỡng trực</div></div>
-      <div class="cell"><div class="num">24</div><div class="lab">Tổng công việc</div></div>
-      <div class="cell"><div class="num">46%</div><div class="lab">Hoàn thành</div></div>
-      <div class="cell"><div class="num accent">2</div><div class="lab">Yêu cầu chờ duyệt</div></div>
-      <div class="cell"><div class="num">Đủ</div><div class="lab">Coverage</div></div>
-    </div>
-
-    <div class="board">
-      <!-- LEFT: whole-shift timeline (everyone) -->
-      <section>
-        <h2 class="panel-h">Lịch cả ca — toàn bộ điều dưỡng</h2>
-        <div class="htl" id="tl">
-          <div class="r">
-            <div class="lab">Giờ</div>
-            <div class="area axis">
-              <span class="hh" style="left:0">07:00</span>
-              <span class="hh" style="left:25%">09:00</span>
-              <span class="hh" style="left:50%">11:00</span>
-              <span class="hh" style="left:75%">13:00</span>
-              <span class="hh end">15:00</span>
-            </div>
-          </div>
-          <div class="r">
-            <div class="lab">An</div>
-            <div class="area track">
-              <div class="bar" style="left:0;width:6.25%" title="Nhận ca 07:00–07:30">Nhận ca</div>
-              <div class="bar" style="left:6.25%;width:18.75%" title="BN A · 07:30–09:00">BN A</div>
-              <div class="bar break" style="left:37.5%;width:6.25%" title="Nghỉ 10:00–10:30"></div>
-              <div class="bar" style="left:50%;width:12.5%" title="BN C · 11:00–12:00">BN C</div>
-            </div>
-          </div>
-          <div class="r">
-            <div class="lab">Bình</div>
-            <div class="area track">
-              <div class="bar" style="left:6.25%;width:25%" title="BN D · 07:30–09:30">BN D</div>
-              <div class="bar break" style="left:31.25%;width:6.25%" title="Nghỉ 09:30–10:00"></div>
-              <div class="bar" style="left:43.75%;width:25%" title="BN E · 10:30–12:30">BN E</div>
-            </div>
-          </div>
-          <div class="r">
-            <div class="lab">Chi</div>
-            <div class="area track">
-              <div class="bar" style="left:12.5%;width:25%" title="BN F · 08:00–10:00">BN F</div>
-              <div class="bar break" style="left:43.75%;width:6.25%" title="Nghỉ 10:30–11:00"></div>
-              <div class="bar" style="left:56.25%;width:25%" title="BN G · 11:30–13:30">BN G</div>
-            </div>
+    <section aria-labelledby="chat-title">
+      <h2 class="panel-h" id="chat-title">Trợ lý lập lịch</h2>
+      <p class="panel-sub">Ca mẫu có 5 điều dưỡng, 20 bệnh nhân và 24 công việc.</p>
+      <div class="chat">
+        <div class="log" id="chatlog" role="log" aria-label="Hội thoại">
+          <div id="chat-intro">
+            <p>Gửi yêu cầu để tạo bản nháp phân công.</p>
+            <button class="btn sm" type="button" id="example-prompt">Lập bản nháp phân công cho ca mẫu 07:00–15:00.</button>
           </div>
         </div>
-        <div class="legend-row">
-          <span><i class="swatch"></i>Công việc</span>
-          <span><i class="swatch break"></i>Giờ nghỉ</span>
-          <span>Mỗi hàng là một điều dưỡng</span>
-        </div>
-      </section>
+        <form class="composer" id="chat-form">
+          <div class="row">
+            <input id="prompt" aria-label="Yêu cầu lập lịch" placeholder="Nhập yêu cầu lập lịch…"
+                   maxlength="1500" required autocomplete="off">
+            <button class="btn primary" type="submit">Gửi</button>
+          </div>
+        </form>
+      </div>
+    </section>
 
-      <!-- RIGHT: approvals + request to system -->
-      <section>
-        <h2 class="panel-h">Yêu cầu &amp; điều phối</h2>
-        <p class="panel-sub">Duyệt đề xuất của điều dưỡng, hoặc gửi yêu cầu tới hệ thống.</p>
-        <div class="chat">
-          <div class="log" id="chatlog">
-            <div class="req">
-              <div class="who">Đề xuất · ĐD An</div>
-              <p>Xin dời giờ nghỉ 10:00 → 10:30.</p>
-              <div class="act"><button class="btn primary sm">Duyệt</button><button class="btn sm">Từ chối</button></div>
-            </div>
-            <div class="req">
-              <div class="who">Đề xuất · ĐD Bình</div>
-              <p>Xin chuyển BN E sang điều dưỡng khác — đang quá tải khung 10:30–12:30.</p>
-              <div class="act"><button class="btn primary sm">Duyệt</button><button class="btn sm">Từ chối</button></div>
-            </div>
-            <div class="msg me"><div class="who">Bạn</div><div class="bub">Thêm người cho khung 11:00–12:00, san bớt tải của Bình.</div></div>
-            <div class="msg ai"><div class="who">AI</div><div class="bub">Em đã chạy lại kế hoạch với ràng buộc mới. Bản nháp mới: coverage vẫn đủ, tải cân bằng hơn (CV 0.30 → 0.16). Chị xem khác biệt rồi duyệt nhé?</div></div>
-          </div>
-          <div class="composer">
-            <div class="row">
-              <input placeholder="Nhập yêu cầu tới hệ thống…" aria-label="Nhập yêu cầu">
-              <button class="btn primary">Gửi yêu cầu</button>
-            </div>
-            <p class="hint">Chỉ trưởng ca gửi yêu cầu tới hệ thống; mọi thay đổi đều tạo bản nháp chờ duyệt.</p>
-          </div>
-        </div>
-      </section>
-    </div>
+    <section class="draft" id="draft" hidden aria-labelledby="schedule-title">
+      <div class="schedule-heading">
+        <h2 class="panel-h" id="schedule-title">Lịch phân công</h2>
+        <label class="note"><input type="checkbox" id="full-shift"> Xem cả ca 07:00–15:00</label>
+      </div>
+      <div class="ov" id="ov"></div>
+      <p class="note timeline-hint">Vuốt ngang để xem các giờ còn lại.</p>
+      <div class="timeline-scroll" tabindex="0" aria-label="Lịch theo trục giờ">
+        <div class="htl" id="tl"></div>
+      </div>
+      <div class="legend-row"><span><i class="swatch"></i>Công việc</span><span><i class="swatch break"></i>Nghỉ được bảo vệ</span></div>
+      <details class="schedule-details">
+        <summary>Xem chi tiết giờ và công việc</summary>
+        <div class="scroll"><table>
+          <thead><tr><th>Điều dưỡng</th><th>Giờ</th><th>Công việc</th></tr></thead>
+          <tbody id="schedule-rows"></tbody>
+        </table></div>
+      </details>
+    </section>
   </main>
 
-  <footer>
-    <div>NurseFlow — AI đề xuất, trưởng ca quyết định</div>
-    <div class="row"><a href="index.html">Màn hình</a><a href="nurse.html">Màn hình điều dưỡng</a></div>
-  </footer>
-  <script src="demo-data.js"></script>
-  <script src="accounts.js"></script>
+  <footer><div>NurseFlow — Bản nháp dành cho trưởng ca xem xét</div></footer>
   <script src="render.js"></script>
 </body>
 </html>

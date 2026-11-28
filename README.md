@@ -27,7 +27,8 @@ Backend solver cần OR-Tools. L1 của Kiên gọi CP-SAT từ luồng JSON c�
 trả `method="cp_sat"` và thông tin solver. Cấu hình model theo `.env.example`. Lượt
 [đánh giá AI trước khi nối CP-SAT](eval/report.md) được lưu riêng với phép đo kỹ thuật L2.
 Demo của Khoa có luồng văn bản gọi LLM theo policy và luồng JSON lập lịch qua L3–L2–validator.
-Lệnh `python scripts/demo/build_demo.py` xuất lịch để mở hai wireframe điều dưỡng/trưởng ca.
+Lệnh `python scripts/demo/serve_demo.py` mở cổng demo tại http://localhost:8765.
+Sau khi trưởng ca đăng nhập và gửi yêu cầu trong chat, hệ thống mới tạo lịch nháp.
 [Hướng dẫn demo và cấu hình](scripts/demo/README.md).
 Script đối chứng chạy hai baseline L4 của Khoa (count và acuity-weighted), CP-SAT và
 heuristic trên cùng 11 ca kỹ thuật, luôn tính lại metrics qua oracle; mỗi lần sinh `eval/l2-comparison-N.json` và CSV mới.

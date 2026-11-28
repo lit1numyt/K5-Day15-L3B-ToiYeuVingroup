@@ -51,16 +51,28 @@
           (ROLE[a.role] || a.role) + "</td></tr>";
       }).join("");
       // Đăng nhập
-      document.getElementById("loginform").addEventListener("submit", function (e) {
+      document.getElementById("loginform").addEventListener("submit", async function (e) {
         e.preventDefault();
         var u = document.getElementById("u").value.trim().toLowerCase();
         var p = document.getElementById("p").value;
-        var acc = accounts.filter(function (a) { return a.username === u; })[0];
         var err = document.getElementById("err");
-        if (!acc || acc.password !== p) { err.textContent = "Sai tài khoản hoặc mật khẩu."; return; }
-        try { sessionStorage.setItem("nf_user", JSON.stringify(acc)); } catch (ignore) {}
-        var page = acc.role === "lead" ? "lead.html" : "nurse.html";
-        location.href = page + "?u=" + encodeURIComponent(acc.username);
+        var submit = e.currentTarget.querySelector("button");
+        submit.disabled = true;
+        err.textContent = "";
+        try {
+          var response = await fetch("/api/login", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({username: u, password: p})
+          });
+          var data = await response.json();
+          if (!response.ok) { err.textContent = data.message; return; }
+          location.replace(data.user.role === "lead" ? "lead.html" : "nurse.html");
+        } catch (error) {
+          err.textContent = "Chưa kết nối được máy chủ demo.";
+        } finally {
+          submit.disabled = false;
+        }
       });
     })();
   </script>
