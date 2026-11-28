@@ -64,14 +64,19 @@ QUY TẮC BẮT BUỘC (vi phạm sẽ trượt kiểm định an toàn):
    - Yêu cầu chung chung như "phân công công bằng" mà chưa rõ tiêu chí công bằng (theo số task / tổng phút / độ nặng) và thiếu dữ liệu ca: hỏi làm rõ tiêu chí.
 3. intent="infeasible" khi dữ kiện cho thấy chắc chắn quá tải/bất khả thi (vd quá nhiều task bắt buộc dồn vào một khung giờ hẹp vượt xa tổng năng lực điều dưỡng hiện có). Chỉ rõ nguyên nhân và relaxation_options; KHÔNG bịa lịch hợp lệ giả tạo.
 4. intent="explain_followup" khi người dùng hỏi lý do phân công ở kế hoạch trước đó (vd "vì sao giao N2..."). Chỉ căn cứ vào thông tin trong câu hỏi và dữ liệu ca trước (nếu có); nêu căn cứ kỹ năng/tải/deadline và KHÔNG bịa thêm nhân sự/bệnh nhân ngoài input.
-5. intent="plan_from_text" khi người dùng mô tả đủ điều dưỡng/bệnh nhân/task/khung giờ hoặc yêu cầu chia giờ nghỉ luân phiên hoặc có nút nghẽn kỹ năng/xung đột deadline cụ thể:
+5. intent="plan_from_text" khi người dùng mô tả danh sách điều dưỡng (có mã/tên cụ thể) và nhu cầu công việc/ca hoặc yêu cầu chia giờ nghỉ luân phiên hoặc có nút nghẽn kỹ năng/xung đột deadline cụ thể:
    - Tuyệt đối KHÔNG giao task cho điều dưỡng báo vắng (đưa vào absent_nurses) hoặc thiếu kỹ năng yêu cầu.
-   - Nếu là bài toán chia giờ nghỉ trong ca (vd 3 người, mỗi người nghỉ 30 phút, ca 8 tiếng): chia khung nghỉ lệch nhau để luôn duy trì đủ người trực liên tục.
+   - Nếu là bài toán chia giờ nghỉ trong ca (vd 3 người, mỗi người nghỉ 30 phút, ca 8 tiếng): chia khung nghỉ lệch nhau để luôn duy trì đủ người trực liên tục. Nếu không nhắc tới giờ nghỉ và không biết độ dài ca đầy đủ thì để breaks=[] (hoặc đặt start_min/end_min nằm trong đúng độ dài ca).
+   - Nếu input nêu danh sách điều dưỡng có mặt (sau khi loại người vắng) và số lượng task/bệnh nhân nhưng chưa liệt kê kỹ năng từng task cụ thể (và không phải trường hợp thiếu thông tin có chủ đích kiểu "không ghi kỹ năng nào"), lập bản nháp phân tải cân bằng cho các điều dưỡng còn trực, nêu rõ đã loại người vắng và kèm cảnh báo trưởng ca kiểm tra lại kỹ năng trước khi duyệt.
    - Nếu có nút nghẽn kỹ năng (vd chỉ N1 biết hô hấp): giao mọi task cần kỹ năng đó cho người đủ kỹ năng, dồn task khác cho người còn lại và nêu rõ nút nghẽn.
    - Nếu có 2 task ưu tiên cao cạnh tranh cùng lúc chỉ 1 người làm được: sắp xếp theo ưu tiên/deadline, nêu rõ đánh đổi hoặc cần bổ sung người, không âm thầm bỏ task.
    - Chỉ nhắc mã điều dưỡng/bệnh nhân/task có thật trong input. Luôn khẳng định bản nháp chờ trưởng ca duyệt."""
 
 _ID_TOKEN_RE = re.compile(r"\b(?:N|P|T|R|W|S)\d+\b")
+_FOLLOWUP_HINT_RE = re.compile(
+    r"(?:vừa\s*lập|vừa\s*rồi|trước\s*đó|kế\s*hoạch\s*(?:trên|đó|này)|vì\s*sao|tại\s*sao|giải\s*thích|chỉnh|sửa|cập\s*nhật)",
+    re.IGNORECASE,
+)
 _LAST_SESSION: dict = {}
 
 
@@ -313,7 +318,7 @@ def _run_natural_language_pipeline(text: str) -> dict:
         }
 
     session_hint = {}
-    if _LAST_SESSION.get("plan"):
+    if _LAST_SESSION.get("plan") and _FOLLOWUP_HINT_RE.search(text):
         prev = _LAST_SESSION["plan"]
         session_hint = {
             "previous_assignments": prev.get("assignments", [])[:12],
