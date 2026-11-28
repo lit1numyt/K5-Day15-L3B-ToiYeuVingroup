@@ -10,11 +10,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "codebase"))
 
 import ai  # noqa: E402
-from agent import answer  # noqa: E402
+from agent import _LAST_SESSION, answer  # noqa: E402
 from planning import validate_plan  # noqa: E402
 
 
 class AgentTests(unittest.TestCase):
+    def setUp(self):
+        _LAST_SESSION.clear()
     def test_cp2_cases_and_quality_anchors(self):
         cases = json.loads((ROOT / "data/cp2-cases.json").read_text(encoding="utf-8"))
         with mock.patch.object(ai, "MODEL_PROVIDER", "fake"):
@@ -109,6 +111,128 @@ class AgentTests(unittest.TestCase):
             result_guarded = json.loads(answer(case_input)["output"])
         self.assertNotIn("N99", result_guarded["explanation"])
         self.assertIn("trưởng ca duyệt", result_guarded["explanation"])
+
+    def test_nl_refuses_clinical_and_safety_override_requests(self):
+        reply = {
+            "text": json.dumps({
+                "intent": "refuse",
+                "reason": "Không tư vấn chọn thuốc hay liều dùng vì đây là quyết định lâm sàng.",
+                "refusal_category": "clinical_decision",
+                "redirect_to": "bác sĩ hoặc điều dưỡng có thẩm quyền",
+            }, ensure_ascii=False),
+            "model": "mock-real",
+            "tokens_in": 80,
+            "tokens_out": 40,
+        }
+        with (
+            mock.patch.object(ai, "MODEL_PROVIDER", "gemini"),
+            mock.patch.object(ai, "call_model", return_value=reply),
+        ):
+            result = json.loads(answer("Bệnh nhân sốt cao nên dùng thuốc gì?")["output"])
+        self.assertEqual(result["status"], "refused")
+        self.assertIs(result["approval_required"], True)
+        self.assertFalse(result.get("assignments"))
+        self.assertIn("bác sĩ", result["explanation"].lower())
+
+    def test_nl_need_info_for_missing_skills_and_data_traps(self):
+        reply = {
+            "text": json.dumps({
+                "intent": "need_info",
+                "reason": "Thiếu danh sách kỹ năng bắt buộc cho từng task.",
+                "missing_fields": ["tasks.required_skill: cần kỹ năng yêu cầu của từng công việc"],
+                "questions": ["Mỗi công việc trong ca cần kỹ năng nào?"],
+            }, ensure_ascii=False),
+            "model": "mock-real",
+            "tokens_in": 90,
+            "tokens_out": 45,
+        }
+        with (
+            mock.patch.object(ai, "MODEL_PROVIDER", "gemini"),
+            mock.patch.object(ai, "call_model", return_value=reply),
+        ):
+            result = json.loads(answer("Có 3 điều dưỡng và 6 task nhưng chưa ghi kỹ năng.")["output"])
+        self.assertEqual(result["status"], "need_info")
+        self.assertFalse(result.get("assignments"))
+        self.assertTrue(result["missing_fields"])
+
+    def test_nl_infeasible_overload_returns_infeasible_without_assignments(self):
+        reply = {
+            "text": json.dumps({
+                "intent": "infeasible",
+                "conflict_summary": "20 task bắt buộc dồn trong 60 phút vượt quá năng lực 2 điều dưỡng.",
+                "relaxation_options": ["Bổ sung thêm điều dưỡng trực", "Giãn deadline một số task"],
+            }, ensure_ascii=False),
+            "model": "mock-real",
+            "tokens_in": 95,
+            "tokens_out": 50,
+        }
+        with (
+            mock.patch.object(ai, "MODEL_PROVIDER", "gemini"),
+            mock.patch.object(ai, "call_model", return_value=reply),
+        ):
+            result = json.loads(answer("2 điều dưỡng, 20 task bắt buộc trong khung 8h-9h.")["output"])
+        self.assertEqual(result["status"], "infeasible")
+        self.assertFalse(result.get("assignments"))
+        self.assertEqual(len(result["relaxation_options"]), 2)
+
+    def test_nl_draft_filters_absent_and_hallucinated_nurses(self):
+        reply = {
+            "text": json.dumps({
+                "intent": "plan_from_text",
+                "absent_nurses": ["N3"],
+                "draft_summary": {
+                    "assignments": [
+                        {"task": "tiêm", "nurse_id": "N1", "patient_id": "P1", "basis": "đủ kỹ năng"},
+                        {"task": "thay băng", "nurse_id": "N3", "patient_id": "P2", "basis": "nhầm người vắng"},
+                        {"task": "hô hấp", "nurse_id": "N9", "patient_id": "P2", "basis": "mã bịa"},
+                    ],
+                    "breaks": [{"nurse_id": "N1", "start_min": 60, "end_min": 75}],
+                    "explanation": "Giao N1 thực hiện tiêm cho P1 theo đúng kỹ năng.",
+                },
+            }, ensure_ascii=False),
+            "model": "mock-real",
+            "tokens_in": 120,
+            "tokens_out": 80,
+        }
+        with (
+            mock.patch.object(ai, "MODEL_PROVIDER", "gemini"),
+            mock.patch.object(ai, "call_model", return_value=reply),
+        ):
+            result = json.loads(answer("N1, N2 trực; N3 vắng. Lập ca cho P1, P2.")["output"])
+        self.assertEqual(result["status"], "draft")
+        self.assertIs(result["approval_required"], True)
+        assigned = {a["nurse_id"] for a in result["assignments"]}
+        self.assertEqual(assigned, {"N1"})
+        self.assertIn("N3", " ".join(result["warnings"]))
+        self.assertIn("duyệt", result["explanation"].lower())
+
+    def test_nl_explain_followup_tracks_last_session(self):
+        bundle = json.loads((ROOT / "data/preliminary/instances.json").read_text(encoding="utf-8"))
+        with mock.patch.object(ai, "MODEL_PROVIDER", "fake"):
+            first = json.loads(answer(json.dumps(bundle["cases"][0]["l3_input"], ensure_ascii=False))["output"])
+        self.assertEqual(first["status"], "draft")
+        self.assertTrue(_LAST_SESSION.get("plan"))
+
+        followup = {
+            "text": json.dumps({
+                "intent": "explain_followup",
+                "draft_summary": {
+                    "explanation": "N1 nhận T1 cho P1 vì khớp kỹ năng med_admin và cân bằng tải ca S01."
+                },
+            }, ensure_ascii=False),
+            "model": "mock-real",
+            "tokens_in": 110,
+            "tokens_out": 35,
+        }
+        with (
+            mock.patch.object(ai, "MODEL_PROVIDER", "gemini"),
+            mock.patch.object(ai, "call_model", return_value=followup) as mocked,
+        ):
+            second = json.loads(answer("Vì sao N1 được giao T1?")["output"])
+        self.assertEqual(second["status"], "draft")
+        self.assertIn("N1", second["explanation"])
+        sent_payload = json.loads(mocked.call_args[0][1])
+        self.assertIsNotNone(sent_payload["session_context"])
 
 
 if __name__ == "__main__":
