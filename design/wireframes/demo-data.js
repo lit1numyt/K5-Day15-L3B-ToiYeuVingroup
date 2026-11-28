@@ -647,7 +647,25 @@ window.NURSEFLOW_DEMO = {
    "utilization_cv": 0.283284309484306,
    "peak_utilization": 0.14523809523809525
   },
-  "explanation": "Đã kiểm kỹ năng, cửa giờ, tải, chuyển phòng, nghỉ và coverage theo input; trưởng ca duyệt trước khi áp dụng."
+  "explanation": "Đã kiểm kỹ năng, cửa giờ, tải, chuyển phòng, nghỉ và coverage theo input; trưởng ca duyệt trước khi áp dụng.",
+  "method": "heuristic_cp2",
+  "validation": {
+   "valid": true,
+   "violations": [],
+   "metrics": {
+    "workload_minutes": {
+     "N1": 36,
+     "N2": 61,
+     "N3": 27,
+     "N4": 40,
+     "N5": 36
+    },
+    "overhead_minutes": 2,
+    "utilization_cv": 0.283284309484306,
+    "peak_utilization": 0.14523809523809525
+   }
+  },
+  "unassigned_tasks": []
  },
  "taxonomy": {
   "P1": {
@@ -761,5 +779,8 @@ window.NURSEFLOW_DEMO = {
    "utilization_cv": 0.283284309484306,
    "peak_utilization": 0.14523809523809525
   }
- }
+ },
+ "data_kind": "synthetic",
+ "seed": 7,
+ "display_start_min": 420
 };

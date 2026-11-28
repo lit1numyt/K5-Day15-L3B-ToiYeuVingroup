@@ -146,10 +146,18 @@ def baseline_allocate(instance, balance="count"):
                  or n.get("qualification_level", 0) >= t["required_skill_level"])
             for t in pt_tasks)]
         if not eligible:
-            return {"status": "infeasible", "approval_required": True,
+            uncovered = [t["task_id"] for t in pt_tasks if not any(
+                n["home_zone"] == zone
+                and set(t["required_skill"]).issubset(n["skills"])
+                and ("required_skill_level" not in t
+                     or n.get("qualification_level", 0) >= t["required_skill_level"])
+                for n in nurses)]
+            return {"status": "infeasible" if uncovered else "unknown", "approval_required": True,
                     "method": method,
                     "warnings": [pid + ": không điều dưỡng nào đủ skill/level/zone cho mọi task "
-                                 "của bệnh nhân (baseline giữ continuity of care)."]}
+                                 "của bệnh nhân (baseline giữ continuity of care)."
+                                 + (" Task không có người đủ điều kiện: " + ", ".join(uncovered)
+                                    if uncovered else " Chưa kết luận bài toán phân task vô nghiệm.")]}
         chosen = min(eligible, key=lambda n: (accrued[n["nurse_id"]], n["nurse_id"]))
         patient_nurse[pid] = chosen["nurse_id"]
         accrued[chosen["nurse_id"]] += weight_of[pid]

@@ -1,7 +1,7 @@
 # NurseFlow — Wireframes (cổng điều dưỡng)
 
-Hai màn hình mô phỏng **tĩnh** để nhóm thảo luận và để người dựng UI (L1) làm theo.
-Không phải sản phẩm chạy được — chỉ bố cục + kiểu.
+Hai màn hình hiển thị lịch đầu ca từ file do pipeline xuất, phục vụ demo và thảo luận UI.
+Lệnh xuất và phạm vi tương tác được ghi trong [hướng dẫn demo](../../scripts/demo/README.md).
 
 ## Mở thế nào
 Mở trực tiếp trong trình duyệt (không cần server):
@@ -35,8 +35,8 @@ chat nêu căn cứ cụ thể (khớp metric `giai_thich_co_can_cu`).
   gradient / nút tô màu**, chữ weight 400/500/600. Màu/kiểu lấy từ `style/style.css` (tokens); phần dashboard
   thêm ở `wireframe.css` — không hard-code màu ngoài tokens.
 - **Khoá chế độ sáng**: kit vốn theo OS (sáng/tối); `wireframe.css` ghi đè token tối về sáng nên mock luôn sáng.
-- **Tĩnh, không JavaScript.** Vị trí khối việc/gantt là số cố định (mock). Khi dựng UI thật, tính vị trí từ
-  giờ bắt đầu/thời lượng; dữ liệu kế hoạch lấy từ output của agent (schema `plan` trong module-contract §2.2).
+- `render.js` đọc `demo-data.js`, tính vị trí từ giờ bắt đầu/thời lượng và hiển thị
+  bản nháp từ output của agent. Hội thoại và yêu cầu mới thực hiện qua CLI rồi xuất lại lịch.
 
 ## Bàn giao cho L1
 Tái dùng `../../style/style.css` + `wireframe.css`. Các component đã đặt tên class: `.ov` (dải tổng quan),

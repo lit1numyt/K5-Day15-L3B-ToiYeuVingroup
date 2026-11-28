@@ -1,10 +1,10 @@
-"""Sinh ca demo (5 điều dưỡng, 20 việc), chạy TẤT CẢ model đang có, và xuất dữ liệu
+"""Sinh ca tổng hợp (5 điều dưỡng, 20 việc), chạy pipeline và xuất dữ liệu
 cho frontend (design/wireframes/demo-data.js).
 
 Model gọi trong luồng:
   L3 estimate_duration · L1 agent answer() (gọi call_model — THẬT nếu .env đã nối, fake nếu chưa) ·
   L4 classify_patient + baseline_allocate.
-Khối việc trong kế hoạch do answer() (qua AI + engine) sắp xếp → chính là "arrange qua AI".
+CP-SAT lập lịch, validator kiểm ràng buộc và LLM giải thích kết quả.
 
 Chạy từ gốc repo:  python scripts/demo/build_demo.py
 """
@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT / "codebase"))
 from agent import answer                                   # noqa: E402
 from ai import MODEL_PROVIDER, call_model                  # noqa: E402
 from baseline import baseline_allocate, classify_patient   # noqa: E402
+from planning import validate_plan                         # noqa: E402
 from workload import estimate_duration                     # noqa: E402
 
 SKILLS = ["med_admin", "vitals", "wound_care", "lab_collection", "iv_care",
@@ -66,6 +67,9 @@ def main():
     out = json.loads(answer(json.dumps(instance, ensure_ascii=False))["output"])
     if out.get("status") != "draft":
         sys.exit(f"Engine không ra draft: {out.get('status')} · {out.get('warnings') or out.get('missing_fields')}")
+    validation = validate_plan(instance, out)
+    if not validation["valid"] or out.get("method") != "cp_sat":
+        sys.exit(f"Cần lịch CP-SAT qua validator: {validation['violations']}")
 
     # AI tóm tắt kế hoạch (một lời gọi model thật nữa, gắn với chính kế hoạch này)
     names = {n["nurse_id"]: n.get("name", n["nurse_id"]) for n in instance["nurses"]}
@@ -89,7 +93,8 @@ def main():
         return plan.get("metrics") if plan.get("status") == "draft" else None
 
     demo = {
-        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "data_kind": "synthetic", "seed": 7, "display_start_min": 420,
         "model": {"provider": MODEL_PROVIDER, "name": ai.get("model"),
                   "tokens_in": ai.get("tokens_in"), "tokens_out": ai.get("tokens_out")},
         "shift": instance["shift"],
@@ -97,6 +102,8 @@ def main():
         "patients": instance["patients"],
         "tasks": instance["tasks"],
         "plan": {"status": out["status"], "approval_required": out["approval_required"],
+                 "method": out["method"], "validation": validation,
+                 "unassigned_tasks": out["unassigned_tasks"],
                  "assignments": out["assignments"], "breaks": out["breaks"],
                  "metrics": out["metrics"], "explanation": out["explanation"]},
         "taxonomy": taxonomy,

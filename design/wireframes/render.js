@@ -7,7 +7,7 @@
   if (!D) return;
 
   var SHIFT_LEN = D.shift.shift_length_min;
-  var START_MIN = 7 * 60; // ca bắt đầu 07:00 (chỉ để hiển thị đồng hồ)
+  var START_MIN = D.display_start_min;
 
   function pct(min) { return (min / SHIFT_LEN) * 100; }
   function clock(min) {
@@ -82,7 +82,7 @@
     var log = document.getElementById("chatlog"); if (!log) return;
     var msg = el('<div class="msg ai"><div class="who">AI · ' + esc(D.model.name || "model") +
       '</div><div class="bub">' + esc(aiText) + "</div></div>");
-    log.insertBefore(msg, log.firstChild);
+    log.replaceChildren(msg);
   }
 
   function renderNurse() {
@@ -98,7 +98,7 @@
     }
     // overview
     var mins = tasks.reduce(function (s, t) { return s + (t.end - t.start); }, 0);
-    var pts = {}; tasks.forEach(function (t) {}); // patients distinct from assignments
+    var pts = {};
     D.plan.assignments.filter(function (a) { return a.nurse_id === me.nurse_id; })
       .forEach(function (a) { pts[patientOf(a.task_id)] = 1; });
     var br = D.plan.breaks.filter(function (b) { return b.nurse_id === me.nurse_id; })[0];
@@ -134,8 +134,8 @@
       { num: D.nurses.length, lab: "Điều dưỡng trực" },
       { num: D.plan.assignments.length, lab: "Tổng công việc" },
       { num: m.utilization_cv.toFixed(2), lab: "CV tải (thấp = đều)" },
-      { num: 2, lab: "Yêu cầu chờ duyệt", accent: true },
-      { num: "Đủ", lab: "Coverage" }
+      { num: D.plan.approval_required ? "Chờ duyệt" : "—", lab: "Kế hoạch", accent: true },
+      { num: D.plan.validation.valid ? "Đạt" : "Cần kiểm tra", lab: "Kiểm ràng buộc" }
     ]);
     setChat(D.ai_text);
   }
@@ -144,6 +144,24 @@
     try {
       var view = document.body.getAttribute("data-view");
       if (view === "lead") renderLead(); else renderNurse();
-    } catch (e) { /* giữ mock nếu lỗi */ console && console.warn && console.warn(e); }
+      document.querySelector(".brand .ctx").textContent =
+        "Ca tổng hợp · " + clock(0) + "–" + clock(SHIFT_LEN);
+      document.querySelector(".role-tag").textContent = "Bản nháp chờ trưởng ca duyệt";
+      document.querySelectorAll(".composer input, .composer button").forEach(function (control) {
+        control.disabled = true;
+      });
+      document.querySelector(".composer .hint").textContent =
+        "Bản xem lịch đã xuất. Dùng CLI để gửi yêu cầu và tạo bản nháp mới.";
+      if (D.model.provider === "fake") {
+        document.querySelector("#chatlog .bub").textContent =
+          D.plan.explanation + " Lời gọi model đang ở chế độ fake để kiểm luồng.";
+      }
+    } catch (e) {
+      document.querySelector(".page-h").textContent = "Cần tạo lại dữ liệu demo";
+      document.querySelectorAll("#tl, #ov, #order, #chatlog").forEach(function (node) {
+        node.replaceChildren();
+      });
+      console.warn(e);
+    }
   });
 })();
