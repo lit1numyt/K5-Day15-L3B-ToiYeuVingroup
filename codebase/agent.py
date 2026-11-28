@@ -4,16 +4,14 @@ answer(text) giữ hợp đồng harness. Khoa tích hợp điều phối LLM/CP
 """
 import json
 
-from ai import MODEL_PROVIDER, call_model
+from ai import call_model
 from tools import estimate_workload, solve_allocation, validate_plan
 
 SYSTEM = "Bạn hỗ trợ trưởng ca; chỉ tạo bản nháp, không bỏ hard constraints hay tự duyệt."
 
 
 def answer(text: str) -> dict:
-    if MODEL_PROVIDER != "fake":
-        raise NotImplementedError("CP2 chưa nối LLM thật; dùng MODEL_PROVIDER=fake. Tích hợp API/CP-SAT ở CP3.")
-    call_model(SYSTEM, "CP2: kiểm dữ liệu, lập nháp và chờ trưởng ca duyệt.")
+    call_model(SYSTEM, "Kiểm dữ liệu ca, lập bản nháp phân công và chờ trưởng ca duyệt.")
     try:
         instance = json.loads(text)
     except (json.JSONDecodeError, TypeError):
