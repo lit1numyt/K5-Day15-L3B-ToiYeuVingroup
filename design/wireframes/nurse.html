@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../style/style.css">
   <link rel="stylesheet" href="wireframe.css">
 </head>
-<body class="app">
+<body class="app" data-view="nurse">
   <header class="top">
     <div class="brand">
       <a href="index.html">NurseFlow</a>
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Overview strip -->
-    <div class="ov">
+    <div class="ov" id="ov">
       <div class="cell"><div class="num">4<span style="font-size:1rem;color:var(--muted)">/9</span></div><div class="lab">Việc đã xong</div></div>
       <div class="cell"><div class="num">5</div><div class="lab">Việc còn lại</div></div>
       <div class="cell"><div class="num">08:15</div><div class="lab">Việc kế tiếp</div></div>
@@ -39,7 +39,7 @@
     <!-- Horizontal timeline (full width) -->
     <section class="tlwrap">
       <h2 class="panel-h">Lịch công việc trong ca</h2>
-      <div class="htl">
+      <div class="htl" id="tl">
         <div class="r">
           <div class="lab">Giờ</div>
           <div class="area axis">
@@ -79,7 +79,7 @@
       <!-- LEFT: subtask order -->
       <section class="orderpane">
         <h2 class="panel-h">Thứ tự thao tác</h2>
-        <div class="flow">
+        <div class="flow" id="order">
           <div class="grp concur">
             <div class="eyebrow">Có thể làm song song</div>
             <div class="step"><span class="idx">1.1</span>Chuẩn bị dụng cụ · BN A <span class="k">Việc 1</span></div>
@@ -100,7 +100,7 @@
       <section>
         <h2 class="panel-h">Hỏi &amp; đề xuất</h2>
         <div class="chat">
-          <div class="log">
+          <div class="log" id="chatlog">
             <div class="msg ai"><div class="who">AI</div><div class="bub">Chào chị An. Đây là kế hoạch ca sáng, đã được trưởng ca duyệt. Chị hỏi em bất cứ điều gì về thứ tự công việc nhé.</div></div>
             <div class="msg me"><div class="who">Bạn</div><div class="bub">Vì sao chuẩn bị cho Việc 2 (BN B) lại làm trước khi hoàn tất Việc 1?</div></div>
             <div class="msg ai"><div class="who">AI</div><div class="bub">Hai bước chuẩn bị (1.1 và 2.1) dùng chung khâu soạn dụng cụ, nên gộp làm song song để tiết kiệm thời gian. Sau đó mới hoàn tất từng việc — Việc 1 vẫn xong trước hạn 09:00.</div></div>
@@ -124,5 +124,7 @@
     <div>NurseFlow — bản nháp kế hoạch, luôn chờ/được trưởng ca duyệt</div>
     <div class="row"><a href="index.html">Màn hình</a><a href="lead.html">Màn hình trưởng ca</a></div>
   </footer>
+  <script src="demo-data.js"></script>
+  <script src="render.js"></script>
 </body>
 </html>

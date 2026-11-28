@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../style/style.css">
   <link rel="stylesheet" href="wireframe.css">
 </head>
-<body>
+<body data-view="lead">
   <header class="top">
     <div class="brand">
       <a href="index.html">NurseFlow</a>
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Overview strip -->
-    <div class="ov">
+    <div class="ov" id="ov">
       <div class="cell"><div class="num">3</div><div class="lab">Điều dưỡng trực</div></div>
       <div class="cell"><div class="num">24</div><div class="lab">Tổng công việc</div></div>
       <div class="cell"><div class="num">46%</div><div class="lab">Hoàn thành</div></div>
@@ -40,7 +40,7 @@
       <!-- LEFT: whole-shift timeline (everyone) -->
       <section>
         <h2 class="panel-h">Lịch cả ca — toàn bộ điều dưỡng</h2>
-        <div class="htl">
+        <div class="htl" id="tl">
           <div class="r">
             <div class="lab">Giờ</div>
             <div class="area axis">
@@ -89,7 +89,7 @@
         <h2 class="panel-h">Yêu cầu &amp; điều phối</h2>
         <p class="panel-sub">Duyệt đề xuất của điều dưỡng, hoặc gửi yêu cầu tới hệ thống.</p>
         <div class="chat">
-          <div class="log">
+          <div class="log" id="chatlog">
             <div class="req">
               <div class="who">Đề xuất · ĐD An</div>
               <p>Xin dời giờ nghỉ 10:00 → 10:30.</p>
@@ -119,5 +119,7 @@
     <div>NurseFlow — AI đề xuất, trưởng ca quyết định</div>
     <div class="row"><a href="index.html">Màn hình</a><a href="nurse.html">Màn hình điều dưỡng</a></div>
   </footer>
+  <script src="demo-data.js"></script>
+  <script src="render.js"></script>
 </body>
 </html>

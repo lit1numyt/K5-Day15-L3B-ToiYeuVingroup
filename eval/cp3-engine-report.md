@@ -65,9 +65,11 @@ và khu vực cố định. Cửa giờ và thứ tự bắt buộc lấy từ i
 ứng. Ca đã bắt đầu có task khóa/đang làm, nhiều khoảng nghỉ và task nhiều người cần
 schema riêng. Kết quả trên dữ liệu tổng hợp chỉ mô tả chất lượng lịch của các ca đã đo.
 
-Lượt hội thoại dùng AI thật `run-1@20261128-092154` đạt 17/20 ở bản trước khi nối CP-SAT.
-Luồng văn bản tự do hiện vẫn đi qua L1 và chưa được xác minh bằng solver và validator
-như luồng JSON. [Kết quả hội thoại](report.md) · [Tiêu chí CP3 của BTC](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/02-guide.md#b3-4)
+Lượt hội thoại dùng AI thật `run-1@20261128-092154` ghi 17/20 theo nhãn đã lưu ở bản trước
+khi nối CP-SAT. Lượt `run-2@20261128-095930` của Khoa ghi 14/20 với policy văn bản trực tiếp.
+Luồng văn bản dùng LLM theo thiết kế demo. Lịch JSON được kiểm bằng CP-SAT và validator.
+Các nhãn cần rà khi kết luận an toàn được ghi ở [báo cáo hội thoại](report.md).
+[Tiêu chí CP3 của BTC](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/02-guide.md#b3-4)
 
 ## 4. Tái lập
 

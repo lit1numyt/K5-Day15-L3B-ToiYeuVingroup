@@ -1,5 +1,13 @@
 # Data card — NurseFlow
 
+## Ca demo
+
+Khoa sinh ca tổng hợp với seed 7, gồm 5 điều dưỡng, 12 bệnh nhân và 20 công việc
+tại `data/demo/shift_5n_20t.json`. Roster, kỹ năng, thời lượng `given`, acuity/ADL và
+coverage là giả định kỹ thuật được khai báo trong `scripts/demo/build_demo.py`.
+Ca này phục vụ kiểm tích hợp và hiển thị wireframe. Metadata của bản xuất ghi
+`data_kind=synthetic`, seed, phương pháp lập lịch và kết quả validator.
+
 ## Preliminary CP3
 
 Lam và Kiên phụ trách lựa chọn nguồn và chuẩn bị dữ liệu phục vụ L3 theo kiến trúc của Khoa.

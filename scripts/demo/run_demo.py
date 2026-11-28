@@ -1,11 +1,11 @@
-"""NurseFlow — demo luồng lập kế hoạch ca (CHƯA có L2 CP-SAT).
+"""NurseFlow — demo luồng lập kế hoạch đầu ca qua L2 CP-SAT.
 
 Chạy một ca mẫu qua toàn bộ pipeline hiện có và in kết quả dễ đọc:
   [L3] estimate_duration  — điền thời lượng việc còn thiếu (given / lookup Simmons)
-  [Engine] answer()        — agent lập BẢN NHÁP kế hoạch (L2 = heuristic thay thế CP-SAT)
+  [Engine] answer()        — agent lập bản nháp bằng CP-SAT và validator
   [L4] classify_patient + baseline_allocate — taxonomy bệnh nhân + so với cách truyền thống
 
-Model ở chế độ fake (chưa nối API) — đủ để demo luồng. Chạy từ gốc repo:
+Provider lấy từ môi trường hoặc .env. Chạy từ gốc repo:
   python scripts/demo/run_demo.py
 """
 import json
@@ -15,7 +15,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "codebase"))
 
-from agent import answer                                  # noqa: E402  L1 (fake model)
+from agent import answer                                  # noqa: E402
+from ai import MODEL_PROVIDER                             # noqa: E402
 from baseline import baseline_allocate, classify_patient  # noqa: E402  L4
 from planning import validate_plan                        # noqa: E402
 from workload import estimate_duration                    # noqa: E402  L3
@@ -35,7 +36,7 @@ def main():
 
     print(LINE)
     print("NurseFlow · DEMO luồng lập kế hoạch ca")
-    print(f"(L2 CP-SAT chưa có → dùng heuristic thay thế; model = fake)")
+    print(f"L2 CP-SAT · model provider = {MODEL_PROVIDER}")
     print(LINE)
     print(f"Ca {shift['shift_id']} · khoa {shift['ward_id']} · {shift['shift_length_min']} phút · "
           f"{len(submitted['nurses'])} điều dưỡng · {len(submitted['patients'])} bệnh nhân · "
@@ -51,7 +52,7 @@ def main():
               f"  ({t.get('duration_source')}){flag}")
 
     # ── L4 taxonomy ─────────────────────────────────────────────────────
-    print(f"\n[L4] Phân loại bệnh nhân (taxonomy KMeans)")
+    print(f"\n[L4] Phân loại bệnh nhân")
     tier_name = {1: "nhẹ", 2: "trung bình", 3: "nặng"}
     for p in instance["patients"]:
         tax = classify_patient(p)
@@ -63,7 +64,10 @@ def main():
     out = json.loads(answer(json.dumps(instance, ensure_ascii=False))["output"])
     if out.get("status") != "draft":
         print(f"   status={out.get('status')} · {out.get('warnings') or out.get('missing_fields')}")
-        return
+        raise SystemExit(1)
+    validation = validate_plan(instance, out)
+    if not validation["valid"]:
+        raise SystemExit(str(validation["violations"]))
     types = {t["task_id"]: t["task_type"] for t in instance["tasks"]}
     by_nurse = {}
     for a in out["assignments"]:
@@ -81,7 +85,7 @@ def main():
     print(f"\n[L4] So với cách phân công truyền thống (cùng ca)")
     rows = [("Truyền thống — theo đầu bệnh nhân", baseline_allocate(instance, "count")),
             ("Truyền thống — acuity-weighted", baseline_allocate(instance, "weight")),
-            ("NurseFlow (heuristic thay L2)", out)]
+            ("NurseFlow (CP-SAT)", out)]
     print(f"   {'phương pháp':<36} {'CV':>7} {'peak':>7} {'overhead':>9}")
     for name, plan in rows:
         mm = plan.get("metrics") if plan.get("status") == "draft" else None

@@ -26,6 +26,9 @@ trước solver và dùng instance đã điền để validate; `DurationNeedInf
 Backend solver cần OR-Tools. L1 của Kiên gọi CP-SAT từ luồng JSON của `python run.py`,
 trả `method="cp_sat"` và thông tin solver. Cấu hình model theo `.env.example`. Lượt
 [đánh giá AI trước khi nối CP-SAT](eval/report.md) được lưu riêng với phép đo kỹ thuật L2.
+Demo của Khoa có luồng văn bản gọi LLM theo policy và luồng JSON lập lịch qua L3–L2–validator.
+Lệnh `python scripts/demo/build_demo.py` xuất lịch để mở hai wireframe điều dưỡng/trưởng ca.
+[Hướng dẫn demo và cấu hình](scripts/demo/README.md).
 Script đối chứng chạy hai baseline L4 của Khoa (count và acuity-weighted), CP-SAT và
 heuristic trên cùng 11 ca kỹ thuật, luôn tính lại metrics qua oracle; mỗi lần sinh `eval/l2-comparison-N.json` và CSV mới.
 L4 giữ chính sách một nurse/patient; đó không phải hard constraint của CP-SAT.

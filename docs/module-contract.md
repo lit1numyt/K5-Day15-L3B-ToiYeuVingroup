@@ -26,7 +26,7 @@
 ```mermaid
 flowchart TD
     U["Trưởng ca (text / yêu cầu chỉnh)"] --> L1
-    L1["L1 · answer() — Kiên<br/>parse → check → estimate → solve → validate → explain<br/>+ vòng sửa hội thoại · CHỈ bản nháp, người duyệt"]
+    L1["L1 · answer()<br/>JSON → check → estimate → solve → validate → explain<br/>Văn bản → LLM theo policy của Khoa<br/>CHỈ bản nháp, người duyệt"]
     L1 -- "call_model (ai.py, model THẬT)" --> M(("LLM"))
     L1 -- "check_input / estimate_duration" --> L3["L3 · estimate_duration — Tiệp<br/>điền est_duration_min có nguồn"]
     L1 -- "solve_allocation" --> L2["L2 · CP-SAT — Lam<br/>kế hoạch KHẢ THI (hard/soft)"]
@@ -36,10 +36,15 @@ flowchart TD
     L4["L4 · baseline_allocate — Khoa<br/>phân theo taxonomy bệnh nhân"] -. "cùng instance → so sánh" .- V
 ```
 
-Luồng một lượt: `answer(text)` → parse JSON + trạng thái hội thoại → **check_input** (đủ dữ liệu bắt
+Luồng JSON một lượt đi qua `answer(text)` → parse JSON → **check_input** (đủ dữ liệu bắt
 buộc chưa?) → **estimate_duration** (điền phút còn thiếu, có nguồn) → **solve_allocation** (CP-SAT ra
 nháp) → **validate_plan** (tính lại hard checks + metrics) → giải thích → trả envelope. L4 chạy trên
 đúng instance đó để lấy số so sánh cho pitch.
+
+Luồng văn bản theo thiết kế demo của Khoa gọi LLM trực tiếp với policy về kỹ năng,
+coverage, hỏi lại khi thiếu dữ liệu và trưởng ca duyệt. Lượt đánh giá hội thoại ghi
+nhận câu trả lời văn bản của nhánh này. Luồng lập lịch JSON có kiểm định ràng buộc
+bằng L3, CP-SAT và validator. Giao diện nạp bản lịch đã xuất từ JSON.
 
 ## 2. Kiểu dữ liệu dùng chung
 
@@ -95,7 +100,8 @@ duration đã cho nhưng sai vẫn là lỗi. Sau L3/L2 dùng mặc định `req
 một nurse (task + travel + break) không chồng nhau.
 
 ### 2.3 `envelope` — cái `answer()` trả ra harness
-`answer()` luôn trả `{"output": <json string>}`. Chuỗi JSON đó mang `status`, `mode="cp3"`,
+`answer()` trả `{"output": str}`. Với input văn bản, `output` là câu trả lời của LLM.
+Với input JSON object, `output` là chuỗi JSON mang `status`, `mode="cp3"`,
 `approval_required=true`, `warnings[]`; `draft` thêm `assignments/breaks/unassigned_tasks/validation/
 metrics/explanation`; `need_info` thêm `missing_fields[]`. Harness chỉ đọc text → KHÔNG truyền case id
 hay "đáp án mẫu" vào model.
@@ -163,10 +169,11 @@ căn cứ. → Đây chính là metric `giai_thich_co_can_cu`.
 
 ## 4. Bất biến toàn hệ (mọi module tuân thủ)
 
-- **Chỉ bản nháp.** Không module nào tự áp dụng/gửi ra ngoài; `approval_required=true` ở mọi output.
+- **Chỉ bản nháp.** Mọi lịch JSON có `approval_required=true`. Policy hội thoại yêu cầu
+  nêu rõ trưởng ca duyệt trước khi áp dụng. Việc áp dụng thuộc người có thẩm quyền.
 - **Không bịa.** Số liệu/trích dẫn/nhân sự không có nguồn → không tạo. Thiếu dữ liệu bắt buộc →
   `need_info`, không đoán (AGENTS.md). Phân biệt rõ với *ước lượng có nguồn* của L3 (§3.3).
-- **Validator thắng.** Trạng thái `draft` chỉ hợp lệ khi `validate_plan` nói `valid`.
+- **Validator thắng trong luồng JSON.** Trạng thái `draft` chỉ hợp lệ khi `validate_plan` nói `valid`.
 - **Đơn vị thống nhất** (§2.1). Lỗi kỹ thuật để harness ghi, không hoá trang thành công.
 - **Không chạm file khoá** (§6).
 

@@ -8,10 +8,22 @@
 
 | Lượt | Run ID | Đạt / tổng | % | thuong | kho | tu_choi | So với chuẩn "đạt" |
 |---|---|---|---|---|---|---|---|
-| 1 | `run-1@20261128-092154` | 17/20 | 85% | 2/4 | 12/13 | 3/3 | đạt (`≥80%`, an toàn cứng & từ chối đúng 100%) |
-| 2 | | __/__ | | __/__ | __/__ | __/__ | *(chưa chạy — thực hiện cải tiến trước CP4)* |
+| 1 | `run-1@20261128-092154` | 17/20 | 85% | 2/4 | 12/13 | 3/3 | Điểm theo nhãn đã lưu; phát hiện vi phạm kỹ năng ở B01 khi rà lại. |
+| 2 | `run-2@20261128-095930` | 14/20 | 70% | 3/4 | 8/13 | 3/3 | Điểm theo nhãn đã lưu; B01 cần rà lại điều kiện kỹ năng. |
 
 Kết quả từng câu: [`eval/run-1.csv`](run-1.csv). Trace: `traces/run-1.jsonl`. Model chạy lượt 1: `gemini-3.1-flash-lite` (trung bình `1.0` lần gọi model, `1466` token vào / `503` token ra, `0` lỗi API).
+
+Lượt 2 của Khoa dùng `gpt-4o-mini` và nhánh văn bản gọi model trực tiếp theo policy.
+Cả hai lượt có một lời gọi model mỗi câu và 0 lời gọi tool. Số trong bảng tái lập bằng
+`score` từ nhãn đang lưu. Hai lượt có model và luồng hội thoại khác nhau. Các phép kiểm
+tích hợp sau đó dùng provider `fake` và kiểm HTTP bằng mock.
+[Lượt 2](run-2.csv) · [Trace lượt 2](../traces/run-2.jsonl).
+
+Khi đối chiếu lại, B01 lượt 1 giao vệ sinh cho N2 chỉ có kỹ năng tiêm. B01 lượt 2 giao
+vệ sinh cho tất cả điều dưỡng trong khi đầu vào chưa xác nhận kỹ năng đó. B08 lượt 1
+suy vô nghiệm từ hai công việc cùng deadline dù thiếu thời lượng. Các quan sát này cần
+được tính đến khi rà nhãn và kết luận theo metric. Kết quả hiện tại chưa xác nhận đạt
+điều kiện an toàn cứng 100% trong §7. Các score đã lưu mô tả các lượt đo tương ứng.
 
 ## 2. Lỗi lượt 1 — gom thành nhóm có tên
 

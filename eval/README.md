@@ -4,7 +4,8 @@
 
 | Phép kiểm | Bộ ca và kết quả | Bằng chứng |
 |---|---|---|
-| Hội thoại với AI thật, trước khi nối CP-SAT | 20 câu, `run-1@20261128-092154`, Gemini 3.1 Flash-Lite, 17/20 đạt | [Báo cáo hội thoại](report.md) · [Kết quả từng câu](run-1.csv) |
+| Hội thoại với AI thật, trước khi nối CP-SAT | 20 câu, `run-1@20261128-092154`, Gemini 3.1 Flash-Lite, 17/20 theo nhãn đã lưu | [Báo cáo hội thoại](report.md) · [Kết quả từng câu](run-1.csv) |
+| Hội thoại trực tiếp theo policy của Khoa | 20 câu, `run-2@20261128-095930`, GPT-4o mini, 14/20 theo nhãn đã lưu | [Kết quả từng câu](run-2.csv) · [Lưu ý chấm nhãn](report.md) |
 | Đối chứng kỹ thuật L2 | 11 ca tổng hợp × 4 phương pháp, 8 lịch CP-SAT hợp lệ và 3 ca vô nghiệm có chứng cứ | [Báo cáo L2](cp3-engine-report.md) · [Kết quả từng ca](l2-comparison-3.csv) |
 
 ## Hồ sơ CP2

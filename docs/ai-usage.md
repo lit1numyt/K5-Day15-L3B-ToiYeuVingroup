@@ -30,3 +30,8 @@ cách chấm lại phép so. L3 của Tiệp được kiểm ở giao diện tí
 | Phần CP3 | Công cụ hỗ trợ | Công việc và cách kiểm | Phụ trách |
 |---|---|---|---|
 | Nối API model & luồng L1 | Antigravity / Gemini | Hỗ trợ viết nhánh gọi API (`anthropic`/`openai`/`gemini`/`ollama`) trong `codebase/ai.py`, tích hợp L3 `estimate_duration` vào `codebase/tools.py` & `codebase/agent.py`, thêm bộ điều phối hội thoại và hậu kiểm an toàn. Đã kiểm bằng 146 unit test (`tests/`), 15 fixture CP2, `run.py check` và lượt eval thật `eval/run-1.csv` (17/20 = 85%). | Kiên |
+
+Khoa thiết kế và triển khai demo xuất lịch ra wireframe, policy hội thoại trực tiếp và lượt
+đánh giá GPT-4o mini trên nhánh demo. Lam hỗ trợ tích hợp với L3, L2 CP-SAT và validator hiện hành,
+đối chiếu số liệu và nội dung giao diện. Codex hỗ trợ review, sửa lỗi tích hợp và chạy kiểm tra.
+Phạm vi đo và lưu ý chấm nhãn được trình bày trong [báo cáo đánh giá](../eval/report.md).
