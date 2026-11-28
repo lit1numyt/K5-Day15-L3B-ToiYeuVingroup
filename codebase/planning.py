@@ -1,4 +1,4 @@
-"""Contract/validator CP2. Không gọi model, không áp dụng kế hoạch."""
+"""Input checks and independent planning validator; no external side effects."""
 import statistics
 
 
@@ -14,7 +14,7 @@ def overlap(a, b):
     return max(a[0], b[0]) < min(a[1], b[1])
 
 
-def input_issues(instance):
+def input_issues(instance, *, require_duration=True):
     """Trả tên dữ liệu cần bổ sung; không suy diễn kỹ năng/y lệnh/thời lượng."""
     if not isinstance(instance, dict):
         return ["input: cần JSON object"]
@@ -26,7 +26,7 @@ def input_issues(instance):
     if not integer(horizon, 1):
         return ["shift.shift_length_min: cần số phút nguyên dương"]
     if horizon > 1440:
-        return ["CP2 hỗ trợ một ca tối đa 1440 phút"]
+        return ["Hỗ trợ một ca tối đa 1440 phút"]
     for key in ("shift_id", "ward_id"):
         if not isinstance(shift.get(key), str) or not shift[key].strip():
             errors.append("shift." + key + ": cần mã định danh")
@@ -48,6 +48,14 @@ def input_issues(instance):
         errors.append("shift.break_policy: cần độ dài/cửa nghỉ hợp lệ")
     if not integer(shift.get("room_switch_min")):
         errors.append("shift.room_switch_min: cần số phút nguyên không âm")
+    equipment = shift.get("equipment_capacity", {})
+    if not (isinstance(equipment, dict) and all(
+            isinstance(key, str) and key.strip() and integer(value, 1)
+            for key, value in equipment.items())):
+        errors.append("shift.equipment_capacity: cần ID và capacity nguyên dương")
+        equipment = {}
+    if shift.get("phase_structure"):
+        errors.append("shift.phase_structure: cần biểu diễn bằng task windows/precedence")
     rules = shift.get("coverage_rules")
     if not isinstance(rules, list) or not rules:
         errors.append("shift.coverage_rules: cần quy tắc coverage")
@@ -73,12 +81,25 @@ def input_issues(instance):
             errors.append("patients.%s.ward_id: khác khoa" % patient["patient_id"])
         if not all(isinstance(patient.get(k), str) and patient[k] for k in ("room", "zone")):
             errors.append("patients.%s: cần room/zone" % patient["patient_id"])
+    task_ids = {task["task_id"] for task in instance["tasks"]}
+    predecessors = {}
     for task in instance["tasks"]:
         prefix = "tasks." + task["task_id"]
-        for unsupported in ("precedence_task_id", "equipment_required", "synchronization"):
-            if task.get(unsupported):
-                errors.append(prefix + "." + unsupported + ": CP2 chưa hỗ trợ, cần review")
-        if not integer(task.get("est_duration_min"), 1):
+        if task.get("synchronization"):
+            errors.append(prefix + ".synchronization: chưa hỗ trợ, cần review")
+        predecessor = task.get("precedence_task_id")
+        if predecessor is not None:
+            if not isinstance(predecessor, str) or predecessor not in task_ids or predecessor == task["task_id"]:
+                errors.append(prefix + ".precedence_task_id: cần ID task trước hợp lệ")
+            else:
+                predecessors[task["task_id"]] = predecessor
+        resources = task.get("equipment_required", [])
+        if not (isinstance(resources, list)
+                and all(isinstance(e, str) and e in equipment for e in resources)
+                and len(resources) == len(set(map(str, resources)))):
+            errors.append(prefix + ".equipment_required: cần ID duy nhất và capacity đã cho")
+        if ((require_duration or "est_duration_min" in task)
+                and not integer(task.get("est_duration_min"), 1)):
             errors.append(prefix + ".est_duration_min: cần duration được cung cấp/xác nhận")
         if not (isinstance(task.get("required_skill"), list) and task["required_skill"]
                 and all(isinstance(s, str) and s for s in task["required_skill"])):
@@ -94,6 +115,17 @@ def input_issues(instance):
             if not integer(task["required_skill_level"]) or any(
                     not integer(n.get("qualification_level")) for n in instance["nurses"]):
                 errors.append(prefix + ": cần qualification_level để kiểm required_skill_level")
+        if "compat_group_key" in task and not isinstance(task["compat_group_key"], str):
+            errors.append(prefix + ".compat_group_key: cần chuỗi")
+    for task_id in predecessors:
+        visited = set()
+        cursor = task_id
+        while cursor in predecessors:
+            if cursor in visited:
+                errors.append("tasks.precedence_task_id: chu trình không hợp lệ")
+                break
+            visited.add(cursor)
+            cursor = predecessors[cursor]
     return errors
 
 
@@ -120,10 +152,14 @@ def validate_plan(instance, plan):
     if (not mandatory.issubset(set(map(str, assigned_ids)))
             or len(assigned_ids) != len(set(map(str, assigned_ids)))):
         errors.append("task bắt buộc thiếu/trùng")
+    if plan.get("unassigned_tasks", []) != []:
+        errors.append("draft không được có task chưa phân công")
     timelines = {n: [] for n in nurses}
     task_rows = {n: [] for n in nurses}
     loads = {n: 0 for n in nurses}
     nurse_breaks = {n: [] for n in nurses}
+    task_times = {}
+    resource_events = {key: [] for key in shift.get("equipment_capacity", {})}
     for row in assignments + breaks:
         nurse_id, start, end = row.get("nurse_id"), row.get("start"), row.get("end")
         if not isinstance(nurse_id, str) or nurse_id not in nurses or not interval(start, end, horizon):
@@ -153,6 +189,22 @@ def validate_plan(instance, plan):
             errors.append(task_id + ": ngoài time window")
         loads[nurse_id] += end - start
         task_rows[nurse_id].append((start, end, task))
+        task_times[task_id] = (start, end)
+        for resource in task.get("equipment_required", []):
+            resource_events[resource].extend([(start, 1), (end, -1)])
+    for task_id, task in tasks.items():
+        predecessor = task.get("precedence_task_id")
+        if predecessor and predecessor in task_times and task_id in task_times:
+            if task_times[predecessor][1] > task_times[task_id][0]:
+                errors.append(task_id + ": vi phạm precedence")
+    for resource, events in resource_events.items():
+        active = 0
+        # At equal timestamps releases precede acquisitions: intervals are [s, e).
+        for _, delta in sorted(events):
+            active += delta
+            if active > shift["equipment_capacity"][resource]:
+                errors.append(resource + ": vượt equipment_capacity")
+                break
     overhead = 0
     for nurse_id, nurse in nurses.items():
         ordered = sorted(task_rows[nurse_id], key=lambda row: row[0])

@@ -63,6 +63,21 @@ earliest_start, deadline, mandatory) · `request` (action=plan).
 Thời gian: **phút nguyên tính từ đầu ca**, interval `[start, end)`, `deadline` = mốc hoàn thành muộn
 nhất. Một ca ≤ 1440 phút. Nurse vắng → **không có trong `nurses[]`** (không có cờ "absent").
 
+**Bổ sung L2 trên nhánh triển khai (Khoa review khi tích hợp):**
+
+| Trường | Ngữ nghĩa và kiểm |
+|---|---|
+| `task.precedence_task_id` (tùy chọn/null) | Task phải có trong cùng instance, không tự tham chiếu/chu trình; task sau bắt đầu khi task trước hoàn tất. Áp dụng cả khi khác nurse. |
+| `task.equipment_required[]`, `shift.equipment_capacity{}` | Mỗi task dùng một đơn vị mỗi ID thiết bị trong `[start,end)`. Capacity nguyên dương phải được cung cấp; thiếu thì hỏi lại. Không mặc định tài nguyên vô hạn. |
+| `task.compat_group_key` (tùy chọn) | Nhãn nhóm tương thích để giảm số lần đổi nhóm; không thay skill, duration, precedence hoặc kiểm tài nguyên. |
+
+Phase biểu diễn bằng task chuẩn bị/chăm sóc/bàn giao có duration, windows và precedence đã
+cho; recovery là break riêng của mỗi nurse theo policy. Không tự tạo task hoặc phút chuẩn bị.
+Giữ một block nghỉ và zone cố định. Ward task không gắn patient, synchronization nhiều staff,
+hoặc `phase_structure` riêng chưa có schema runtime: hỏi bổ sung thay vì bỏ qua.
+`input_issues(instance, require_duration=False)` kiểm trước L3, chỉ cho phép thiếu duration;
+duration đã cho nhưng sai vẫn là lỗi. Sau L3/L2 dùng mặc định `require_duration=True`.
+
 ### 2.2 `plan` — kết quả một lượt lập
 ```jsonc
 {
@@ -91,8 +106,9 @@ hay "đáp án mẫu" vào model.
 - **Tiền điều kiện:** `instance` đã qua `check_input` (không còn trường bắt buộc thiếu) và mọi task có
   `est_duration_min`.
 - **Hậu điều kiện:** trả `plan`. Nếu `status="draft"` thì kế hoạch **PHẢI pass `validate_plan`** (feasible).
-- **Hứa:** không bao giờ bỏ ràng buộc cứng để "ra cho có". Không tìm ra → `unknown`; chứng minh được
-  không ai đáp ứng task bắt buộc → `infeasible` (kèm lý do). Không tự áp dụng, không gọi ra ngoài.
+- **Hứa:** không bao giờ bỏ ràng buộc cứng để "ra cho có". Không tìm ra → `unknown`; chứng cứ trực tiếp
+  không có người đáp ứng task hoặc CP-SAT chứng minh mô hình vô nghiệm → `infeasible` (kèm lý do).
+  Lỗi `MODEL_INVALID` là lỗi kỹ thuật, không phải thiếu nguồn lực. Không tự áp dụng, không gọi ra ngoài.
 - **Nội bộ tự do:** CP-SAT, trọng số mềm (cân bằng/overhead/gom việc) — **không khoá ở contract**
   (metric_spec cũng không khoá trọng số). CP2 heuristic ghim nurse vào `home_zone`; nếu CP3 cho đa zone
   thì phải cập nhật `validate_plan` tương ứng (§3.5) — nhưng hai bất biến an toàn ở §3.5 không được nới.
@@ -160,7 +176,7 @@ căn cứ. → Đây chính là metric `giai_thich_co_can_cu`.
 |---|---|---|
 | `draft` | có kế hoạch khả thi, đã qua validator | assignments, breaks, validation, metrics, explanation |
 | `need_info` | thiếu dữ liệu bắt buộc (cấu trúc hoặc duration không ước được) | `missing_fields[]` + câu hỏi |
-| `infeasible` | chứng cứ trực tiếp: không nurse nào đáp ứng task bắt buộc | lý do + đề xuất nới |
+| `infeasible` | chứng cứ trực tiếp hoặc CP-SAT chứng minh vô nghiệm theo ràng buộc input | lý do; người dùng quyết định chỉnh input |
 | `unknown` | engine không tìm ra / validator bác — CHƯA chứng minh vô nghiệm | warnings |
 | `refused` | action ngoài quyền / đòi bỏ hard-constraint / tự áp dụng / quyết định lâm sàng | lý do + chỉ người có thẩm quyền |
 

@@ -1,5 +1,6 @@
 # Keep checksum inputs and generated artifacts stable across Git checkouts.
 data/cp2-cases.json text eol=lf
+data/cp3-engine-cases.json text eol=lf
 data/preliminary/*.json text eol=lf
 data/processed/*.csv text eol=lf
 data/processed/*.json text eol=lf
