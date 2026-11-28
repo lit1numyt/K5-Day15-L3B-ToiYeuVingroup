@@ -40,46 +40,47 @@
       <!-- LEFT: whole-shift timeline (everyone) -->
       <section>
         <h2 class="panel-h">Lịch cả ca — toàn bộ điều dưỡng</h2>
-        <p class="panel-sub">Mỗi hàng là một điều dưỡng; khối là công việc theo giờ.</p>
-        <div class="gantt"><div class="grid">
-          <div class="head">
-            <span class="who">Điều dưỡng</span>
-            <div class="ticks">
-              <span style="left:0">07</span><span style="left:12.5%">08</span><span style="left:25%">09</span>
-              <span style="left:37.5%">10</span><span style="left:50%">11</span><span style="left:62.5%">12</span>
-              <span style="left:75%">13</span><span style="left:87.5%">14</span>
+        <div class="htl">
+          <div class="r">
+            <div class="lab">Giờ</div>
+            <div class="area axis">
+              <span class="hh" style="left:0">07:00</span>
+              <span class="hh" style="left:25%">09:00</span>
+              <span class="hh" style="left:50%">11:00</span>
+              <span class="hh" style="left:75%">13:00</span>
+              <span class="hh end">15:00</span>
             </div>
           </div>
-          <div class="row">
-            <span class="who">N1 · An</span>
-            <div class="track">
-              <div class="bar" style="left:0;width:6.25%">Nhận ca</div>
-              <div class="bar" style="left:6.25%;width:18.75%">BN A</div>
-              <div class="bar break" style="left:37.5%;width:6.25%">Nghỉ</div>
-              <div class="bar" style="left:50%;width:12.5%">BN C</div>
+          <div class="r">
+            <div class="lab">An</div>
+            <div class="area track">
+              <div class="bar" style="left:0;width:6.25%" title="Nhận ca 07:00–07:30">Nhận ca</div>
+              <div class="bar" style="left:6.25%;width:18.75%" title="BN A · 07:30–09:00">BN A</div>
+              <div class="bar break" style="left:37.5%;width:6.25%" title="Nghỉ 10:00–10:30"></div>
+              <div class="bar" style="left:50%;width:12.5%" title="BN C · 11:00–12:00">BN C</div>
             </div>
           </div>
-          <div class="row">
-            <span class="who">N2 · Bình</span>
-            <div class="track">
-              <div class="bar" style="left:6.25%;width:25%">BN D</div>
-              <div class="bar break" style="left:31.25%;width:6.25%">Nghỉ</div>
-              <div class="bar" style="left:43.75%;width:25%">BN E</div>
+          <div class="r">
+            <div class="lab">Bình</div>
+            <div class="area track">
+              <div class="bar" style="left:6.25%;width:25%" title="BN D · 07:30–09:30">BN D</div>
+              <div class="bar break" style="left:31.25%;width:6.25%" title="Nghỉ 09:30–10:00"></div>
+              <div class="bar" style="left:43.75%;width:25%" title="BN E · 10:30–12:30">BN E</div>
             </div>
           </div>
-          <div class="row">
-            <span class="who">N3 · Chi</span>
-            <div class="track">
-              <div class="bar" style="left:12.5%;width:25%">BN F</div>
-              <div class="bar break" style="left:43.75%;width:6.25%">Nghỉ</div>
-              <div class="bar" style="left:56.25%;width:25%">BN G</div>
+          <div class="r">
+            <div class="lab">Chi</div>
+            <div class="area track">
+              <div class="bar" style="left:12.5%;width:25%" title="BN F · 08:00–10:00">BN F</div>
+              <div class="bar break" style="left:43.75%;width:6.25%" title="Nghỉ 10:30–11:00"></div>
+              <div class="bar" style="left:56.25%;width:25%" title="BN G · 11:30–13:30">BN G</div>
             </div>
           </div>
-        </div></div>
+        </div>
         <div class="legend-row">
           <span><i class="swatch"></i>Công việc</span>
           <span><i class="swatch break"></i>Giờ nghỉ</span>
-          <span>Cuộn ngang để xem hết ca</span>
+          <span>Mỗi hàng là một điều dưỡng</span>
         </div>
       </section>
 

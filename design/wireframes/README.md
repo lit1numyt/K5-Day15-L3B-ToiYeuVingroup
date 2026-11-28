@@ -13,12 +13,13 @@ design/wireframes/lead.html    → màn hình trưởng ca
 ```
 
 ## Các màn hình
-- **Điều dưỡng (`nurse.html`)** — xem ca cá nhân:
+- **Điều dưỡng (`nurse.html`)** — xem ca cá nhân, **gói gọn trong một màn hình** (khoá viewport ở ≥64rem,
+  dưới mức đó cuộn bình thường):
   - *Dải tổng quan* ngang trên cùng (đã xong / còn lại / việc kế / thời gian còn lại / giờ nghỉ).
-  - *Nửa trái:* lịch ca dạng lịch (3 ca chuẩn, mock hiển thị ca sáng 07:00–15:00). Khối việc đặt theo giờ;
-    **việc làm song song nằm cạnh nhau** (hai làn). Dưới là *thứ tự thao tác* xen kẽ `1.1 → 2.1 → 1.2 → 2.2`.
-  - *Nửa phải:* chat đơn giản — hỏi AI về cách sắp xếp, hoặc **đề xuất thay đổi** (gửi trưởng ca duyệt).
-    Điều dưỡng **không** tự áp dụng thay đổi.
+  - *Timeline ngang* (toàn chiều rộng): trục giờ theo ca (3 ca chuẩn; mock là ca sáng 07:00–15:00), khối việc
+    đặt theo giờ trên **hai làn** — việc làm song song nằm ở hai làn khác nhau.
+  - *Bên dưới, hai cột:* trái là *thứ tự thao tác* xen kẽ `1.1 → 2.1 → 1.2 → 2.2`; phải là chat đơn giản —
+    hỏi AI, hoặc **đề xuất thay đổi** (gửi trưởng ca duyệt). Điều dưỡng **không** tự áp dụng thay đổi.
 - **Trưởng ca (`lead.html`)** — đơn giản hơn:
   - *Dải tổng quan* (điều dưỡng trực / tổng việc / % hoàn thành / yêu cầu chờ duyệt / coverage).
   - *Nửa trái:* lịch cả ca cho **toàn bộ điều dưỡng** (mỗi hàng một người, dạng gantt).
@@ -39,5 +40,9 @@ chat nêu căn cứ cụ thể (khớp metric `giai_thich_co_can_cu`).
 
 ## Bàn giao cho L1
 Tái dùng `../../style/style.css` + `wireframe.css`. Các component đã đặt tên class: `.ov` (dải tổng quan),
-`.board` (chia 2 cột), `.cal`/`.ev` (lịch điều dưỡng + khối việc), `.flow` (thứ tự thao tác), `.chat`/`.msg`
-(chat), `.gantt`/`.bar` (lịch cả ca), `.req` (thẻ yêu cầu chờ duyệt).
+`.board` (chia 2 cột), `.htl` + `.bar` (timeline ngang — dùng chung cho cả hai màn hình: nurse có 2 làn,
+lead có một hàng mỗi điều dưỡng), `.flow` (thứ tự thao tác), `.chat`/`.msg` (chat), `.req` (thẻ yêu cầu chờ
+duyệt). Trang điều dưỡng khoá gọn một màn hình bằng `body.app` (chỉ ở desktop ≥64rem).
+
+Trong `.htl`, mỗi khối việc đặt bằng `left`/`width` theo **phần trăm của cả ca** (vd ca 8 giờ → 1 giờ = 12.5%),
+nên không có phép tính pixel dễ lệch. Khi dựng thật: `left = (bắt đầu − đầu ca)/độ dài ca`, `width = thời lượng/độ dài ca`.

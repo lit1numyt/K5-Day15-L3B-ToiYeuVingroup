@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../style/style.css">
   <link rel="stylesheet" href="wireframe.css">
 </head>
-<body>
+<body class="app">
   <header class="top">
     <div class="brand">
       <a href="index.html">NurseFlow</a>
@@ -36,33 +36,49 @@
       <div class="cell"><div class="num">10:00</div><div class="lab">Giờ nghỉ</div></div>
     </div>
 
-    <div class="board">
-      <!-- LEFT: timeline + subtask order -->
-      <section>
-        <h2 class="panel-h">Lịch công việc trong ca</h2>
-        <p class="panel-sub">Kế hoạch do AI đề xuất, đã được trưởng ca duyệt. Việc chồng nhau = có thể làm song song.</p>
-        <div class="cal">
-          <div class="axis">
-            <span>07:00</span><span>08:00</span><span>09:00</span><span>10:00</span>
-            <span>11:00</span><span>12:00</span><span>13:00</span><span>14:00</span>
-          </div>
-          <div class="lanes">
-            <div class="ev" style="top:0;height:28px;left:1%;width:97%"><div class="nm">Nhận bàn giao ca</div></div>
-            <div class="ev" style="top:28px;height:28px;left:1%;width:47%"><div class="nm">1.1 Chuẩn bị · Việc 1</div><div class="t">BN A · 07:30</div></div>
-            <div class="ev" style="top:42px;height:28px;left:51%;width:47%"><div class="nm">2.1 Chuẩn bị · Việc 2</div><div class="t">BN B · 07:45</div></div>
-            <div class="ev" style="top:70px;height:42px;left:1%;width:97%"><div class="nm">1.2 Hoàn tất Việc 1</div><div class="t">BN A · 08:15–09:00</div></div>
-            <div class="ev" style="top:126px;height:42px;left:1%;width:97%"><div class="nm">2.2 Hoàn tất Việc 2</div><div class="t">BN B · 09:00–09:45</div></div>
-            <div class="ev break" style="top:196px;height:28px;left:1%;width:97%"><div class="nm">Nghỉ (được bảo vệ)</div><div class="t">10:00–10:30</div></div>
-            <div class="ev" style="top:280px;height:56px;left:1%;width:97%"><div class="nm">Thay băng · BN C</div><div class="t">11:00–12:00</div></div>
+    <!-- Horizontal timeline (full width) -->
+    <section class="tlwrap">
+      <h2 class="panel-h">Lịch công việc trong ca</h2>
+      <div class="htl">
+        <div class="r">
+          <div class="lab">Giờ</div>
+          <div class="area axis">
+            <span class="hh" style="left:0">07:00</span>
+            <span class="hh" style="left:25%">09:00</span>
+            <span class="hh" style="left:50%">11:00</span>
+            <span class="hh" style="left:75%">13:00</span>
+            <span class="hh end">15:00</span>
           </div>
         </div>
-        <div class="legend-row">
-          <span><i class="swatch"></i>Công việc</span>
-          <span><i class="swatch break"></i>Giờ nghỉ được bảo vệ</span>
-          <span>Khối cạnh nhau = làm song song</span>
+        <div class="r">
+          <div class="lab">Làn 1</div>
+          <div class="area track">
+            <div class="bar" style="left:0;width:6.25%" title="Nhận bàn giao ca · 07:00–07:30">Nhận ca</div>
+            <div class="bar" style="left:6.25%;width:6.25%" title="1.1 Chuẩn bị Việc 1 · BN A · 07:30–08:00">1.1 Chuẩn bị</div>
+            <div class="bar" style="left:15.625%;width:9.375%" title="1.2 Hoàn tất Việc 1 · BN A · 08:15–09:00">1.2 Hoàn tất V1</div>
+            <div class="bar break" style="left:37.5%;width:6.25%" title="Nghỉ được bảo vệ · 10:00–10:30"></div>
+            <div class="bar" style="left:50%;width:12.5%" title="Thay băng · BN C · 11:00–12:00">Thay băng C</div>
+          </div>
         </div>
+        <div class="r">
+          <div class="lab">Làn 2</div>
+          <div class="area track">
+            <div class="bar" style="left:9.375%;width:6.25%" title="2.1 Chuẩn bị Việc 2 · BN B · 07:45–08:15">2.1 Chuẩn bị</div>
+            <div class="bar" style="left:25%;width:9.375%" title="2.2 Hoàn tất Việc 2 · BN B · 09:00–09:45">2.2 Hoàn tất V2</div>
+          </div>
+        </div>
+      </div>
+      <div class="legend-row">
+        <span><i class="swatch"></i>Công việc</span>
+        <span><i class="swatch break"></i>Giờ nghỉ được bảo vệ</span>
+        <span>Hai làn = việc có thể làm song song</span>
+      </div>
+    </section>
 
-        <h3 class="side-label" style="margin-top:2rem">Thứ tự thao tác</h3>
+    <div class="board">
+      <!-- LEFT: subtask order -->
+      <section class="orderpane">
+        <h2 class="panel-h">Thứ tự thao tác</h2>
         <div class="flow">
           <div class="grp concur">
             <div class="eyebrow">Có thể làm song song</div>
@@ -83,7 +99,6 @@
       <!-- RIGHT: chat -->
       <section>
         <h2 class="panel-h">Hỏi &amp; đề xuất</h2>
-        <p class="panel-sub">Hỏi AI về cách sắp xếp, hoặc đề xuất thay đổi (gửi trưởng ca duyệt).</p>
         <div class="chat">
           <div class="log">
             <div class="msg ai"><div class="who">AI</div><div class="bub">Chào chị An. Đây là kế hoạch ca sáng, đã được trưởng ca duyệt. Chị hỏi em bất cứ điều gì về thứ tự công việc nhé.</div></div>
