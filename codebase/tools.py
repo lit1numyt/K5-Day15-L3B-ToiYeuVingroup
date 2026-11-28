@@ -1,25 +1,29 @@
-"""Planning tools; only return drafts and data, never apply/send a schedule."""
+"""Công cụ điều phối NurseFlow; chỉ xử lý dữ liệu và tạo bản nháp, không side effect ra ngoài."""
 from planning import input_issues, validate_plan as check_plan
 from tracing import tool
+from workload import estimate_duration as l3_estimate_duration
 
 
 @tool
-def estimate_workload(instance):
-    """estimate_workload · input dict ca · output lỗi/giữ duration · không side effect.
+def check_input(instance, require_duration: bool = True):
+    """check_input · input (instance dict, require_duration bool) · output list[str] lỗi thiếu trường · không side effect."""
+    return input_issues(instance, require_duration=require_duration)
 
-    CP2 dùng duration đã cung cấp; chưa có lookup được duyệt để tự điền phút.
-    """
-    return input_issues(instance)
+
+@tool
+def estimate_duration(instance):
+    """estimate_duration · input instance dict · output bản sao instance đủ est_duration_min + duration_source · không side effect."""
+    return l3_estimate_duration(instance)
 
 
 @tool
 def solve_allocation(instance):
-    """solve_allocation · input ca có duration · output CP-SAT plan · không side effect."""
+    """solve_allocation · input instance hợp lệ · output lịch dự thảo L2 · không side effect."""
     from cp_sat_engine import solve_allocation as solve
     return solve(instance)
 
 
 @tool
 def validate_plan(instance, plan):
-    """validate_plan · input ca+lịch · output hard checks/metrics · không side effect."""
+    """validate_plan · input (instance, plan) · output {valid, violations, metrics} · không side effect."""
     return check_plan(instance, plan)

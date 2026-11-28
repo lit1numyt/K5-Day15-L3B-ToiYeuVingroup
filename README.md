@@ -23,10 +23,9 @@ API vẫn là `tools.solve_allocation(instance)` và `planning.validate_plan(ins
 duration sai nếu đã được cung cấp. Khi thiếu duration, L1 gọi `workload.estimate_duration`
 trước solver và dùng instance đã điền để validate; `DurationNeedInfo` trả về bước hỏi lại.
 [API và điều kiện tra duration L3](docs/l3-workload-estimator.md).
-Backend solver cần OR-Tools; các lệnh kiểm cấu trúc
-vẫn dùng thư viện chuẩn. CLI `run.py` hiện giữ điều phối/model fake của CP2 trong khi
-L1 được tích hợp; kết quả L2 có `method="cp_sat"` và diagnostic solver. Kiểm này không thay
-cho lượt đánh giá hội thoại gọi AI thật của CP3.
+Backend solver cần OR-Tools. L1 của Kiên gọi CP-SAT từ luồng JSON của `python run.py`,
+trả `method="cp_sat"` và thông tin solver. Cấu hình model theo `.env.example`. Lượt
+[đánh giá AI trước khi nối CP-SAT](eval/report.md) được lưu riêng với phép đo kỹ thuật L2.
 Script đối chứng chạy hai baseline L4 của Khoa (count và acuity-weighted), CP-SAT và
 heuristic trên cùng 11 ca kỹ thuật, luôn tính lại metrics qua oracle; mỗi lần sinh `eval/l2-comparison-N.json` và CSV mới.
 L4 giữ chính sách một nurse/patient; đó không phải hard constraint của CP-SAT.
@@ -103,12 +102,12 @@ Dùng Python 3.10 trở lên, cài `python -m pip install -r requirements.txt` c
 | `python run.py score eval/run-N.csv` | Tổng hợp điểm của lượt đã chấm |
 | `python run.py simulate` | Chạy mô phỏng chi phí cho giai đoạn đo sản phẩm |
 
-## Phần nào thật, phần nào giả
+## Trạng thái bản chạy thử
 
-| Thành phần | Trạng thái tại CP2 |
+| Thành phần | Trạng thái |
 |---|---|
-| Lập lịch và kiểm ràng buộc | Chạy trên JSON đầu ca, trả bản nháp để trưởng ca duyệt |
-| Lời gọi model | Dùng provider `fake` theo khung CP2. Phần hội thoại qua API thuộc CP3 |
+| Lập lịch JSON | L3 điền phút khi đủ căn cứ, L2 CP-SAT lập lịch và validator kiểm lại trước khi trưởng ca duyệt |
+| Lời gọi model | L1 hỗ trợ API thật qua `.env`, mặc định `fake` để kiểm luồng cục bộ |
 
 ## Dùng AI vào việc gì
 

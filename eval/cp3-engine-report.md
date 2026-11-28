@@ -124,13 +124,13 @@ Timeline C02 từ lượt đo, đơn vị phút từ đầu ca:
 Mỗi nurse có 15 phút nghỉ theo input; coverage tối thiểu một người được giữ. Đây là ca
 kỹ thuật gắn patient, không phải chính sách nghỉ lâm sàng hoặc thời lượng nghỉ chung cả khoa.
 
-- Bộ unittest tại thời điểm kiểm đạt 169/169, gồm hồi quy CP2, input/oracle CP3, CP-SAT,
+- Bộ unittest trên bản tích hợp L1–L4 đạt 184/184, gồm hồi quy CP2, input/oracle CP3, CP-SAT,
   gom task theo compat_group_key/thiết bị, giữ nguyên input, đổi roster/task/window khi
   re-solve, hai baseline L4, L3 và phép so có metrics giả.
 - P01–P03 và F01–F06 có lịch hợp lệ; F02/F03 giữ quality anchors. F08 thiếu người có
   kỹ năng cần thiết nên infeasible. CLI chạy hết 28 input, gồm hỏi lại/từ chối và chạy lại
-  bản nháp với roster/task/window mới; mọi draft được kiểm lại. Shell CLI hiện dùng
-  provider fake/mode CP2, backend phân công là CP-SAT thật.
+  bản nháp với roster/task/window mới. Luồng JSON trên bản tích hợp PR #11 được
+  kiểm lại với L1/L3 và CP-SAT, dùng provider `fake` để kiểm cục bộ.
 - [Kiểm tích hợp mới](l2-integration-check-2.json) chạy ngay trên bản tích hợp `d8559f7`:
   P01–P03 qua L3 → CP-SAT thật → validator, giữ nguyên input, duration khớp dữ liệu shared.
   Task toileting thiếu staffing được L3 hỏi lại và không chuyển bản thiếu dữ kiện sang solver.
@@ -150,13 +150,15 @@ Taxonomy synthetic/lookup chưa được hiệu chỉnh
 bằng dữ liệu patient-task nội trú liên kết. Khoảng trống trên lịch không tự được tính là
 nghỉ được bảo vệ. Không nhận số liệu này là cải thiện lâm sàng hoặc pain đã được giải quyết.
 
-[Wireframe của Khoa tại 02d9e9d](https://github.com/lit1numyt/K5-Day15-L3B-ToiYeuVingroup/blob/02d9e9d/design/wireframes/README.md)
+[Wireframe của Khoa tại 53d3b4f](https://github.com/lit1numyt/K5-Day15-L3B-ToiYeuVingroup/blob/53d3b4f/design/wireframes/README.md)
 là bố cục tĩnh, chưa thay đổi contract. Ý tưởng thao tác xen kẽ/song song cần schema riêng;
 L2 hiện giữ các khoảng task/travel/break của một nurse không chồng nhau. UI tích hợp cần
 hiển thị output đã qua validator, không lấy các khối giờ cố định của wireframe làm lịch thực.
 
-L2 đủ bàn giao API và dữ liệu kỹ thuật để tích hợp. AI thật, chấm benchmark hội thoại,
-video và hồ sơ CP3 chung được hoàn thiện cùng Kiên/Tiệp/Khoa ở bước ghép sản phẩm.
+L1 của Kiên đã vào `main` qua [PR #11](https://github.com/lit1numyt/K5-Day15-L3B-ToiYeuVingroup/pull/11).
+Lượt AI thật `run-1@20261128-092154` (17/20) thuộc bản L1 dùng heuristic CP2. Kết quả này
+được bảo toàn. Bản ghép CP-SAT kiểm lại luồng JSON cục bộ. Luồng văn bản tự do vẫn
+dùng bản nháp hội thoại của L1 và chưa có cùng xác minh bằng CP-SAT/validator.
 
 ## 5. Tái lập
 
@@ -170,8 +172,7 @@ python -B -m unittest discover -s tests -p test_workload_integration.py -v
 python scripts/benchmark/compare_baseline.py
 ```
 
-Các lượt 1–2 và kiểm tích hợp cũ được giữ để đối chiếu lịch sử; kết luận hiện tại dùng lượt 3
-và bản tích hợp mới được liên kết ở trên.
+Báo cáo sử dụng lượt đo 3 và kiểm tích hợp mới được liên kết ở trên.
 
 Lượt mới có thể khác thời gian hoặc chọn lịch tương đương khi có nhiều nghiệm. Đối chiếu
 source checksum, trạng thái, ràng buộc và metric thay vì yêu cầu mọi timestamp giống nhau.
