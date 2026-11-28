@@ -18,6 +18,22 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) {
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
+  // --- Đăng nhập (mock phía client): phiên qua sessionStorage, dự phòng ?u= cho file:// ---
+  var USER = null;
+  function getUser() {
+    try { var s = sessionStorage.getItem("nf_user"); if (s) return JSON.parse(s); } catch (e) {}
+    var m = /[?&]u=([^&]+)/.exec(location.search);
+    if (m && window.NURSEFLOW_ACCOUNTS) {
+      var u = decodeURIComponent(m[1]);
+      return window.NURSEFLOW_ACCOUNTS.filter(function (a) { return a.username === u; })[0] || null;
+    }
+    return null;
+  }
+  function logout() {
+    try { sessionStorage.removeItem("nf_user"); } catch (e) {}
+    location.replace("login.html");
+  }
+
   // Pack intervals vào làn (greedy) để hiện việc song song.
   function lanes(items) {
     var out = [];
@@ -86,7 +102,7 @@
   }
 
   function renderNurse() {
-    var me = D.nurses[0];
+    var me = D.nurses.filter(function (n) { return n.nurse_id === (USER && USER.nurse_id); })[0] || D.nurses[0];
     var items = itemsForNurse(me.nurse_id);
     var tasks = items.filter(function (i) { return !i.break; });
     // timeline
@@ -141,8 +157,13 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    USER = getUser();
+    if (!USER) { location.replace("login.html"); return; }
+    var view = document.body.getAttribute("data-view");
+    if (view === "lead" && USER.role !== "lead") { location.replace("nurse.html" + location.search); return; }
+    var lo = document.getElementById("logout");
+    if (lo) lo.addEventListener("click", function (e) { e.preventDefault(); logout(); });
     try {
-      var view = document.body.getAttribute("data-view");
       if (view === "lead") renderLead(); else renderNurse();
       document.querySelector(".brand .ctx").textContent =
         "Ca tổng hợp · " + clock(0) + "–" + clock(SHIFT_LEN);

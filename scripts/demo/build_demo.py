@@ -11,6 +11,7 @@ Chạy từ gốc repo:  python scripts/demo/build_demo.py
 import json
 import random
 import sys
+import unicodedata
 from datetime import datetime
 from pathlib import Path
 
@@ -27,32 +28,59 @@ SKILLS = ["med_admin", "vitals", "wound_care", "lab_collection", "iv_care",
           "catheter_care", "procedure_care", "hygiene"]
 DUR = {"med_admin": 8, "vitals": 5, "wound_care": 12, "lab_collection": 7,
        "iv_care": 10, "catheter_care": 6, "procedure_care": 20, "hygiene": 15}
-NAMES = ["An", "Bình", "Chi", "Dũng", "Em"]
+# Tên đầy đủ cho 5 điều dưỡng (N1–N5) + trưởng ca. Username = tên gọi + chữ cái đầu phần còn lại.
+NURSE_NAMES = ["Nguyễn Thị An", "Trần Văn Bình", "Lê Thị Cúc", "Phạm Minh Dũng", "Hoàng Thị Hoa"]
+MANAGER_NAME = "Đông Hữu Nguyễn Khoa"
+PASSWORD = "vinai_hackathon"
+N_PATIENTS = 20
+N_TASKS = 24
 OUT_JS = ROOT / "design/wireframes/demo-data.js"
+OUT_ACCOUNTS = ROOT / "design/wireframes/accounts.js"
 OUT_JSON = ROOT / "data/demo/shift_5n_20t.json"
+
+
+def _no_diacritics(text):
+    text = text.replace("đ", "d").replace("Đ", "D")
+    return "".join(c for c in unicodedata.normalize("NFD", text)
+                   if unicodedata.category(c) != "Mn")
+
+
+def username(fullname):
+    """given name (từ cuối) + chữ cái đầu các phần còn lại, bỏ dấu, viết thường."""
+    parts = fullname.split()
+    base = parts[-1] + "".join(p[0] for p in parts[:-1])
+    return _no_diacritics(base).lower()
+
+
+def build_accounts():
+    accounts = [{"username": username(NURSE_NAMES[i]), "password": PASSWORD, "role": "nurse",
+                 "nurse_id": f"N{i+1}", "name": NURSE_NAMES[i]} for i in range(5)]
+    accounts.append({"username": username(MANAGER_NAME), "password": PASSWORD, "role": "lead",
+                     "nurse_id": None, "name": MANAGER_NAME})
+    return accounts
 
 
 def build_instance():
     rng = random.Random(7)
-    nurses = [{"nurse_id": f"N{i+1}", "name": NAMES[i], "skills": SKILLS[:],
+    nurses = [{"nurse_id": f"N{i+1}", "name": NURSE_NAMES[i], "skills": SKILLS[:],
                "available_from": 0, "available_to": 480, "max_capacity_min": 420,
                "home_zone": "W1", "qualification_level": 3, "experience_years": 1 + i,
                "specialization": "demo"} for i in range(5)]
     rooms = ["R1", "R2", "R3", "R4"]
     patients = [{"patient_id": f"P{i+1}", "room": rooms[i % 4], "zone": "W1",
                  "acuity_score": rng.choice([1, 2, 3, 4, 5]), "adl_dependency": rng.choice([1, 2, 3, 4]),
-                 "care_category": "medical", "isolation_precaution": (i % 7 == 0)} for i in range(12)]
+                 "care_category": "medical", "isolation_precaution": (i % 7 == 0)} for i in range(N_PATIENTS)]
     types = list(DUR)
-    tasks = [{"task_id": f"T{i+1}", "patient_id": patients[i % 12]["patient_id"],
+    tasks = [{"task_id": f"T{i+1}", "patient_id": patients[i % N_PATIENTS]["patient_id"],
               "task_type": types[i % len(types)], "required_skill": [types[i % len(types)]],
               "est_duration_min": DUR[types[i % len(types)]], "duration_source": "given",
               "earliest_start": 0, "deadline": 480, "mandatory": True,
               "required_skill_level": 1, "priority": rng.choice([1, 2, 3]), "frequency": "once"}
-             for i in range(20)]
+             for i in range(N_TASKS)]
     shift = {"shift_id": "S1", "ward_id": "W1", "shift_length_min": 480, "room_switch_min": 2,
              "break_policy": {"duration_min": 30, "window": [120, 300]},
              "coverage_rules": [{"start": 0, "end": 480, "zone": "W1", "required_skill": None, "min_staff": 2}],
-             "census": 12}
+             "census": N_PATIENTS}
     return {"shift": shift, "nurses": nurses, "patients": patients, "tasks": tasks,
             "request": {"action": "plan"}}
 
@@ -80,7 +108,7 @@ def main():
     ai = call_model(
         "Bạn là trợ lý điều phối điều dưỡng. Chỉ tóm tắt kế hoạch cho điều dưỡng trưởng bằng tiếng Việt, "
         "ngắn gọn, nêu căn cứ (cân bằng tải/kỹ năng), KHÔNG ra quyết định lâm sàng, KHÔNG tự áp dụng.",
-        f"Ca S1, 5 điều dưỡng, 20 việc. Phân bổ: {plan_desc}. "
+        f"Ca S1, {len(instance['nurses'])} điều dưỡng, {len(out['assignments'])} việc. Phân bổ: {plan_desc}. "
         f"Chỉ số: CV={out['metrics']['utilization_cv']:.3f}, peak={out['metrics']['peak_utilization']:.3f}. "
         "Tóm tắt 2-3 câu cho điều dưỡng trưởng.")
 
@@ -112,14 +140,20 @@ def main():
                       "nurseflow": out["metrics"]},
     }
 
+    accounts = build_accounts()
+
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(json.dumps(instance, ensure_ascii=False, indent=1), encoding="utf-8")
     OUT_JS.write_text("window.NURSEFLOW_DEMO = "
                       + json.dumps(demo, ensure_ascii=False, indent=1) + ";\n", encoding="utf-8")
+    OUT_ACCOUNTS.write_text("window.NURSEFLOW_ACCOUNTS = "
+                            + json.dumps(accounts, ensure_ascii=False, indent=1) + ";\n", encoding="utf-8")
 
     print(f"model={MODEL_PROVIDER} ({ai.get('model')}) · token in/out={ai.get('tokens_in')}/{ai.get('tokens_out')}")
-    print(f"plan: {len(out['assignments'])} việc / {len(instance['nurses'])} điều dưỡng · CV={out['metrics']['utilization_cv']:.3f}")
-    print(f"wrote {OUT_JS.relative_to(ROOT)} và {OUT_JSON.relative_to(ROOT)}")
+    print(f"plan: {len(out['assignments'])} việc / {len(instance['nurses'])} điều dưỡng · "
+          f"{len(instance['patients'])} bệnh nhân · CV={out['metrics']['utilization_cv']:.3f}")
+    print(f"accounts: {', '.join(a['username'] for a in accounts)}")
+    print(f"wrote {OUT_JS.relative_to(ROOT)}, {OUT_ACCOUNTS.relative_to(ROOT)}, {OUT_JSON.relative_to(ROOT)}")
     if MODEL_PROVIDER == "fake":
         print("⚠ model=fake (chưa nối API). Nối model thật: tạo .env (xem .env.example) rồi chạy lại.")
 
