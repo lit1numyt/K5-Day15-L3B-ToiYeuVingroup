@@ -1,4 +1,4 @@
-"""Sinh ca tổng hợp (5 điều dưỡng, 20 bệnh nhân, 48 việc), chạy pipeline và xuất dữ liệu
+"""Sinh ca tổng hợp (5 điều dưỡng, 20 bệnh nhân, 44 việc), chạy pipeline và xuất dữ liệu
 cho frontend (design/wireframes/demo-data.js).
 
 Model gọi trong luồng:
@@ -26,14 +26,14 @@ from workload import estimate_duration                     # noqa: E402
 
 SKILLS = ["med_admin", "vitals", "wound_care", "lab_collection", "iv_care",
           "catheter_care", "procedure_care", "hygiene"]
-DUR = {"med_admin": 8, "vitals": 5, "wound_care": 12, "lab_collection": 7,
-       "iv_care": 10, "catheter_care": 6, "procedure_care": 20, "hygiene": 15}
+DUR = {"med_admin": 20, "vitals": 15, "wound_care": 30, "lab_collection": 18,
+       "iv_care": 25, "catheter_care": 20, "procedure_care": 45, "hygiene": 35}
 # Tên đầy đủ cho 5 điều dưỡng (N1–N5) + trưởng ca. Username = tên gọi + chữ cái đầu phần còn lại.
 NURSE_NAMES = ["Nguyễn Thị An", "Trần Văn Bình", "Lê Thị Cúc", "Phạm Minh Dũng", "Hoàng Thị Hoa"]
 MANAGER_NAME = "Đông Hữu Nguyễn Khoa"
 PASSWORD = "vinai_hackathon"
 N_PATIENTS = 20
-N_TASKS = 48
+N_TASKS = 44
 OUT_JS = ROOT / "design/wireframes/demo-data.js"
 OUT_ACCOUNTS = ROOT / "design/wireframes/accounts.js"
 OUT_JSON = ROOT / "data/demo/shift_5n_20t.json"
@@ -71,7 +71,7 @@ def build_instance():
                  "acuity_score": rng.choice([1, 2, 3, 4, 5]), "adl_dependency": rng.choice([1, 2, 3, 4]),
                  "care_category": "medical", "isolation_precaution": (i % 7 == 0)} for i in range(N_PATIENTS)]
     types = list(DUR)
-    band = 60                     # chia ca 480' thành 8 khung 60' để việc trải đều toàn ca
+    band = 120                    # chia ca 480' thành 4 khung 120' để việc trải đều toàn ca
     n_bands = 480 // band
     tasks = []
     for i in range(N_TASKS):

@@ -32,7 +32,7 @@ Kết thúc ở trạng thái `draft` (`approval_required=true`) — AI đề xu
 5. Xem phản hồi, lịch cả ca và bảng giờ chi tiết. Trạng thái cuối là
    **Bản nháp chờ trưởng ca duyệt**.
 
-Ca tổng hợp của Khoa có 5 điều dưỡng, 20 bệnh nhân và 48 công việc. Model phân loại
+Ca tổng hợp của Khoa có 5 điều dưỡng, 20 bệnh nhân và 44 công việc. Model phân loại
 yêu cầu, sau đó agent dùng luồng JSON hiện có để lập lịch và giải thích. Chỉ yêu cầu
 lập bản nháp cho ca mẫu với các ràng buộc sẵn có mới đi vào solver. Giờ làm việc,
 nhân sự và ràng buộc lấy từ ca mẫu. Trang hiển thị số token đo được trong lần xử lý.
