@@ -136,6 +136,7 @@ flowchart LR
 | 28/11 04:46 (UTC+7) | Chuẩn bị Preliminary, bộ ca dùng chung, cập nhật nguồn L3 theo đối chiếu McGill/Simmons và bổ sung B19–B20. | [Báo cáo](docs/eda-report.md) ghi căn cứ chọn nguồn và EDA. [Bộ bàn giao](data/preliminary/README.md) khai báo giả định, nguồn duration và kiểm giao diện từng module. |
 | 28/11 (UTC+7) | Nối L1 vào L2 CP-SAT và kiểm cấu trúc trực tiếp trước L3. Triển khai L2, mở rộng oracle cho precedence/thiết bị khai báo và thêm ca kiểm kỹ thuật; kiểm tích hợp L3, đối chứng hai baseline L4, đồng bộ hướng dẫn và phân công theo contract. | [Contract](docs/module-contract.md) ghi ngữ nghĩa; [ca L2](data/cp3-engine-cases.json) kiểm nghỉ, phase, resource, skill, travel và vô nghiệm. [Báo cáo](eval/cp3-engine-report.md) ghi kết quả thật; giữ metric/chuẩn đạt và output cũ. |
 | 28/11 09:25 (UTC+7) | Nối model thật (`ai.py`), tích hợp L3 vào pipeline `tools.py`/`agent.py`, thêm bộ điều phối hội thoại tiếng Việt và chạy eval lượt 1 (`eval/run-1.csv`). | Hoàn thiện L1 theo [module contract](docs/module-contract.md) §3; 146 unit test đạt và `eval/run-1.csv` đạt 17/20 (85%) trên B01–B20. |
+| 28/11 09:47 (UTC+7) | Tinh gọn [báo cáo L2](eval/cp3-engine-report.md) và cập nhật [hồ sơ đánh giá](eval/README.md). | Phân biệt kết quả đối chứng kỹ thuật L2 với lượt AI thật trước khi ghép CP-SAT. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
