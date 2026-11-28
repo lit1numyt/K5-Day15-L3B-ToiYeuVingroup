@@ -115,8 +115,12 @@
 
 /* Live manager view: give the timeline the full board width. */
 .live-board { max-width: 82rem; margin-inline: auto; padding: 1rem 1.5rem 3rem; }
-.live-board .page-head { margin-bottom: 1.25rem; }
+.live-board .page-head { margin: .75rem 0 1.25rem; }
+.live-board .page-h { margin: 0; }
 .live-board .chat { min-height: 9rem; max-height: 17rem; }
+.live-board .log { position: relative; }
+#chat-intro p { margin: 0 0 .5rem; color: var(--foreground); font-size: .875rem; }
+#example-prompt { white-space: normal; text-align: left; }
 .live-board .composer input { min-width: 0; }
 .live-board .msg .bub { white-space: pre-wrap; overflow-wrap: anywhere; }
 .live-board .draft { margin-top: 1.5rem; }
@@ -126,6 +130,7 @@
 .live-board .ov { margin: .65rem 0 1rem; }
 .live-board .ov .cell { padding: .65rem 1rem; }
 .timeline-scroll { overflow-x: auto; }
+.timeline-hint { display: none; margin: 0 0 .5rem; }
 .live-board .htl { min-width: 58rem; }
 .live-board .htl .r { grid-template-columns: 9rem minmax(0, 1fr); }
 .live-board .htl .lab { font-size: .8rem; padding-inline: .75rem; }
@@ -146,3 +151,15 @@
 .live-board .swatch.break { background: var(--card); }
 .schedule-details { margin-top: .85rem; }
 .schedule-details summary { cursor: pointer; }
+
+@media (max-width: 61rem) {
+  .timeline-hint { display: block; }
+  .live-board .htl { overflow: clip; }
+  .live-board .htl .lab { position: sticky; left: 0; z-index: 1; }
+}
+@media (max-width: 40rem) {
+  body[data-view="lead"] header.top { align-items: start; flex-direction: column; gap: .45rem; padding-top: 1rem; }
+  .live-board .chat { max-height: 22rem; }
+  .live-board .msg { max-width: 95%; }
+  .live-board .htl .r { grid-template-columns: 7.5rem minmax(0, 1fr); }
+}

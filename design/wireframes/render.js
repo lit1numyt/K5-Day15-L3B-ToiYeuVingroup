@@ -2,6 +2,16 @@
   "use strict";
 
   var byId = function (id) { return document.getElementById(id); };
+  var taskNames = new Map([
+    ["med_admin", "Cho dùng thuốc"],
+    ["vitals", "Đo dấu hiệu sinh tồn"],
+    ["wound_care", "Chăm sóc vết thương"],
+    ["lab_collection", "Lấy mẫu xét nghiệm"],
+    ["iv_care", "Chăm sóc đường truyền"],
+    ["catheter_care", "Chăm sóc ống thông"],
+    ["procedure_care", "Chăm sóc liên quan thủ thuật"],
+    ["hygiene", "Hỗ trợ vệ sinh"]
+  ]);
 
   function esc(value) {
     return String(value).replace(/[&<>"]/g, function (character) {
@@ -53,7 +63,8 @@
           var task = tasks.get(assignment.task_id);
           return {
             start: assignment.start, end: assignment.end, label: task.task_id,
-            detail: task.task_id + " · " + task.task_type + " · " + task.patient_id
+            detail: task.task_id + " · " + (taskNames.get(task.task_type) || task.task_type) +
+              " · " + task.patient_id
           };
         });
       draft.plan.breaks.filter(function (slot) { return slot.nurse_id === nurse.nurse_id; })
@@ -100,6 +111,10 @@
     var form = byId("chat-form");
     var input = byId("prompt");
     var button = form.querySelector("button");
+    byId("example-prompt").addEventListener("click", function (event) {
+      input.value = event.currentTarget.textContent.trim();
+      input.focus();
+    });
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
       var message = input.value.trim();
@@ -114,10 +129,11 @@
         pending.remove();
         if (data.draft) renderDraft(data.draft);
         var usage = data.usage;
-        var name = usage && usage.models.length ? usage.models.join(", ") + " · " +
+        var name = usage && usage.models.length ? "AI · " + usage.models.join(", ") + " · " +
           usage.tokens_in + "/" + usage.tokens_out + " token" : "NurseFlow";
         var reply = appendMessage("ai", name, data.message);
-        if (reply.offsetHeight > byId("chatlog").clientHeight) reply.scrollIntoView({block: "start"});
+        var log = byId("chatlog");
+        if (reply.offsetHeight > log.clientHeight) log.scrollTop = reply.offsetTop;
       } catch (error) {
         pending.remove();
         appendMessage("ai", "NurseFlow", error.message);

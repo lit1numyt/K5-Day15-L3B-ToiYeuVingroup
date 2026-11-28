@@ -16,18 +16,21 @@
   <main class="wide live-board" hidden>
     <div class="page-head">
       <h1 class="page-h">Bảng điều phối ca</h1>
-      <span class="role-tag" id="plan-status">Chưa lập lịch</span>
+      <span class="role-tag" id="plan-status" role="status">Chưa lập lịch</span>
     </div>
     <section aria-labelledby="chat-title">
       <h2 class="panel-h" id="chat-title">Trợ lý lập lịch</h2>
       <p class="panel-sub">Ca mẫu có 5 điều dưỡng, 20 bệnh nhân và 24 công việc.</p>
       <div class="chat">
         <div class="log" id="chatlog" role="log" aria-label="Hội thoại">
-          <p class="note" id="chat-intro">Hãy gửi yêu cầu để tạo bản nháp phân công cho ca mẫu.</p>
+          <div id="chat-intro">
+            <p>Gửi yêu cầu để tạo bản nháp phân công.</p>
+            <button class="btn sm" type="button" id="example-prompt">Lập bản nháp phân công cho ca mẫu 07:00–15:00.</button>
+          </div>
         </div>
         <form class="composer" id="chat-form">
           <div class="row">
-            <input id="prompt" aria-label="Yêu cầu lập lịch" placeholder="Ví dụ: Lập bản nháp phân công cho ca mẫu 07:00–15:00."
+            <input id="prompt" aria-label="Yêu cầu lập lịch" placeholder="Nhập yêu cầu lập lịch…"
                    maxlength="1500" required autocomplete="off">
             <button class="btn primary" type="submit">Gửi</button>
           </div>
@@ -41,6 +44,7 @@
         <label class="note"><input type="checkbox" id="full-shift"> Xem cả ca 07:00–15:00</label>
       </div>
       <div class="ov" id="ov"></div>
+      <p class="note timeline-hint">Vuốt ngang để xem các giờ còn lại.</p>
       <div class="timeline-scroll" tabindex="0" aria-label="Lịch theo trục giờ">
         <div class="htl" id="tl"></div>
       </div>
