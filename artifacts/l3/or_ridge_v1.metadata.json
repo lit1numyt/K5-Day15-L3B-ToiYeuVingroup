@@ -1,0 +1,88 @@
+{
+  "model_name": "or_ridge_onehot",
+  "model_version": "1",
+  "algorithm": "RidgeCV trên one-hot(nurseflow_task_type, task_name, task_category)",
+  "target": "actual_duration_min — phút activity episode phòng mổ quan sát được",
+  "features": [
+    "nurseflow_task_type",
+    "task_name",
+    "task_category"
+  ],
+  "trained_on": "https://zenodo.org/records/20754938",
+  "dataset_sha256": {
+    "l3_activity_features.csv": "f1be152ee1c3b603931d4eae5ac84a0c636d98b31b797d3a4018f607d3a4ca53",
+    "zenodo_task_episodes_en.csv": "1d15c396138995e7f47e9c5a6f4bf9543a362ef12d3bdcd16d540f57f4547df0"
+  },
+  "trained_at": "2026-11-28T01:05:42+00:00",
+  "data_card": "data/DATA_CARD.md; docs/eda-report.md",
+  "training_protocol": {
+    "cv": "GroupKFold(n_splits=5) theo staff_id, không xáo",
+    "temporal_holdout": "train: kết thúc ≤ 2024-07-13; test: bắt đầu ≥ 2024-07-13; episode cắt mốc bị loại",
+    "temporal_excluded": 1,
+    "hyperparameters": "cố định; Ridge chọn alpha bằng GroupKFold lồng trên train",
+    "prediction_floor_min": 1.0,
+    "seed": 42,
+    "aggregation": "pooled out-of-fold"
+  },
+  "random_seed": 42,
+  "library_versions": {
+    "python": "3.12.6",
+    "sklearn": "1.9.1",
+    "pandas": "3.1.1",
+    "numpy": "2.5.4"
+  },
+  "evaluation": {
+    "held_out_staff_oof": {
+      "n": 2192,
+      "mae": 24.88949216174726,
+      "rmse": 44.00994443359775,
+      "r2": 0.3342706871750377,
+      "median_ae": 11.754906985527606,
+      "p90_ae": 70.62695865339606,
+      "p95_ae": 90.4159473966014,
+      "underestimate_rate": 0.35082116788321166,
+      "mean_underestimate": 35.19115724929433,
+      "max_underestimate": 348.8971229640143,
+      "bias": 0.1978863910288867
+    },
+    "later_time_holdout": {
+      "n": 81,
+      "mae": 25.255123201283027,
+      "rmse": 41.582718191731516,
+      "r2": 0.20352796736756495,
+      "median_ae": 9.914135224720816,
+      "p90_ae": 69.61224213577572,
+      "p95_ae": 115.76019463687366,
+      "underestimate_rate": 0.5679012345679012,
+      "mean_underestimate": 33.39431205800337,
+      "max_underestimate": 136.47669966145315,
+      "bias": -12.6742188892887
+    },
+    "fold_mae": {
+      "fold_mae_mean": 24.874746561231547,
+      "fold_mae_std": 2.35198733387744
+    },
+    "reference_activity_median_oof": {
+      "n": 2192,
+      "mae": 23.36359489051095,
+      "rmse": 45.17220699358769,
+      "r2": 0.2986437709522256,
+      "median_ae": 10.0,
+      "p90_ae": 66.0,
+      "p95_ae": 90.89999999999964,
+      "underestimate_rate": 0.46852189781021897,
+      "mean_underestimate": 33.130963972736126,
+      "max_underestimate": 374.0,
+      "bias": -7.681569343065694
+    }
+  },
+  "selection_reason": "Tổng workload ít bị đánh giá thiếu hơn median (workload_sensitivity.json phần B); RMSE/R² ngang GBT; hệ số đọc được theo hoạt động; inference là phép cộng.",
+  "intended_use": "Thực nghiệm/so sánh phương pháp trên dữ liệu phòng mổ (OR). Không dùng làm duration chăm sóc bệnh nhân nội trú.",
+  "production": false,
+  "limitations": [
+    "Một phòng mổ Nhật Bản, 7 ngày tháng 7/2024, 37 nhân viên.",
+    "Episode là khoảng hoạt động liên tục, không gắn bệnh nhân/ca mổ; thiếu acuity, ADL, kinh nghiệm.",
+    "Thực chất chỉ một feature (task_name quyết định hai cột còn lại) → hệ số không phải feature importance độc lập.",
+    "Vẫn đánh giá thiếu khoảng 35% episode; MAE cao hơn activity median."
+  ]
+}
