@@ -42,16 +42,19 @@ def main():
             print(f"    {patient['patient_id']}: tier={tax['tier']} "
                   f"weight={tax['workload_weight']} ({tax['care_category']})")
 
-        base_status, base_metrics = _metrics(instance, baseline_allocate(instance))
+        count_status, count_metrics = _metrics(instance, baseline_allocate(instance, "count"))
+        weight_status, weight_metrics = _metrics(instance, baseline_allocate(instance, "weight"))
         l2_status, l2_metrics = _metrics(instance, draft_schedule(instance))
 
-        print(f"\n  {'method':34s} {'status':9s} {'CV':>7s} {'peak':>7s} {'overhead':>9s}")
-        print(f"  {'L4 baseline (đầu bệnh nhân)':34s} {_fmt(base_status, base_metrics)}")
-        print(f"  {'L2 stand-in (heuristic CP2)':34s} {_fmt(l2_status, l2_metrics)}")
-        if base_metrics and l2_metrics:
-            dcv = base_metrics["utilization_cv"] - l2_metrics["utilization_cv"]
-            print(f"  → chênh CV (baseline − L2): {dcv:+.3f}  "
-                  f"(CV thấp hơn = tải cân bằng hơn)")
+        print(f"\n  {'method':36s} {'status':9s} {'CV':>7s} {'peak':>7s} {'overhead':>9s}")
+        print(f"  {'L4 baseline — đầu bệnh nhân (count)':36s} {_fmt(count_status, count_metrics)}")
+        print(f"  {'L4 baseline — acuity-weighted':36s} {_fmt(weight_status, weight_metrics)}")
+        print(f"  {'L2 stand-in (heuristic CP2)':36s} {_fmt(l2_status, l2_metrics)}")
+        if l2_metrics:
+            for name, m in (("count", count_metrics), ("weight", weight_metrics)):
+                if m:
+                    dcv = m["utilization_cv"] - l2_metrics["utilization_cv"]
+                    print(f"  → CV baseline[{name}] − L2 = {dcv:+.3f} (thấp hơn = tải cân bằng hơn)")
 
     print("\nGhi chú: 'L2 stand-in' là heuristic CP2, thay bằng CP-SAT của Lam khi tích hợp.")
 

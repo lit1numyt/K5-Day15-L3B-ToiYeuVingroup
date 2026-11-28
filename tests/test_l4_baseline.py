@@ -56,6 +56,18 @@ class BaselineAllocate(unittest.TestCase):
             self.assertTrue(plan["approval_required"])
             self.assertTrue(validate_plan(instance, plan)["valid"], cid)
 
+    def test_weighted_baseline_valid_drafts(self):
+        for cid, instance in CASES.items():
+            plan = baseline_allocate(instance, balance="weight")
+            self.assertEqual(plan["status"], "draft", f"{cid}: {plan.get('warnings')}")
+            self.assertEqual(plan["method"], "baseline_patient_weight")
+            self.assertTrue(validate_plan(instance, plan)["valid"], cid)
+
+    def test_unknown_balance_mode_is_labelled(self):
+        # chế độ lạ vẫn gắn nhãn method rõ ràng (count-like vì weight_of=1 fallback).
+        plan = baseline_allocate(CASES["P01"], balance="count")
+        self.assertEqual(plan["method"], "baseline_patient_count")
+
     def test_continuity_one_nurse_per_patient(self):
         instance = CASES["P01"]
         plan = baseline_allocate(instance)

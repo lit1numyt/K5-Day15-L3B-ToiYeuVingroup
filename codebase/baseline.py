@@ -96,12 +96,19 @@ def _staggered_breaks(shift, nurses):
     return rests
 
 
-def baseline_allocate(instance):
-    """Phân công theo đầu bệnh nhân, trả plan (draft/need_info/infeasible/unknown)."""
+def baseline_allocate(instance, balance="count"):
+    """Phân công theo đầu bệnh nhân, trả plan (draft/need_info/infeasible/unknown).
+
+    balance="count": cân bằng SỐ bệnh nhân mỗi điều dưỡng (cách truyền thống, không xét acuity).
+    balance="weight": cân bằng tổng workload_weight (taxonomy L4), xếp bệnh nhân nặng trước —
+    acuity-aware, là comparator mạnh hơn cho benchmark.
+    Cả hai giữ continuity of care (mọi task của một bệnh nhân về cùng một điều dưỡng).
+    """
+    method = "baseline_patient_%s" % balance
     issues = input_issues(instance)
     if issues:
         return {"status": "need_info", "approval_required": True,
-                "missing_fields": issues, "method": "baseline_patient_count",
+                "missing_fields": issues, "method": method,
                 "warnings": ["Baseline cần input hợp lệ như L2; không tự suy dữ liệu thiếu."]}
 
     shift, nurses = instance["shift"], instance["nurses"]
@@ -110,7 +117,7 @@ def baseline_allocate(instance):
     rests = _staggered_breaks(shift, nurses)
     if rests is None:
         return {"status": "unknown", "approval_required": True,
-                "method": "baseline_patient_count",
+                "method": method,
                 "warnings": ["Baseline chưa bố trí được nghỉ luân phiên trong cửa nghỉ; cần review."]}
     rest_by_nurse = {b["nurse_id"]: b for b in rests}
 
@@ -118,10 +125,19 @@ def baseline_allocate(instance):
     for task in tasks:
         by_patient.setdefault(task["patient_id"], []).append(task)
 
-    # Gán trọn mỗi bệnh nhân cho một điều dưỡng đủ skill/level/zone; cân bằng SỐ bệnh nhân.
-    counts = {n["nurse_id"]: 0 for n in nurses}
+    # Gán trọn mỗi bệnh nhân cho một điều dưỡng đủ skill/level/zone.
+    # count: mỗi bệnh nhân +1. weight: +workload_weight (taxonomy L4), xếp nặng trước (LPT).
+    if balance == "weight":
+        weight_of = {pid: (classify_patient(patients[pid]).get("workload_weight") or 1)
+                     for pid in by_patient}
+        order = sorted(by_patient, key=lambda x: (-weight_of[x], patients[x]["zone"],
+                                                  patients[x]["room"], x))
+    else:
+        weight_of = {pid: 1 for pid in by_patient}
+        order = sorted(by_patient, key=lambda x: (patients[x]["zone"], patients[x]["room"], x))
+    accrued = {n["nurse_id"]: 0 for n in nurses}
     patient_nurse = {}
-    for pid in sorted(by_patient, key=lambda x: (patients[x]["zone"], patients[x]["room"], x)):
+    for pid in order:
         zone = patients[pid]["zone"]
         pt_tasks = by_patient[pid]
         eligible = [n for n in nurses if n["home_zone"] == zone and all(
@@ -131,12 +147,12 @@ def baseline_allocate(instance):
             for t in pt_tasks)]
         if not eligible:
             return {"status": "infeasible", "approval_required": True,
-                    "method": "baseline_patient_count",
+                    "method": method,
                     "warnings": [pid + ": không điều dưỡng nào đủ skill/level/zone cho mọi task "
                                  "của bệnh nhân (baseline giữ continuity of care)."]}
-        chosen = min(eligible, key=lambda n: (counts[n["nurse_id"]], n["nurse_id"]))
+        chosen = min(eligible, key=lambda n: (accrued[n["nurse_id"]], n["nurse_id"]))
         patient_nurse[pid] = chosen["nurse_id"]
-        counts[chosen["nurse_id"]] += 1
+        accrued[chosen["nurse_id"]] += weight_of[pid]
 
     # Xếp giờ cho từng điều dưỡng: việc sớm trước, tránh break, cộng travel khi đổi phòng.
     assignments = []
@@ -163,7 +179,7 @@ def baseline_allocate(instance):
                 break
             if placed is None:
                 return {"status": "unknown", "approval_required": True,
-                        "method": "baseline_patient_count",
+                        "method": method,
                         "warnings": [task["task_id"] + ": baseline không xếp được trong cửa giờ/nghỉ; "
                                      "không kết luận infeasible."]}
             start, end = placed
@@ -173,19 +189,21 @@ def baseline_allocate(instance):
             cursor, last_room = end, room
             if load > nurse["max_capacity_min"]:
                 return {"status": "unknown", "approval_required": True,
-                        "method": "baseline_patient_count",
+                        "method": method,
                         "warnings": [nid + ": chia theo đầu bệnh nhân vượt capacity; cần thêm người "
                                      "(hạn chế vốn có của cách phân truyền thống)."]}
 
     plan = {"status": "draft", "approval_required": True, "assignments": assignments,
             "breaks": rests, "unassigned_tasks": [], "warnings": [],
-            "method": "baseline_patient_count"}
+            "method": method}
     validation = validate_plan(instance, plan)
     if not validation["valid"]:
         return {"status": "unknown", "approval_required": True,
-                "method": "baseline_patient_count", "warnings": validation["violations"]}
+                "method": method, "warnings": validation["violations"]}
     plan["validation"] = validation
     plan["metrics"] = validation["metrics"]
-    plan["explanation"] = ("Baseline truyền thống: mỗi bệnh nhân giao trọn cho một điều dưỡng, "
-                           "cân bằng theo SỐ bệnh nhân (không xét acuity/tải). Bản nháp chờ trưởng ca duyệt.")
+    balance_desc = ("tổng workload_weight (acuity-aware, taxonomy L4)" if balance == "weight"
+                    else "SỐ bệnh nhân (không xét acuity/tải)")
+    plan["explanation"] = ("Baseline: mỗi bệnh nhân giao trọn cho một điều dưỡng, cân bằng theo "
+                           + balance_desc + ". Bản nháp chờ trưởng ca duyệt.")
     return plan
