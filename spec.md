@@ -145,4 +145,5 @@ flowchart LR
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| 28/11 23:51 (UTC+7) | Bổ sung [reflection cá nhân của Lam](reflection/nguyen-duc-khuong-lam.md). | Ghi phần việc, cách dùng AI và bài học từ câu B04 theo hướng dẫn BTC. |
+| 28/11 23:56 (UTC+7) | Bổ sung [reflection của Khoa](reflection/dong-huu-nguyen-khoa.md) theo ủy quyền. | Ghi nhận thiết kế, L4, kết quả đánh giá và bài học từ câu B08. |
